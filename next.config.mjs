@@ -1,5 +1,5 @@
+import rehypePrism from '@mapbox/rehype-prism'
 import createMDX from '@next/mdx'
-import rehypeHighlight from 'rehype-highlight'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -15,7 +15,7 @@ const nextConfig = {
 const withMDX = createMDX({
   options: {
     rehypePlugins: [
-      rehypeHighlight,
+      rehypePrism,
     ],
   },
 })
