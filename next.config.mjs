@@ -1,10 +1,8 @@
-import withMDX from '@next/mdx';
+import createMDX from '@next/mdx'
+import rehypeHighlight from 'rehype-highlight'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    mdxRs: true,
-  },
   pageExtensions: [
     'js',
     'jsx',
@@ -12,6 +10,14 @@ const nextConfig = {
     'ts',
     'tsx',
   ],
-};
+}
 
-export default withMDX()(nextConfig);
+const withMDX = createMDX({
+  options: {
+    rehypePlugins: [
+      rehypeHighlight,
+    ],
+  },
+})
+
+export default withMDX(nextConfig)
