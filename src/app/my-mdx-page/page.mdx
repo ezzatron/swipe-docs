@@ -1,19 +1,33 @@
 import MyComponent from "../../../src/components/MyComponent";
 
-# Welcome to my MDX page!
+# Swipe docs
 
-This is some **bold** and _italics_ text.
-
-This is a list in markdown:
-
-- One
-- Two
-- Three
-
-Checkout my React component:
-
-<MyComponent />
-
-```js filename="index.js"
+```js title="JavaScript"
 console.log(1);
 ```
+
+```js title="index.js" showLineNumbers{42}
+console.log("Don't panic!");
+```
+
+Some text
+
+```
+not code
+```
+
+Some text
+
+```shell title="CommandLine"
+shell command
+```
+
+```js {2,4-5} title="index.js" showLineNumbers
+console.log(1);
+// Here is the highlighted line!
+
+// And 2 more
+// highlighted lines.
+```
+
+<MyComponent />
