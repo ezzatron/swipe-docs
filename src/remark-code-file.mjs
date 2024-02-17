@@ -44,12 +44,8 @@ export function addShowLineNumbersMetaTransform(meta, { options, startLine }) {
   return options.showLineNumbers ? `${meta} ${showLineNumbers}` : meta;
 }
 
-export function addTitleMetaTransform(meta, { fileContext, filePath }) {
-  return TITLE_PATTERN.test(meta)
-    ? meta
-    : fileContext === "/"
-      ? `${meta} title="${filePath}"`
-      : `${meta} title="${relative(fileContext, filePath)}"`;
+export function addTitleMetaTransform(meta, { fileTitle }) {
+  return TITLE_PATTERN.test(meta) ? meta : `${meta} title="${fileTitle}"`;
 }
 
 async function processCode(pluginOptions, vfile, node) {
@@ -68,8 +64,7 @@ async function processCode(pluginOptions, vfile, node) {
     if (error instanceof Error && error?.code !== "ENOENT") throw error;
 
     const filePosition = buildFilePosition(filePath, startLine);
-    const { line, column } = node.position.start;
-    const documentPosition = buildFilePosition(documentPath, line, column);
+    const documentPosition = buildFilePositionFromNode(documentPath, node);
 
     throw new Error(
       `Code file ${filePosition} referenced in ${documentPosition} not found.`,
@@ -86,54 +81,65 @@ function parseFileSpecToParams(pluginOptions, vfile, node) {
   const documentPath = vfile.path;
   const documentDir = vfile.dirname;
   const options = resolveOptions(pluginOptions, fileOptions);
-  const { rootPath } = options;
-  const filePath = restrictPath("Code file", rootPath, possibleFilePath);
-  const fileContext = restrictPath(
-    "Code file context",
+  const { context, rootPath } = options;
+
+  const filePath = restrictPath(
+    documentPath,
+    node,
+    "Code file",
     rootPath,
-    options.context ? resolve(documentDir, options.context) : dirname(filePath),
+    possibleFilePath,
   );
+  const contextPath = restrictPath(
+    documentPath,
+    node,
+    "Code file context level",
+    rootPath,
+    new Array(context).fill().reduce((p) => dirname(p), dirname(filePath)),
+  );
+
+  const fileTitle = relative(contextPath, filePath);
 
   return {
     documentPath,
     documentDir,
-    fileContext,
     fileSpec,
     filePath,
+    fileTitle,
     startLine,
     endLine,
     options,
   };
 }
 
-function restrictPath(type, rootPath, filePath) {
+function restrictPath(documentPath, node, type, rootPath, filePath) {
   const relativePath = relative(rootPath, filePath);
-  const isInside =
-    relativePath &&
-    !relativePath.startsWith("..") &&
-    !relativePath.startsWith("/");
 
-  if (isInside) return filePath;
+  // same as root path
+  if (relativePath === "") return filePath;
+
+  // inside of root path
+  if (!relativePath.startsWith("..") && !relativePath.startsWith("/")) {
+    return filePath;
+  }
+
+  const documentPosition = buildFilePositionFromNode(documentPath, node);
 
   throw new Error(
-    `${type} ${filePath} is not allowed because is outside of the root path.`,
+    `${type} found at ${documentPosition} is not allowed because is outside of the root path.`,
   );
 }
 
 function resolveOptions(pluginOptions, fileOptions) {
-  const normalizedPluginOptions = { ...pluginOptions };
-  if (pluginOptions.context) {
-    normalizedPluginOptions.context = resolve(pluginOptions.context);
-  }
-
   return Object.assign(
     {
+      context: 0,
       metaTransforms: DEFAULT_META_TRANSFORMS,
       rootPath: ".",
       showLineNumbers: true,
       stripIndent: true,
     },
-    normalizedPluginOptions,
+    pluginOptions,
     fileOptions,
   );
 }
@@ -141,10 +147,9 @@ function resolveOptions(pluginOptions, fileOptions) {
 function parseFileOptions(searchParams) {
   const options = {};
 
-  for (const option of ["context"]) {
-    if (searchParams.has(option)) options[option] = searchParams.get(option);
+  if (searchParams.has("context")) {
+    options.context = parseInt(searchParams.get("context"), 10);
   }
-
   if (searchParams.has("line-numbers")) options.showLineNumbers = true;
   if (searchParams.has("no-line-numbers")) options.showLineNumbers = false;
   if (searchParams.has("strip-indent")) options.stripIndent = true;
@@ -162,7 +167,7 @@ function parseFileSpec(pluginOptions, vfile, node) {
 
   node.meta = node.meta.replace(FILE_PATTERN, "").trim();
 
-  const basePath = fileSpec.startsWith("./")
+  const basePath = fileSpec.startsWith(".")
     ? vfile.dirname + "/"
     : resolve(options.rootPath) + "/";
 
@@ -231,4 +236,10 @@ function buildFilePosition(filePath, line, column = 1) {
   return column === 1
     ? `${relativePath}:${line}`
     : `${relativePath}:${line}:${column}`;
+}
+
+function buildFilePositionFromNode(documentPath, node) {
+  const { line, column } = node.position.start;
+
+  return buildFilePosition(documentPath, line, column);
 }

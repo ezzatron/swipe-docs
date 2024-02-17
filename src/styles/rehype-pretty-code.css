@@ -82,9 +82,9 @@ figcaption[data-language]::before {
   height: 1rem;
 
   background-color: currentColor;
-  mask-image: url(file-text.svg);
+  mask-image: url(../icon/file-text.svg);
   mask-size: contain;
 }
 figcaption[data-language="shell"]::before {
-  mask-image: url(terminal-square.svg);
+  mask-image: url(../icon/terminal-square.svg);
 }
