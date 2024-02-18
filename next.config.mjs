@@ -9,6 +9,14 @@ const rootPath = join(dirname(fileURLToPath(import.meta.url)));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  webpack: (config) => {
+    config.module.rules.push({
+      resourceQuery: /source/,
+      type: "asset/source",
+    });
+
+    return config;
+  },
 };
 
 /** @type {import('rehype-pretty-code').Options} */
