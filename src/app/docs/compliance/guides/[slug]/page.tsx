@@ -26,7 +26,9 @@ export default function SDKSpecificGuideIndex({ params: { slug } }: Props) {
   return (
     <>
       <h1>{title}</h1>
-      <p>{summary}</p>
+      <p>
+        <em>{summary}</em>
+      </p>
 
       <h2>For your SDK</h2>
       <p>Select the guide for your Compliance SDK:</p>
@@ -35,7 +37,9 @@ export default function SDKSpecificGuideIndex({ params: { slug } }: Props) {
           ([sdk, { href, title: SDKTitle, summary: SDKSummary }]) => (
             <li key={sdk}>
               <Link href={href}>
-                <h3>{SDKTitle ?? `${title} (${sdk} SDK)`}</h3>
+                <p>
+                  <strong>{SDKTitle ?? `${title} (${sdk} SDK)`}</strong>
+                </p>
                 <p>{SDKSummary ?? summary}</p>
               </Link>
             </li>

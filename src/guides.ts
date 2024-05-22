@@ -44,7 +44,7 @@ export function allGuides(): Guide[] {
 
       guide.forSDK ??= {};
       guide.forSDK[name] = {
-        href: u`/docs/compliance/${name}/guides/${slug}`,
+        href: u`/docs/compliance/${name.toLowerCase()}/guides/${slug}`,
         title,
         summary,
       };

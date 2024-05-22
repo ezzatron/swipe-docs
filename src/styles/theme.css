@@ -41,6 +41,15 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block: 1.5rem;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -50,4 +59,12 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+ul {
+  margin-block: 1rem;
+}
+
+li + li {
+  margin-block: 0.5rem;
 }
