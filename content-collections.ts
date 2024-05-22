@@ -12,7 +12,7 @@ const docs = defineCollection({
     slug: z.optional(z.string()),
     sdk: z.optional(
       z.object({
-        name: z.enum(["Android", ".NET", "iOS", "Web"]),
+        name: z.enum(["iOS", "Web"]),
         title: z.optional(z.string()),
         summary: z.optional(z.string()),
       }),
