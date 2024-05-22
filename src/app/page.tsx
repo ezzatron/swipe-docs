@@ -1,16 +1,9 @@
-import { allDocs } from "content-collections";
+import { allGuides } from "@/content";
+import Link from "next/link";
 import { useMemo } from "react";
 
 export default function Docs() {
-  const guides = useMemo((): typeof allDocs => {
-    const guidesByKey: Record<string, (typeof allDocs)[number]> = {};
-
-    for (const doc of allDocs) {
-      if (doc.key) guidesByKey[doc.key] = doc;
-    }
-
-    return Object.values(guidesByKey);
-  }, []);
+  const guides = useMemo(allGuides, []);
 
   return (
     <div>
@@ -19,12 +12,12 @@ export default function Docs() {
       <h2>How-to guides</h2>
 
       <ul>
-        {guides.map((guide) => (
-          <li key={guide.key}>
-            <a href={`/docs/compliance/guides/${guide.key}`}>
-              <h3>{guide.title}</h3>
-              <p>{guide.summary}</p>
-            </a>
+        {guides.map(({ slug, href, summary, title }) => (
+          <li key={slug}>
+            <Link href={href}>
+              <h3>{title}</h3>
+              <p>{summary}</p>
+            </Link>
           </li>
         ))}
       </ul>

@@ -1,4 +1,5 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
+import type { z } from "zod";
 
 const docs = defineCollection({
   name: "docs",
@@ -7,12 +8,20 @@ const docs = defineCollection({
   schema: (z) => ({
     title: z.string(),
     summary: z.string(),
-    sdk: z.optional(z.enum(["android", "dotnet", "ios", "web"])),
-    form: z.optional(z.enum(["tutorial", "how-to", "explainer", "reference"])),
-    key: z.optional(z.string()),
+    form: z.optional(z.enum(["tutorial", "guide", "explainer", "reference"])),
+    slug: z.optional(z.string()),
+    sdk: z.optional(
+      z.object({
+        name: z.enum(["Android", ".NET", "iOS", "Web"]),
+        title: z.optional(z.string()),
+        summary: z.optional(z.string()),
+      }),
+    ),
   }),
 });
 
 export default defineConfig({
   collections: [docs],
 });
+
+export type SDKName = NonNullable<z.infer<typeof docs.schema.sdk>>["name"];
