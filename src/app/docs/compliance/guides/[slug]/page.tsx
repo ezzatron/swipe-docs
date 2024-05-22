@@ -1,4 +1,4 @@
-import { sdkSpecificGuides } from "@/content";
+import { sdkSpecificGuides } from "@/guides";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useMemo } from "react";

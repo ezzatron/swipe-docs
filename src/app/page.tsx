@@ -1,4 +1,4 @@
-import { allGuides } from "@/content";
+import { allGuides } from "@/guides";
 import Link from "next/link";
 import { useMemo } from "react";
 
