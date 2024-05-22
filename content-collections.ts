@@ -7,8 +7,8 @@ const docs = defineCollection({
   schema: (z) => ({
     title: z.string(),
     summary: z.string(),
-    form: z.optional(z.enum(["tutorial", "how-to", "explainer", "reference"])),
     sdk: z.optional(z.enum(["android", "dotnet", "ios", "web"])),
+    form: z.optional(z.enum(["tutorial", "how-to", "explainer", "reference"])),
     key: z.optional(z.string()),
   }),
 });
