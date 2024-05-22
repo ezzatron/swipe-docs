@@ -1,7 +1,1 @@
 @import "./theme.css";
-@import "./rehype-pretty-code.css";
-
-body {
-  padding-inline: 2rem;
-  padding-block: 1.5rem;
-}

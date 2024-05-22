@@ -1,13 +1,7 @@
 import { withContentCollections } from "@content-collections/next";
 import createMDX from "@next/mdx";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-import rehypePrettyCode from "rehype-pretty-code";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
-import remarkCodeFile from "./src/remark-code-file.mjs";
-
-const rootPath = join(dirname(fileURLToPath(import.meta.url)));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -22,26 +16,9 @@ const nextConfig = {
   },
 };
 
-/** @type {import('rehype-pretty-code').Options} */
-const rehypePrettyCodeOptions = {
-  defaultLang: "plaintext",
-};
-
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [
-      remarkFrontmatter,
-      remarkMdxFrontmatter,
-      [
-        remarkCodeFile,
-        {
-          rootPath,
-          // showLineNumbers: true,
-          // stripIndent: true,
-        },
-      ],
-    ],
-    rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
   },
 });
 
