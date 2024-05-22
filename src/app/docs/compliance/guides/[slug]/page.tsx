@@ -1,10 +1,10 @@
-import { sdkSpecificGuides, type SDKSpecificGuide } from "@/content";
+import { sdkSpecificGuides } from "@/content";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useMemo } from "react";
 
 export function generateStaticParams() {
-  return sdkSpecificGuides().map(({ slug }) => ({ params: { slug } }));
+  return sdkSpecificGuides().map(({ slug }) => ({ slug }));
 }
 
 type Props = {
@@ -19,14 +19,10 @@ export default function SDKSpecificGuideIndex({ params: { slug } }: Props) {
     [slug],
   );
 
-  return guide && guide.forSDK ? <Found guide={guide} /> : notFound();
-}
+  if (!guide) return notFound();
 
-function Found({
-  guide: { title, summary, forSDK },
-}: {
-  guide: SDKSpecificGuide;
-}) {
+  const { title, summary, forSDK } = guide;
+
   return (
     <>
       <h1>{title}</h1>
