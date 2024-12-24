@@ -1,17 +1,26 @@
 // @ts-check
 
 import { FlatCompat } from "@eslint/eslintrc";
-import prettierConfig from "eslint-config-prettier";
+import js from "@eslint/js";
 
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
+const compat = new FlatCompat({
+  baseDirectory: import.meta.dirname,
+  recommendedConfig: js.configs.recommended,
+});
 
 /** @type {import("eslint").Linter.Config[]} */
 const config = [
   {
     ignores: [".github", ".makefiles", ".next", "artifacts"],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  prettierConfig,
+  ...compat.config({
+    extends: [
+      "eslint:recommended",
+      "next/core-web-vitals",
+      "next/typescript",
+      "prettier",
+    ],
+  }),
 ];
 
 export default config;
