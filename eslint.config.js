@@ -1,9 +1,11 @@
+// @ts-check
+
 import { FlatCompat } from "@eslint/eslintrc";
 import prettierConfig from "eslint-config-prettier";
 
 const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
-/** @type {import("eslint-config").ConfigArray} */
+/** @type {import("eslint").Linter.Config[]} */
 const config = [
   {
     ignores: [".github", ".makefiles", ".next", "artifacts"],
