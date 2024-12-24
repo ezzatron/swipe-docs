@@ -1,1 +1,1 @@
-## Swipe docs
+# Swipe docs
