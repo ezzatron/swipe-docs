@@ -14,4 +14,4 @@ CHANGELOG_TAG_URL_PREFIX := https://github.com/ezzatron/swipe-docs/releases/tag/
 
 .PHONY: run
 run: artifacts/link-dependencies.touch
-	$(JS_EXEC) next dev --turbo
+	$(JS_EXEC) next dev
