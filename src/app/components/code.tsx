@@ -5,14 +5,14 @@ export async function Code({ codeblock }: { codeblock: RawCode }) {
   const highlighted = await highlight(codeblock, "github-dark");
 
   return (
-    <div className="border border-zinc-700 mb-6 rounded">
+    <div className="mb-6 rounded border border-zinc-700">
       {highlighted.meta && (
-        <div className="px-3 py-2 text-sm border-b border-zinc-700 bg-zinc-900 rounded-t">
+        <div className="rounded-t border-b border-zinc-700 bg-zinc-900 px-3 py-2 text-sm">
           {highlighted.meta}
         </div>
       )}
 
-      <Pre code={highlighted} handlers={[callout]} className="mt-0 mb-0" />
+      <Pre code={highlighted} handlers={[callout]} className="mb-0 mt-0" />
     </div>
   );
 }
