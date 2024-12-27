@@ -1,4 +1,4 @@
-import Content from "./message.mdx";
+import Content from "../message.mdx";
 
 export default function Home() {
   return (
