@@ -1,6 +1,6 @@
 import { AnnotationHandler, InnerLine } from "codehike/code";
 
-export function createLineNumbers(startLine: number = 1): AnnotationHandler {
+export function createLineNumbers(startLine: number): AnnotationHandler {
   return {
     name: "line-numbers",
     Line: (props) => {
