@@ -1,5 +1,6 @@
 import { Pre, RawCode, highlight } from "codehike/code";
 import { callout } from "./annotations/callout";
+import { lineNumbers } from "./annotations/line-numbers";
 import CopyButton from "./CopyButton";
 
 export default async function Code({ codeblock }: { codeblock: RawCode }) {
@@ -13,7 +14,11 @@ export default async function Code({ codeblock }: { codeblock: RawCode }) {
         <CopyButton text={highlighted.code} />
       </div>
 
-      <Pre code={highlighted} handlers={[callout]} className="mb-0 mt-0" />
+      <Pre
+        code={highlighted}
+        handlers={[callout, lineNumbers]}
+        className="mb-0 mt-0"
+      />
     </div>
   );
 }
