@@ -24,10 +24,10 @@ export default async function Code({ codeblock }: Props) {
 
   return (
     <div className="mb-6 rounded border border-zinc-700">
-      <div className="flex items-center justify-between rounded-t border-b border-zinc-700 bg-zinc-900 px-3 py-2 text-sm">
+      <div className="flex items-center justify-between rounded-t border-b border-zinc-700 bg-zinc-900 px-3 py-2 font-mono text-sm text-zinc-400">
         <div className="flex items-center gap-1">
           <LanguageIcon lang={lang} />
-          <div>{title}</div>
+          <div className="translate-y-[1px]">{title}</div>
         </div>
         <CopyButton text={code} />
       </div>
