@@ -7,13 +7,11 @@ export default async function Code({ codeblock }: { codeblock: RawCode }) {
 
   return (
     <div className="mb-6 rounded border border-zinc-700">
-      {highlighted.meta && (
-        <div className="flex justify-between rounded-t border-b border-zinc-700 bg-zinc-900 px-3 py-2 text-sm">
-          <div>{highlighted.meta}</div>
+      <div className="flex justify-between rounded-t border-b border-zinc-700 bg-zinc-900 px-3 py-2 text-sm">
+        <div>{highlighted.meta}</div>
 
-          <CopyButton text={highlighted.code} />
-        </div>
-      )}
+        <CopyButton text={highlighted.code} />
+      </div>
 
       <Pre code={highlighted} handlers={[callout]} className="mb-0 mt-0" />
     </div>
