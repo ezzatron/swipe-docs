@@ -55,7 +55,7 @@ function parseMeta(meta: string): Meta {
   const showLineNumbers =
     typeof showLineNumbersParam === "string"
       ? showLineNumbersParam === "true"
-      : true;
+      : false;
   const startLineNumber =
     typeof startLineNumberParam === "string"
       ? parseInt(startLineNumberParam, 10)
