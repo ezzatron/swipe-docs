@@ -9,7 +9,13 @@ type Props = {
 };
 
 export default async function Code({ codeblock }: Props) {
-  const highlighted = await highlight(codeblock, "github-dark");
+  const highlighted = await highlight(
+    {
+      ...codeblock,
+      value: codeblock.value.replaceAll(/(^[\r\n]+|[\r\n]+$)/g, ""),
+    },
+    "github-dark",
+  );
   const { code, lang } = highlighted;
   const {
     title = lang === "shellscript" ? "Command Line" : undefined,
