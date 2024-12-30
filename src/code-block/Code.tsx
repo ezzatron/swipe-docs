@@ -11,9 +11,11 @@ type Props = {
 export default async function Code({ codeblock }: Props) {
   const highlighted = await highlight(codeblock, "github-dark");
   const { code, lang } = highlighted;
-  const { title, showLineNumbers, startLineNumber } = parseMeta(
-    highlighted.meta,
-  );
+  const {
+    title = lang === "shellscript" ? "Command Line" : undefined,
+    showLineNumbers,
+    startLineNumber,
+  } = parseMeta(highlighted.meta);
 
   const handlers: AnnotationHandler[] = [
     ...(showLineNumbers ? [createLineNumbers(startLineNumber)] : []),
@@ -36,7 +38,7 @@ export default async function Code({ codeblock }: Props) {
 }
 
 type Meta = {
-  title: string;
+  title: string | undefined;
   showLineNumbers: boolean;
   startLineNumber: number;
 };
@@ -49,7 +51,7 @@ function parseMeta(meta: string): Meta {
   const showLineNumbersParam = params.get("line-numbers");
   const startLineNumberParam = params.get("start-line");
 
-  const title = decodeURIComponent(titlePart);
+  const title = decodeURIComponent(titlePart).trim() || undefined;
   const showLineNumbers =
     typeof showLineNumbersParam === "string"
       ? showLineNumbersParam === "true"
