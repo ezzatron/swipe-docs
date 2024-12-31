@@ -5,13 +5,13 @@ import loremIpsum from "./example/lorem-ipsum?source";
 
 This is a demo for rendering MDX as a server component.
 
-```ts lorem-ipsum.ts?line-numbers=true
-!from ./example/lorem-ipsum.ts
-```
+<CodeBlock lang="typescript" title="lorem-ipsum.ts" showLineNumbers>
+  {loremIpsum}
+</CodeBlock>
 
-```ts
-!from ./example/lorem-ipsum.ts
-```
+<CodeBlock lang="typescript" title="lorem-ipsum.ts">
+  {loremIpsum}
+</CodeBlock>
 
 ```ts "ipsum" function from lorem-ipsum.ts ?line-numbers=true&start-line=15
 !from ./example/lorem-ipsum.ts 16:22
@@ -24,7 +24,3 @@ Hello, World!
 ```sh
 echo "Hello, World!"
 ```
-
-<CodeBlock lang="typescript" title="Hello!" showLineNumbers>
-  {loremIpsum}
-</CodeBlock>
