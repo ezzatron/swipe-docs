@@ -1,5 +1,5 @@
 import { Pre, RawCode, highlight, type AnnotationHandler } from "codehike/code";
-import { callout } from "./annotations/callout";
+import { callout as calloutHandler } from "./annotations/callout";
 import { lineNumbers as lineNumbersHandler } from "./annotations/line-numbers";
 import CopyButton from "./CopyButton";
 import LanguageIcon from "./LanguageIcon";
@@ -17,15 +17,15 @@ export default async function Code({ codeblock }: Props) {
     },
     "github-dark",
   );
-  const { code, lang } = highlighted;
+  const { code, lang, meta } = highlighted;
   const {
     title = lang === "shellscript" ? "Command Line" : undefined,
     lineNumbers,
-  } = parseMeta(highlighted.meta);
+  } = parseMeta(meta);
 
   const handlers: AnnotationHandler[] = [
+    calloutHandler,
     ...(lineNumbers ? [lineNumbersHandler] : []),
-    callout,
   ];
 
   return (
