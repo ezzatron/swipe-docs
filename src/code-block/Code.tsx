@@ -1,6 +1,6 @@
 import { Pre, RawCode, highlight, type AnnotationHandler } from "codehike/code";
 import { callout } from "./annotations/callout";
-import { createLineNumbers } from "./annotations/line-numbers";
+import { lineNumbers as lineNumbersHandler } from "./annotations/line-numbers";
 import CopyButton from "./CopyButton";
 import LanguageIcon from "./LanguageIcon";
 import { parseMeta } from "./meta";
@@ -21,11 +21,10 @@ export default async function Code({ codeblock }: Props) {
   const {
     title = lang === "shellscript" ? "Command Line" : undefined,
     lineNumbers,
-    startLine,
   } = parseMeta(highlighted.meta);
 
   const handlers: AnnotationHandler[] = [
-    ...(lineNumbers ? [createLineNumbers(startLine)] : []),
+    ...(lineNumbers ? [lineNumbersHandler] : []),
     callout,
   ];
 
@@ -36,6 +35,7 @@ export default async function Code({ codeblock }: Props) {
           <LanguageIcon lang={lang} />
           <div className="translate-y-[1px]">{title}</div>
         </div>
+
         <CopyButton text={code} />
       </div>
 
