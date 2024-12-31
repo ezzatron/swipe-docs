@@ -12,6 +12,7 @@ export function createLineNumbers(startLine: number): AnnotationHandler {
           <span style={{ minWidth: `${width}ch` }}>
             {lineNumber + startLine - 1}
           </span>
+
           <InnerLine merge={props} />
         </div>
       );
