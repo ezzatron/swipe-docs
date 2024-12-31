@@ -1,3 +1,6 @@
+import CodeBlock from "./code-block/CodeBlock.tsx";
+import loremIpsum from "./example/lorem-ipsum?source";
+
 # MDX as a Server Component
 
 This is a demo for rendering MDX as a server component.
@@ -21,3 +24,7 @@ Hello, World!
 ```sh
 echo "Hello, World!"
 ```
+
+<CodeBlock lang="typescript" title="Hello!" showLineNumbers>
+  {loremIpsum}
+</CodeBlock>

@@ -8,6 +8,24 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+  webpack: (config) => {
+    config.module.rules = [
+      {
+        oneOf: [
+          {
+            resourceQuery: /source/,
+            type: "asset/source",
+          },
+          {
+            resourceQuery: { not: [/source/] },
+            rules: config.module.rules,
+          },
+        ],
+      },
+    ];
+
+    return config;
+  },
 };
 
 const codeHikeConfig: CodeHikeConfig = {

@@ -3,6 +3,7 @@ import { callout } from "./annotations/callout";
 import { createLineNumbers } from "./annotations/line-numbers";
 import CopyButton from "./CopyButton";
 import LanguageIcon from "./LanguageIcon";
+import { parseMeta } from "./meta";
 
 type Props = {
   codeblock: RawCode;
@@ -41,35 +42,4 @@ export default async function Code({ codeblock }: Props) {
       <Pre code={highlighted} handlers={handlers} className="mb-0 mt-0" />
     </div>
   );
-}
-
-type Meta = {
-  title: string | undefined;
-  showLineNumbers: boolean;
-  startLineNumber: number;
-};
-
-function parseMeta(meta: string): Meta {
-  const queryIndex = meta.indexOf("?");
-  const titlePart = queryIndex < 0 ? meta : meta.slice(0, queryIndex);
-  const queryPart = queryIndex < 0 ? "" : meta.slice(queryIndex + 1);
-  const params = new URLSearchParams(queryPart);
-  const showLineNumbersParam = params.get("line-numbers");
-  const startLineNumberParam = params.get("start-line");
-
-  const title = decodeURIComponent(titlePart).trim() || undefined;
-  const showLineNumbers =
-    typeof showLineNumbersParam === "string"
-      ? showLineNumbersParam === "true"
-      : false;
-  const startLineNumber =
-    typeof startLineNumberParam === "string"
-      ? parseInt(startLineNumberParam, 10)
-      : 1;
-
-  return {
-    title,
-    showLineNumbers,
-    startLineNumber,
-  };
 }
