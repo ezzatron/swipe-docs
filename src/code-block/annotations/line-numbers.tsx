@@ -3,6 +3,7 @@ import { AnnotationHandler, InnerLine } from "codehike/code";
 export function createLineNumbers(startLine: number): AnnotationHandler {
   return {
     name: "line-numbers",
+
     Line: (props) => {
       const { lineNumber, totalLines } = props;
       const width = totalLines.toString().length + 1;
