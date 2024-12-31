@@ -2,7 +2,7 @@ import { AnnotationHandler, InnerLine } from "codehike/code";
 
 export function createLineNumbers(startLine: number): AnnotationHandler {
   return {
-    name: "line-numbers",
+    name: "lineNumbers",
 
     Line: (props) => {
       const { lineNumber, totalLines } = props;

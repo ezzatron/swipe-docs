@@ -20,12 +20,12 @@ export default async function Code({ codeblock }: Props) {
   const { code, lang } = highlighted;
   const {
     title = lang === "shellscript" ? "Command Line" : undefined,
-    showLineNumbers,
-    startLineNumber,
+    lineNumbers,
+    startLine,
   } = parseMeta(highlighted.meta);
 
   const handlers: AnnotationHandler[] = [
-    ...(showLineNumbers ? [createLineNumbers(startLineNumber)] : []),
+    ...(lineNumbers ? [createLineNumbers(startLine)] : []),
     callout,
   ];
 
