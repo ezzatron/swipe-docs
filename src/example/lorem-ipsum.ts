@@ -13,6 +13,7 @@ lorem.adipiscing((sed, elit) => {
 
 console.log(amet); // normal comment
 
+// !section(1:7) ipsum
 function ipsum(dolor: number, sit: number) {
   return {
     adipiscing: (amet: (sed: boolean, elit: number) => void) => {

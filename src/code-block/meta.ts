@@ -1,6 +1,7 @@
 export type Meta = {
   title: string | undefined;
   lineNumbers: boolean;
+  section: string | undefined;
 };
 
 export function parseMeta(meta: string): Meta {
@@ -12,19 +13,23 @@ export function parseMeta(meta: string): Meta {
 
   const params = new URLSearchParams(queryPart);
   const lineNumbers = params.has("lineNumbers");
+  const section = params.get("section") ?? undefined;
 
   return {
     title,
     lineNumbers,
+    section,
   };
 }
 
 export function buildMeta({
   title = "",
   lineNumbers = false,
+  section,
 }: Partial<Meta>): string {
   const params = new URLSearchParams();
   if (lineNumbers) params.set("lineNumbers", "");
+  if (section != null) params.set("section", section);
 
   return `${encodeURIComponent(title)}?${params.toString()}`;
 }
