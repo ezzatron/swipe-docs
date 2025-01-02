@@ -2,7 +2,6 @@ const dolor = 1;
 const sit = 2;
 const lorem = ipsum(dolor, sit);
 
-// !callout[/amet/] This is a callout
 let amet = 0;
 
 lorem.adipiscing((sed, elit) => {
@@ -21,3 +20,5 @@ function ipsum(dolor: number, sit: number) {
     },
   };
 }
+
+// hullo
