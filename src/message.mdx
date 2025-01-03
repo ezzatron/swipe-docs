@@ -17,4 +17,14 @@ console.log("Hello, World!");
 echo "Hello, World!"
 ```
 
-<CodeBlock title="Lorem ipsum" code={loremIpsum} />
+```console
+user@foo$ echo "Hello, World!" > hello.txt
+Hello, World!
+user@foo$ 1s -1 | grep ".txt"
+hello.txt
+```
+
+<CodeBlock {...loremIpsum} />
+<CodeBlock {...loremIpsum} filenameContext={0} />
+<CodeBlock {...loremIpsum} filenameContext={3} />
+<CodeBlock {...loremIpsum} title="Lorem ipsum" />

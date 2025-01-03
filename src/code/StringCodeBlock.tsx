@@ -17,5 +17,5 @@ export default async function StringCodeBlock({
   lang = normalizeLanguage(lang);
   const tree = await codeToHast(source, { ...shikiOptions, lang });
 
-  return <CodeBlock code={{ lang, source, tree }} title={title} />;
+  return <CodeBlock lang={lang} source={source} tree={tree} title={title} />;
 }

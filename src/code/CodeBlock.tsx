@@ -4,13 +4,32 @@ import LanguageIcon from "./LanguageIcon";
 import Shiki from "./Shiki";
 
 type Props = {
-  code: { lang: string; source: string; tree: Root };
+  lang: string;
+  source: string;
+  tree: Root;
   title?: string;
+  filename?: string;
+  filenameContext?: number;
 };
 
-export default function CodeBlock(props: Props) {
-  const { lang, source, tree } = props.code;
-  const { title = lang === "shellscript" ? "Command Line" : "" } = props;
+export default function CodeBlock({
+  lang,
+  source,
+  tree,
+  title,
+  filename,
+  filenameContext = 1,
+}: Props) {
+  if (title == null) {
+    if (filename != null) {
+      title =
+        filenameContext < 1
+          ? ""
+          : filename.split("/").slice(-filenameContext).join("/");
+    } else if (lang === "shellscript" || lang === "shellsession") {
+      title = "Command Line";
+    }
+  }
 
   return (
     <div>
@@ -20,7 +39,6 @@ export default function CodeBlock(props: Props) {
         </div>
 
         <div className="flex-grow">{title}</div>
-
         <CopyButton text={source} />
       </div>
 
