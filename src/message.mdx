@@ -1,4 +1,5 @@
-import loremIpsum from "./example/lorem-ipsum?source";
+import loremIpsum from "./example/lorem-ipsum?lang=ts&shiki";
+import CodeBlock from "./code/CodeBlock";
 
 # MDX as a Server Component
 
@@ -7,3 +8,13 @@ This is a demo for rendering MDX as a server component.
 ```
 Hello, World!
 ```
+
+```ts title="hello-world.ts"
+console.log("Hello, World!");
+```
+
+```sh
+echo "Hello, World!"
+```
+
+<CodeBlock title="Lorem ipsum" code={loremIpsum} />

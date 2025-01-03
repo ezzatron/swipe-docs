@@ -1,10 +1,11 @@
 import type { MDXComponents } from "mdx/types";
+import H1 from "./mdx/H1";
+import Pre from "./mdx/Pre";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
-    h1: ({ children }) => (
-      <h1 className="text-4xl font-extrabold tracking-tight">{children}</h1>
-    ),
+    h1: H1,
+    pre: Pre,
   };
 }
