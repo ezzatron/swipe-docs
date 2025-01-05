@@ -14,6 +14,7 @@ export default async function StringCodeBlock({
   lang = "text",
   title,
 }: Props) {
+  source = source.replace(/\n+$/, "");
   lang = normalizeLanguage(lang);
   const tree = await codeToHast(source, { ...shikiOptions, lang });
 

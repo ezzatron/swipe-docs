@@ -3,6 +3,7 @@ import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { Fragment } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
+import styles from "./Shiki.module.css";
 
 type Props = {
   tree: Root;
@@ -21,6 +22,7 @@ export default function Shiki({ tree }: Props) {
         <pre
           className={clsx(
             className,
+            styles.pre,
             "mt-0 rounded-b rounded-t-none font-mono text-sm",
           )}
           {...props}

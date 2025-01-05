@@ -9,7 +9,7 @@ export default function shikiLoader(source) {
     const lang = normalizeLanguage(params.get("lang") ?? "text");
     const filename = this.resourcePath;
 
-    source = source.replace(/\n+$/g, "");
+    source = source.replace(/\n+$/, "");
     const tree = await codeToHast(source, { ...shikiOptions, lang });
 
     return `export default ${JSON.stringify({ lang, source, tree, filename })};`;
