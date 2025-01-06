@@ -1,0 +1,24 @@
+.pre {
+  & code {
+    counter-reset: line;
+
+    & :global(.line)::before {
+      content: counter(line);
+      counter-increment: line;
+      display: inline-block;
+      width: var(--line-number-width, 1ch);
+      margin-right: theme("spacing.5");
+      color: theme("colors.gray.600");
+      text-align: right;
+      user-select: none;
+    }
+  }
+
+  &:global(.has-focused) {
+    & code {
+      & :global(.line):not(:global(.focused)) {
+        opacity: 50%;
+      }
+    }
+  }
+}

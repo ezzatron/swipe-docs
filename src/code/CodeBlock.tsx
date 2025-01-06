@@ -1,7 +1,7 @@
-import { codeToHast, type BundledLanguage, type SpecialLanguage } from "shiki";
+import { type BundledLanguage, type SpecialLanguage } from "shiki";
 import CopyButton from "./CopyButton";
+import Highlight from "./Highlight";
 import LanguageIcon from "./LanguageIcon";
-import Shiki from "./Shiki";
 import { normalizeLanguage } from "./shiki-language";
 
 type Props = {
@@ -12,19 +12,15 @@ type Props = {
   filenameContext?: number;
 };
 
-export default async function CodeBlock({
+export default function CodeBlock({
   lang: rawLang = "text",
-  source,
+  source: rawSource,
   title,
   filename,
   filenameContext = 1,
 }: Props) {
-  source = source.replace(/\n+$/, "");
+  const source = rawSource.replace(/\n+$/, "");
   const lang = normalizeLanguage(rawLang);
-  const tree = await codeToHast(source, {
-    lang,
-    theme: "github-dark-default",
-  });
 
   if (title == null) {
     if (filename != null) {
@@ -48,7 +44,7 @@ export default async function CodeBlock({
         <CopyButton text={source} />
       </div>
 
-      <Shiki tree={tree} />
+      <Highlight lang={lang} source={source} />
     </div>
   );
 }
