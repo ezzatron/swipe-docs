@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { type BundledLanguage, type SpecialLanguage } from "shiki";
 import { codeToHast } from "shiki/index.mjs";
@@ -9,12 +9,13 @@ import styles from "./Highlight.module.css";
 import { notationFocus } from "./transformer/notation-focus";
 
 type Props = {
+  id: string;
   lang: BundledLanguage | SpecialLanguage;
   source: string;
 };
 
-export default async function Highlight({ lang, source }: Props) {
-  const tree = await codeToHast(source, {
+export default async function Highlight({ id, lang, source }: Props) {
+  const tree = await codeToHast(source.replace(/\n+$/, ""), {
     lang,
     theme: "github-dark-default",
     transformers: [notationFocus],
@@ -26,23 +27,27 @@ export default async function Highlight({ lang, source }: Props) {
     jsx,
     jsxs,
     components: {
-      code: (props) => (
-        <code
-          {...props}
-          style={{ "--line-number-width": `${lineNumberWidth}ch` }}
-        />
-      ),
-
       pre: ({
         className,
+        style,
         ...props
-      }: { className: string } & Record<string, unknown>) => (
+      }: { className: string; style: CSSProperties } & Record<
+        string,
+        unknown
+      >) => (
         <pre
+          id={id}
           className={clsx(
             className,
             styles.pre,
             "mt-0 rounded-b rounded-t-none font-mono text-sm",
           )}
+          style={
+            {
+              ...style,
+              "--line-number-width": `${lineNumberWidth}ch`,
+            } as CSSProperties
+          }
           {...props}
         />
       ),

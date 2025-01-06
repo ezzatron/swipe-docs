@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { type BundledLanguage, type SpecialLanguage } from "shiki";
 import CopyButton from "./CopyButton";
 import Highlight from "./Highlight";
@@ -14,12 +15,12 @@ type Props = {
 
 export default function CodeBlock({
   lang: rawLang = "text",
-  source: rawSource,
+  source,
   title,
   filename,
   filenameContext = 1,
 }: Props) {
-  const source = rawSource.replace(/\n+$/, "");
+  const id = useId();
   const lang = normalizeLanguage(rawLang);
 
   if (title == null) {
@@ -41,10 +42,10 @@ export default function CodeBlock({
         </div>
 
         <div className="flex-grow">{title}</div>
-        <CopyButton text={source} />
+        <CopyButton from={id} />
       </div>
 
-      <Highlight lang={lang} source={source} />
+      <Highlight id={id} lang={lang} source={source} />
     </div>
   );
 }

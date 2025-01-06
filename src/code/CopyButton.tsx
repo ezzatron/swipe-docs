@@ -3,21 +3,31 @@
 import { CheckIcon, CopyIcon, XIcon } from "lucide-react";
 import { useCallback, useState } from "react";
 
-export default function CopyButton({ text }: { text: string }) {
+type Props = {
+  from: string;
+};
+
+export default function CopyButton({ from }: Props) {
   const [state, setState] = useState<"IDLE" | "COPIED" | "FAILED">("IDLE");
 
   const handleClick = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setState("COPIED");
-    } catch {
+    const text = document.getElementById(from)?.textContent;
+
+    if (text == null) {
       setState("FAILED");
+    } else {
+      try {
+        await navigator.clipboard.writeText(text);
+        setState("COPIED");
+      } catch {
+        setState("FAILED");
+      }
     }
 
     setTimeout(() => {
       setState("IDLE");
     }, 1200);
-  }, [text]);
+  }, [from]);
 
   return (
     <button
