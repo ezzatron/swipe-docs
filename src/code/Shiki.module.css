@@ -1,5 +1,5 @@
 .pre code {
-  counter-reset: line calc(var(--start-line, 1) - 1);
+  counter-reset: line;
 
   & :global(.line)::before {
     content: counter(line);

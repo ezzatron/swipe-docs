@@ -10,10 +10,7 @@ type Props = {
 };
 
 export default function Shiki({ tree }: Props) {
-  const startLine = 123;
-  const lineCount = countLines(tree);
-  const endLine = startLine + lineCount - 1;
-  const lineNumberWidth = `${endLine.toString().length}ch`;
+  const lineNumberWidth = countLines(tree).toString().length;
 
   return toJsxRuntime(tree, {
     Fragment,
@@ -23,10 +20,7 @@ export default function Shiki({ tree }: Props) {
       code: (props) => (
         <code
           {...props}
-          style={{
-            "--line-number-width": lineNumberWidth,
-            "--start-line": startLine,
-          }}
+          style={{ "--line-number-width": `${lineNumberWidth}ch` }}
         />
       ),
 
