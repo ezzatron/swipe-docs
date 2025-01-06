@@ -21,7 +21,10 @@ export default async function CodeBlock({
 }: Props) {
   source = source.replace(/\n+$/, "");
   const lang = normalizeLanguage(rawLang);
-  const tree = await codeToHast(source, { theme: "github-dark-default", lang });
+  const tree = await codeToHast(source, {
+    lang,
+    theme: "github-dark-default",
+  });
 
   if (title == null) {
     if (filename != null) {
