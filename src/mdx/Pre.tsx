@@ -1,6 +1,6 @@
 import { Children, type ReactElement } from "react";
 import type { BundledLanguage } from "shiki";
-import StringCodeBlock from "../code/StringCodeBlock";
+import CodeBlock from "../code/CodeBlock";
 
 const LANGUAGE_PATTERN = /^language-(.+)$/;
 
@@ -17,7 +17,5 @@ export default function Pre({ children, title }: Props) {
   const match = className ? LANGUAGE_PATTERN.exec(className) : null;
   const lang = match?.[1] as BundledLanguage;
 
-  return (
-    <StringCodeBlock {...codeProps} lang={lang} title={title} source={source} />
-  );
+  return <CodeBlock {...codeProps} lang={lang} title={title} source={source} />;
 }

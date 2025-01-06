@@ -1,4 +1,4 @@
 declare module "*?source" {
-  const source: string;
-  export = source;
+  const result: { filename: string; lang: string; source: string };
+  export = result;
 }

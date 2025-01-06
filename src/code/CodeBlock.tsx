@@ -1,25 +1,28 @@
-import type { Root } from "hast";
+import { codeToHast, type BundledLanguage, type SpecialLanguage } from "shiki";
 import CopyButton from "./CopyButton";
 import LanguageIcon from "./LanguageIcon";
 import Shiki from "./Shiki";
+import { normalizeLanguage } from "./shiki-language";
 
 type Props = {
-  lang: string;
+  lang?: BundledLanguage | SpecialLanguage;
   source: string;
-  tree: Root;
   title?: string;
   filename?: string;
   filenameContext?: number;
 };
 
-export default function CodeBlock({
-  lang,
+export default async function CodeBlock({
+  lang: rawLang = "text",
   source,
-  tree,
   title,
   filename,
   filenameContext = 1,
 }: Props) {
+  source = source.replace(/\n+$/, "");
+  const lang = normalizeLanguage(rawLang);
+  const tree = await codeToHast(source, { theme: "github-dark-default", lang });
+
   if (title == null) {
     if (filename != null) {
       title =

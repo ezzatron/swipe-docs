@@ -12,15 +12,11 @@ const nextConfig: NextConfig = {
       {
         oneOf: [
           {
-            resourceQuery: /\bshiki\b/,
-            use: require.resolve("./src/code/shiki-loader.js"),
-          },
-          {
             resourceQuery: /source/,
-            type: "asset/source",
+            use: require.resolve("./src/code/source-loader.js"),
           },
           {
-            resourceQuery: { not: [/(\bshiki\b|source)/] },
+            resourceQuery: { not: [/source/] },
             rules: config.module.rules,
           },
         ],
