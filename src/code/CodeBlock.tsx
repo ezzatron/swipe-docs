@@ -3,7 +3,7 @@ import { type BundledLanguage, type SpecialLanguage } from "shiki";
 import CopyButton from "./CopyButton";
 import Highlight from "./Highlight";
 import LanguageIcon from "./LanguageIcon";
-import { normalizeLanguage } from "./shiki-language";
+import { extensionToLanguage, normalizeLanguage } from "./language";
 
 type Props = {
   lang?: BundledLanguage | SpecialLanguage;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function CodeBlock({
-  lang: rawLang = "text",
+  lang,
   source,
   title,
   filename,
@@ -23,7 +23,17 @@ export default function CodeBlock({
   section,
 }: Props) {
   const codeId = useId();
-  const lang = normalizeLanguage(rawLang);
+
+  if (lang == null) {
+    if (filename == null) {
+      lang = "text";
+    } else {
+      const ext = filename.split(".").slice(-1)[0];
+      lang = extensionToLanguage(ext);
+    }
+  } else {
+    lang = normalizeLanguage(lang);
+  }
 
   if (title == null) {
     if (filename != null) {
