@@ -29,6 +29,17 @@ export const stripNotations: ShikiTransformer = {
         } else {
           // empty comment after stripping notations, remove it
           line.children.splice(j, 1);
+
+          // strip trailing whitespace from any previous element
+          const prevSibling = line.children[j - 1];
+          if (prevSibling?.type === "element") {
+            const prevText =
+              prevSibling.children[prevSibling.children.length - 1];
+
+            if (prevText?.type === "text") {
+              prevText.value = prevText.value.trimEnd();
+            }
+          }
         }
       }
 
