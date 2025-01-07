@@ -5,9 +5,7 @@ const lorem = ipsum(dolor, sit);
 let amet = 0;
 
 lorem.adipiscing((sed, elit) => {
-  if (sed) {
-    amet += elit;
-  }
+  if (sed) amet += elit;
 });
 
 console.log(amet); // normal comment
