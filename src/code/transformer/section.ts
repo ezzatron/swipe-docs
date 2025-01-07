@@ -1,13 +1,13 @@
+import type { Element, Text } from "hast";
 import type { ShikiTransformer } from "shiki";
-import { addStyle } from "./style";
 
 export function section(name: string): ShikiTransformer {
   return {
     name: `section-${name}`,
 
     code(code) {
+      const sectionLines: [Text, Element][] = [];
       let hasSection = false;
-      let minIndent = Infinity;
 
       for (let i = 0; i < code.children.length; ++i) {
         const line = code.children[i];
@@ -28,19 +28,46 @@ export function section(name: string): ShikiTransformer {
         const [firstChild] = line.children;
         if (firstChild?.type !== "element") continue;
         const [text] = firstChild.children;
-        if (text?.type !== "text") continue;
 
-        const indent = text.value.search(/\S/);
-        minIndent = Math.min(minIndent, indent);
+        if (text?.type === "text") sectionLines.push([text, line]);
       }
 
       if (!hasSection) throw new Error(`Missing code section ${name}`);
 
       this.pre.properties["data-section"] = name;
-      addStyle(
-        this.pre,
-        `--section-min-indent:${Number.isFinite(minIndent) ? minIndent : 0}ch`,
-      );
+
+      let minIndentCharCount = Infinity;
+      let indent = "";
+      let hasConsistentIndent = true;
+
+      for (const [text] of sectionLines) {
+        const indentCharCount = text.value.search(/\S/);
+
+        if (indentCharCount >= 0 && indentCharCount < minIndentCharCount) {
+          minIndentCharCount = indentCharCount;
+          indent = text.value.slice(0, indentCharCount);
+        }
+      }
+
+      for (const [text] of sectionLines) {
+        if (!text.value.startsWith(indent)) {
+          hasConsistentIndent = false;
+
+          break;
+        }
+      }
+
+      if (!hasConsistentIndent) return;
+
+      for (const [text, line] of sectionLines) {
+        line.children.unshift({
+          type: "element",
+          tagName: "span",
+          children: [{ type: "text", value: indent }],
+          properties: { class: "section-indent" },
+        });
+        text.value = text.value.slice(indent.length);
+      }
     },
   };
 }

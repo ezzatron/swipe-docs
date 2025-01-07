@@ -13,8 +13,8 @@
 
   &[data-section] {
     & code {
-      & :global(.line)::before {
-        margin-right: calc(theme("spacing.5") - var(--section-min-indent, 0));
+      & :global(.line) :global(.section-indent) {
+        display: none;
       }
     }
   }

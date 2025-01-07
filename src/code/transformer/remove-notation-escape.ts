@@ -1,5 +1,5 @@
 import type { ShikiTransformer } from "shiki";
-import { COMMENT_PATTERN, ESCAPED_NOTATION_PATTERN } from "./pattern";
+import { COMMENT_PATTERN, ESCAPED_NOTATION_PATTERN } from "../pattern";
 
 export const removeNotationEscape: ShikiTransformer = {
   name: "remove-notation-escape",

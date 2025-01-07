@@ -1,5 +1,5 @@
 import type { ShikiTransformer } from "shiki";
-import { addStyle } from "./style";
+import { addStyle } from "../style";
 
 export const lineNumbers: ShikiTransformer = {
   name: "line-numbers",

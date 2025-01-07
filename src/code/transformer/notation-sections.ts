@@ -1,5 +1,5 @@
 import type { ShikiTransformer } from "shiki";
-import { COMMENT_PATTERN, NOTATION_PATTERN } from "./pattern";
+import { COMMENT_PATTERN, NOTATION_PATTERN } from "../pattern";
 
 export const notationSections: ShikiTransformer = {
   name: "notation-sections",
