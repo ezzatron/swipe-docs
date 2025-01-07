@@ -11,6 +11,18 @@ export default {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            "code::before": {
+              content: '""',
+            },
+            "code::after": {
+              content: '""',
+            },
+          },
+        },
+      },
     },
   },
 } satisfies Config;
