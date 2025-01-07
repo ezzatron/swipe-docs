@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, type ReactNode } from "react";
 import { type BundledLanguage, type SpecialLanguage } from "shiki";
 import CopyButton from "./CopyButton";
 import Highlight from "./Highlight";
@@ -8,7 +8,7 @@ import { normalizeLanguage } from "./shiki-language";
 type Props = {
   lang?: BundledLanguage | SpecialLanguage;
   source: string;
-  title?: string;
+  title?: ReactNode;
   filename?: string;
   filenameContext?: number;
   section?: string;
