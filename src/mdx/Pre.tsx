@@ -1,14 +1,13 @@
-import { Children, type ReactElement } from "react";
+import { Children, type JSX, type ReactElement } from "react";
 import type { BundledLanguage } from "shiki";
 import CodeBlock from "../code/CodeBlock";
 
 const LANGUAGE_PATTERN = /^language-(.+)$/;
 
-type Props = {
+type Props = JSX.IntrinsicElements["pre"] & {
   children: ReactElement<
-    { children: string; className: string } & Record<string, unknown>
+    JSX.IntrinsicElements["code"] & { children: string; className: string }
   >;
-  title?: string;
 };
 
 export default function Pre({ children, title }: Props) {
