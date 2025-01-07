@@ -1,20 +1,16 @@
 .pre {
-  & code {
-    & :global(.line)::before {
-      content: attr(data-line);
-      width: var(--line-number-width, 1ch);
-      margin-right: theme("spacing.5");
-      color: theme("colors.gray.600");
-      text-align: right;
-      user-select: none;
-    }
+  & :global(.line::before) {
+    content: attr(data-line);
+    width: var(--line-number-width, 1ch);
+    margin-right: theme("spacing.5");
+    color: theme("colors.gray.600");
+    text-align: right;
+    user-select: none;
   }
 
   &[data-section] {
-    & code {
-      & :global(.line) :global(.section-indent) {
-        display: none;
-      }
+    & :global(.section-indent) {
+      display: none;
     }
   }
 }
