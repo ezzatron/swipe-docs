@@ -3,11 +3,16 @@ import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { Fragment, type CSSProperties } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
-import { codeToHast, type BundledLanguage, type SpecialLanguage } from "shiki";
+import {
+  codeToHast,
+  type BundledLanguage,
+  type ShikiTransformer,
+  type SpecialLanguage,
+} from "shiki";
 import styles from "./Highlight.module.css";
-import { notationSections } from "./transformer/notation-sections";
-import { removeNotationEscape } from "./transformer/remove-notation-escape";
-import { stripNotations } from "./transformer/strip-notations";
+import { notationSections as notationSectionsTransformer } from "./transformer/notation-sections";
+import { removeNotationEscape as removeNotationEscapeTransformer } from "./transformer/remove-notation-escape";
+import { stripNotations as stripNotationsTransformer } from "./transformer/strip-notations";
 
 type Props = {
   codeId: string;
@@ -16,10 +21,16 @@ type Props = {
 };
 
 export default async function Highlight({ codeId, lang, source }: Props) {
+  const transformers: ShikiTransformer[] = [
+    notationSectionsTransformer,
+    stripNotationsTransformer,
+    removeNotationEscapeTransformer,
+  ];
+
   const tree = await codeToHast(source.replace(/\n+$/, ""), {
     lang,
     theme: "github-dark-default",
-    transformers: [notationSections, stripNotations, removeNotationEscape],
+    transformers,
   });
   const lineNumberWidth = countLines(tree).toString().length;
 
