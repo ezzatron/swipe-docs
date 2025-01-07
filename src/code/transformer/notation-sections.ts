@@ -41,7 +41,7 @@ export const notationSections: ShikiTransformer = {
 
       if (sections.size < 1) continue;
 
-      line.properties["data-section"] = Array.from(sections).sort().join(" ");
+      line.properties["data-sections"] = Array.from(sections).sort().join(" ");
     }
 
     return code;
