@@ -17,14 +17,14 @@ import { section as sectionTransformer } from "./transformer/section";
 import { stripNotations as stripNotationsTransformer } from "./transformer/strip-notations";
 
 type Props = {
-  codeId: string;
+  copyId: string;
   lang: BundledLanguage | SpecialLanguage;
   source: string;
   section: string | undefined;
 };
 
 export default async function Highlight({
-  codeId,
+  copyId,
   lang,
   source,
   section,
@@ -49,8 +49,6 @@ export default async function Highlight({
     jsx,
     jsxs,
     components: {
-      code: (props) => <code {...props} id={codeId} />,
-
       pre: ({
         className,
         ...props
@@ -59,6 +57,7 @@ export default async function Highlight({
         unknown
       >) => (
         <pre
+          id={copyId}
           className={clsx(
             className,
             styles.pre,
