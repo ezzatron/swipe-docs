@@ -3,10 +3,10 @@ import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { Fragment, type CSSProperties } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
-import { type BundledLanguage, type SpecialLanguage } from "shiki";
-import { codeToHast } from "shiki/index.mjs";
+import { codeToHast, type BundledLanguage, type SpecialLanguage } from "shiki";
 import styles from "./Highlight.module.css";
-import { notationFocus } from "./transformer/notation-focus";
+import { notationSections } from "./transformer/notation-sections";
+import { stripNotations } from "./transformer/strip-notations";
 
 type Props = {
   id: string;
@@ -18,7 +18,7 @@ export default async function Highlight({ id, lang, source }: Props) {
   const tree = await codeToHast(source.replace(/\n+$/, ""), {
     lang,
     theme: "github-dark-default",
-    transformers: [notationFocus],
+    transformers: [notationSections, stripNotations],
   });
   const lineNumberWidth = countLines(tree).toString().length;
 
