@@ -10,6 +10,7 @@ import {
   type SpecialLanguage,
 } from "shiki";
 import styles from "./Highlight.module.css";
+import { collapseNewlines as collapseNewlinesTransformer } from "./transformer/collapse-newlines";
 import { notationSections as notationSectionsTransformer } from "./transformer/notation-sections";
 import { removeNotationEscape as removeNotationEscapeTransformer } from "./transformer/remove-notation-escape";
 import { stripNotations as stripNotationsTransformer } from "./transformer/strip-notations";
@@ -22,6 +23,7 @@ type Props = {
 
 export default async function Highlight({ codeId, lang, source }: Props) {
   const transformers: ShikiTransformer[] = [
+    collapseNewlinesTransformer,
     notationSectionsTransformer,
     stripNotationsTransformer,
     removeNotationEscapeTransformer,

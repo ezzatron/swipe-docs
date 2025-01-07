@@ -46,13 +46,17 @@ export const stripNotations: ShikiTransformer = {
         }
       }
 
-      if (!hasNotations || line.children.length > 0) continue;
+      if (!hasNotations) continue;
 
-      const nextSibling = code.children[i + 1];
-      const hasNewline =
-        nextSibling?.type === "text" && nextSibling.value === "\n";
+      let hasContent = false;
 
-      code.children.splice(i, hasNewline ? 2 : 1);
+      for (let j = line.children.length - 1; j >= 0; --j) {
+        const child = line.children[j];
+        hasContent = child.type !== "text" || child.value !== "\n";
+        if (hasContent) break;
+      }
+
+      if (!hasContent) code.children.splice(i, 1);
     }
   },
 };
