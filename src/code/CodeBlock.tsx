@@ -47,7 +47,12 @@ export default function CodeBlock({
         <CopyButton from={codeId} />
       </div>
 
-      <Highlight codeId={codeId} lang={lang} source={source} section={section} />
+      <Highlight
+        codeId={codeId}
+        lang={lang}
+        source={source}
+        section={section}
+      />
     </div>
   );
 }
