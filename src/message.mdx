@@ -1,4 +1,5 @@
 import loremIpsumTs from "./example/lorem-ipsum.ts?source";
+import loremIpsumMk from "./example/lorem-ipsum.mk?source";
 import CodeBlock from "./code/CodeBlock";
 
 # MDX as a Server Component
@@ -28,6 +29,7 @@ This is a demo for rendering MDX as a server component.
 <CodeBlock {...loremIpsumTs} filenameContext={0} />
 <CodeBlock {...loremIpsumTs} filenameContext={3} />
 <CodeBlock {...loremIpsumTs} title="Lorem ipsum" />
+<CodeBlock {...loremIpsumMk} />
 
 ```
 Hello, World!

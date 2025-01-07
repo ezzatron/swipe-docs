@@ -14,6 +14,9 @@ export default {
       typography: {
         DEFAULT: {
           css: {
+            code: {
+              tabSize: "2",
+            },
             "code::before": {
               content: '""',
             },
