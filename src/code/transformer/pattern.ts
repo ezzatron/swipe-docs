@@ -23,3 +23,12 @@ export const COMMENT_PATTERN =
  * - \s? - optional whitespace
  */
 export const NOTATION_PATTERN = /\s?\[!([\w-]+)(?:\s+(.+?))?]\s?/g;
+
+/**
+ * Matches escaped comment notations.
+ *
+ * The pattern is:
+ * - \[\\! - escaped notation start
+ * - (.*?]) - escaped notation content
+ */
+export const ESCAPED_NOTATION_PATTERN = /\[\\!(.*?])/g;

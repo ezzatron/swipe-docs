@@ -17,14 +17,17 @@ export const stripNotations: ShikiTransformer = {
         const [text] = child.children;
         if (text.type !== "text") continue;
         const comment = COMMENT_PATTERN.exec(text.value);
-        if (!comment || !NOTATION_PATTERN.test(comment[2])) continue;
+        if (!comment) continue;
+
+        const [, start, notations, end = ""] = comment;
+
+        if (!NOTATION_PATTERN.test(notations)) continue;
 
         hasNotations = true;
-        const content = comment[2].replaceAll(NOTATION_PATTERN, " ").trim();
+        const content = notations.replaceAll(NOTATION_PATTERN, " ").trim();
 
         if (content) {
           // comment still has content after stripping notations
-          const [, start, , end = ""] = comment;
           text.value = `${start}${content}${end}`;
         } else {
           // empty comment after stripping notations, remove it

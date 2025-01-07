@@ -6,6 +6,7 @@ import { jsx, jsxs } from "react/jsx-runtime";
 import { codeToHast, type BundledLanguage, type SpecialLanguage } from "shiki";
 import styles from "./Highlight.module.css";
 import { notationSections } from "./transformer/notation-sections";
+import { removeNotationEscape } from "./transformer/remove-notation-escape";
 import { stripNotations } from "./transformer/strip-notations";
 
 type Props = {
@@ -18,7 +19,7 @@ export default async function Highlight({ codeId, lang, source }: Props) {
   const tree = await codeToHast(source.replace(/\n+$/, ""), {
     lang,
     theme: "github-dark-default",
-    transformers: [notationSections, stripNotations],
+    transformers: [notationSections, stripNotations, removeNotationEscape],
   });
   const lineNumberWidth = countLines(tree).toString().length;
 
