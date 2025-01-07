@@ -11,6 +11,7 @@ type Props = {
   title?: string;
   filename?: string;
   filenameContext?: number;
+  section?: string;
 };
 
 export default function CodeBlock({
@@ -19,6 +20,7 @@ export default function CodeBlock({
   title,
   filename,
   filenameContext = 1,
+  section,
 }: Props) {
   const codeId = useId();
   const lang = normalizeLanguage(rawLang);
@@ -45,7 +47,7 @@ export default function CodeBlock({
         <CopyButton from={codeId} />
       </div>
 
-      <Highlight codeId={codeId} lang={lang} source={source} />
+      <Highlight codeId={codeId} lang={lang} source={source} section={section} />
     </div>
   );
 }

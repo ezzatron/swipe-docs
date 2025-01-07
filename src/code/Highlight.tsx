@@ -13,21 +13,29 @@ import styles from "./Highlight.module.css";
 import { collapseNewlines as collapseNewlinesTransformer } from "./transformer/collapse-newlines";
 import { notationSections as notationSectionsTransformer } from "./transformer/notation-sections";
 import { removeNotationEscape as removeNotationEscapeTransformer } from "./transformer/remove-notation-escape";
+import { section as sectionTransformer } from "./transformer/section";
 import { stripNotations as stripNotationsTransformer } from "./transformer/strip-notations";
 
 type Props = {
   codeId: string;
   lang: BundledLanguage | SpecialLanguage;
   source: string;
+  section: string | undefined;
 };
 
-export default async function Highlight({ codeId, lang, source }: Props) {
+export default async function Highlight({
+  codeId,
+  lang,
+  source,
+  section,
+}: Props) {
   const transformers: ShikiTransformer[] = [
     collapseNewlinesTransformer,
     notationSectionsTransformer,
     stripNotationsTransformer,
     removeNotationEscapeTransformer,
   ];
+  if (section) transformers.push(sectionTransformer(section));
 
   const tree = await codeToHast(source.replace(/\n+$/, ""), {
     lang,
