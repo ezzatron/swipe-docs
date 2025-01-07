@@ -11,7 +11,7 @@ export default function CopyButton({ from }: Props) {
   const [state, setState] = useState<"IDLE" | "COPIED" | "FAILED">("IDLE");
 
   const handleClick = useCallback(async () => {
-    const text = document.getElementById(from)?.textContent;
+    const text = document.getElementById(from)?.innerText;
 
     if (text == null) {
       setState("FAILED");
