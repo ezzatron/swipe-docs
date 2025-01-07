@@ -6,6 +6,16 @@ import CodeBlock from "./code/CodeBlock";
 This is a demo for rendering MDX as a server component.
 
 <CodeBlock {...loremIpsum} section="ipsum" title='"ipsum" function' />
+<CodeBlock
+  {...loremIpsum}
+  section="ipsum-adipiscing"
+  title='"ipsum" function "adipiscing" callback'
+/>
+<CodeBlock
+  {...loremIpsum}
+  section="ipsum-adipiscing-return"
+  title='"ipsum" function "adipiscing" callback return statement'
+/>
 <CodeBlock {...loremIpsum} />
 <CodeBlock {...loremIpsum} filenameContext={0} />
 <CodeBlock {...loremIpsum} filenameContext={3} />
