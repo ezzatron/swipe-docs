@@ -25,7 +25,5 @@ export const removeNotationEscape: ShikiTransformer = {
         text.value = `${start}${content}${end}`;
       }
     }
-
-    return code;
   },
 };

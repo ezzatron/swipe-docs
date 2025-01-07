@@ -68,7 +68,5 @@ export const notationSections: ShikiTransformer = {
 
       throw new Error(`Unclosed code sections: ${descriptions.join(", ")}`);
     }
-
-    return code;
   },
 };

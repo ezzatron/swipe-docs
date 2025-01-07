@@ -54,7 +54,5 @@ export const stripNotations: ShikiTransformer = {
 
       code.children.splice(i, hasNewline ? 2 : 1);
     }
-
-    return code;
   },
 };
