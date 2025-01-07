@@ -1,4 +1,5 @@
 import type { ShikiTransformer } from "shiki";
+import { addStyle } from "./style";
 
 export function section(name: string): ShikiTransformer {
   return {
@@ -6,8 +7,9 @@ export function section(name: string): ShikiTransformer {
 
     code(code) {
       let hasSection = false;
+      let minIndent = Infinity;
 
-      for (let i = code.children.length - 1; i >= 0; --i) {
+      for (let i = 0; i < code.children.length; ++i) {
         const line = code.children[i];
         if (line.type !== "element") continue;
 
@@ -15,14 +17,30 @@ export function section(name: string): ShikiTransformer {
         const sections =
           typeof sectionsData === "string" ? sectionsData.split(" ") : [];
 
-        if (sections.includes(name)) {
-          hasSection = true;
-        } else {
+        if (!sections.includes(name)) {
           line.properties.hidden = true;
+
+          continue;
         }
+
+        hasSection = true;
+
+        const [firstChild] = line.children;
+        if (firstChild?.type !== "element") continue;
+        const [text] = firstChild.children;
+        if (text?.type !== "text") continue;
+
+        const indent = text.value.search(/\S/);
+        minIndent = Math.min(minIndent, indent);
       }
 
       if (!hasSection) throw new Error(`Missing code section ${name}`);
+
+      this.pre.properties["data-section"] = name;
+      addStyle(
+        this.pre,
+        `--section-min-indent:${Number.isFinite(minIndent) ? minIndent : 0}ch`,
+      );
     },
   };
 }

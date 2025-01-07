@@ -1,4 +1,5 @@
 import type { ShikiTransformer } from "shiki";
+import { addStyle } from "./style";
 
 export const lineNumbers: ShikiTransformer = {
   name: "line-numbers",
@@ -14,13 +15,7 @@ export const lineNumbers: ShikiTransformer = {
       ++lineCount;
     }
 
-    const { style: unknownStyle } = code.properties;
-    const style = typeof unknownStyle === "string" ? unknownStyle : undefined;
     const lineNumberWidth = lineCount.toString().length;
-
-    this.pre.properties.style = [
-      ...(style?.split(";") ?? []),
-      `--line-number-width:${lineNumberWidth}ch`,
-    ].join(";");
+    addStyle(this.pre, `--line-number-width:${lineNumberWidth}ch`);
   },
 };

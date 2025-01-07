@@ -5,11 +5,11 @@ export const removeNotationEscape: ShikiTransformer = {
   name: "remove-notation-escape",
 
   code(code) {
-    for (let i = code.children.length - 1; i >= 0; --i) {
+    for (let i = 0; i < code.children.length; ++i) {
       const line = code.children[i];
       if (line.type !== "element") continue;
 
-      for (let j = line.children.length - 1; j >= 0; --j) {
+      for (let j = 0; j < line.children.length; ++j) {
         const child = line.children[j];
         if (child.type !== "element") continue;
         const [text] = child.children;
