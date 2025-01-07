@@ -1,5 +1,7 @@
+import clsx from "clsx";
 import { useId, type ReactNode } from "react";
 import { type BundledLanguage, type SpecialLanguage } from "shiki";
+import styles from "./CodeBlock.module.css";
 import CopyButton from "./CopyButton";
 import Highlight from "./Highlight";
 import LanguageIcon from "./LanguageIcon";
@@ -53,7 +55,7 @@ export default function CodeBlock({
           <LanguageIcon lang={lang} />
         </div>
 
-        <div className="flex-grow">{title}</div>
+        <div className={clsx(styles.title, "flex-grow")}>{title}</div>
         <CopyButton from={copyId} />
       </div>
 

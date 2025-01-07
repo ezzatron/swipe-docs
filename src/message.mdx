@@ -18,12 +18,21 @@ This is a demo for rendering MDX as a server component.
 <CodeBlock
   {...loremIpsumTs}
   section="ipsum-adipiscing"
-  title='"ipsum" function "adipiscing" callback'
+  title={
+    <>
+      <code>ipsum</code> function <code>adipiscing</code> callback
+    </>
+  }
 />
 <CodeBlock
   {...loremIpsumTs}
   section="ipsum-adipiscing-return"
-  title='"ipsum" function "adipiscing" callback return statement'
+  title={
+    <>
+      <code>ipsum</code> function <code>adipiscing</code> callback{" "}
+      <code>return</code> statement
+    </>
+  }
 />
 <CodeBlock {...loremIpsumTs} />
 <CodeBlock {...loremIpsumTs} filenameContext={0} />
