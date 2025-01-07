@@ -9,12 +9,12 @@ import { notationSections } from "./transformer/notation-sections";
 import { stripNotations } from "./transformer/strip-notations";
 
 type Props = {
-  id: string;
+  codeId: string;
   lang: BundledLanguage | SpecialLanguage;
   source: string;
 };
 
-export default async function Highlight({ id, lang, source }: Props) {
+export default async function Highlight({ codeId, lang, source }: Props) {
   const tree = await codeToHast(source.replace(/\n+$/, ""), {
     lang,
     theme: "github-dark-default",
@@ -27,6 +27,8 @@ export default async function Highlight({ id, lang, source }: Props) {
     jsx,
     jsxs,
     components: {
+      code: (props) => <code {...props} id={codeId} />,
+
       pre: ({
         className,
         style,
@@ -36,7 +38,6 @@ export default async function Highlight({ id, lang, source }: Props) {
         unknown
       >) => (
         <pre
-          id={id}
           className={clsx(
             className,
             styles.pre,

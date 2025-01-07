@@ -20,7 +20,7 @@ export default function CodeBlock({
   filename,
   filenameContext = 1,
 }: Props) {
-  const id = useId();
+  const codeId = useId();
   const lang = normalizeLanguage(rawLang);
 
   if (title == null) {
@@ -42,10 +42,10 @@ export default function CodeBlock({
         </div>
 
         <div className="flex-grow">{title}</div>
-        <CopyButton from={id} />
+        <CopyButton from={codeId} />
       </div>
 
-      <Highlight id={id} lang={lang} source={source} />
+      <Highlight codeId={codeId} lang={lang} source={source} />
     </div>
   );
 }
