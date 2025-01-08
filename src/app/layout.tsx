@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
+import RenderWhitespaceOnSelection from "../code/RenderWhitespaceOnSelection";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: Props) {
       )}
     >
       <body>{children}</body>
+      <RenderWhitespaceOnSelection />
     </html>
   );
 }

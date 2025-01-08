@@ -1,4 +1,8 @@
 .pre {
+  & *::selection {
+    background-color: theme("colors.gray.800");
+  }
+
   & :global(.line) * {
     display: inline-block;
   }
@@ -18,7 +22,10 @@
 
     &::before {
       position: absolute;
-      color: theme("colors.gray.700");
+      color: transparent;
+    }
+    &:global(.selected)::before {
+      color: theme("colors.gray.600");
     }
   }
   & :global(.space)::before {
