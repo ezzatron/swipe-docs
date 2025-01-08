@@ -1,4 +1,4 @@
-import type { Element, Text } from "hast";
+import type { Element } from "hast";
 import type { ShikiTransformer } from "shiki";
 
 export function section(name: string): ShikiTransformer {
@@ -6,7 +6,7 @@ export function section(name: string): ShikiTransformer {
     name: `section-${name}`,
 
     code(code) {
-      const sectionLines: [Text, Element][] = [];
+      const sectionIndentation: [string, Element[], Element][] = [];
       let hasSection = false;
 
       for (let i = 0; i < code.children.length; ++i) {
@@ -27,9 +27,26 @@ export function section(name: string): ShikiTransformer {
 
         const [firstChild] = line.children;
         if (firstChild?.type !== "element") continue;
-        const [text] = firstChild.children;
+        const indentElements: Element[] = [];
+        let indent = "";
 
-        if (text?.type === "text") sectionLines.push([text, line]);
+        for (const child of firstChild.children) {
+          if (child.type !== "element") continue;
+
+          const classNames = String(child.properties.class ?? "").split(" ");
+
+          if (!classNames.includes("space") && !classNames.includes("tab")) {
+            continue;
+          }
+
+          const [text] = child.children;
+          if (text?.type !== "text") continue;
+
+          indentElements.push(child);
+          indent += text.value;
+        }
+
+        sectionIndentation.push([indent, indentElements, firstChild]);
       }
 
       if (!hasSection) throw new Error(`Missing code section ${name}`);
@@ -38,19 +55,21 @@ export function section(name: string): ShikiTransformer {
 
       let minIndentCharCount = Infinity;
       let indent = "";
+      let indentElements: Element[] = [];
       let hasConsistentIndent = true;
 
-      for (const [text] of sectionLines) {
-        const indentCharCount = text.value.search(/\S/);
+      for (const [lineIndent, lineIndentElements] of sectionIndentation) {
+        const indentCharCount = lineIndent.length;
 
         if (indentCharCount >= 0 && indentCharCount < minIndentCharCount) {
           minIndentCharCount = indentCharCount;
-          indent = text.value.slice(0, indentCharCount);
+          indent = lineIndent;
+          indentElements = lineIndentElements;
         }
       }
 
-      for (const [text] of sectionLines) {
-        if (!text.value.startsWith(indent)) {
+      for (const [lineIndent] of sectionIndentation) {
+        if (!lineIndent.startsWith(indent)) {
           hasConsistentIndent = false;
 
           break;
@@ -59,14 +78,13 @@ export function section(name: string): ShikiTransformer {
 
       if (!hasConsistentIndent) return;
 
-      for (const [text, line] of sectionLines) {
-        line.children.unshift({
+      for (const [, , firstChild] of sectionIndentation) {
+        firstChild.children.splice(0, indentElements.length, {
           type: "element",
           tagName: "span",
-          children: [{ type: "text", value: indent }],
+          children: indentElements,
           properties: { class: "section-indent" },
         });
-        text.value = text.value.slice(indent.length);
       }
     },
   };

@@ -36,8 +36,8 @@ export default async function Highlight({
       stripNotationsTransformer,
       removeNotationEscapeTransformer,
       lineNumbersTransformer,
-      ...(section ? [sectionTransformer(section)] : []),
       renderWhitespaceTransformer,
+      ...(section ? [sectionTransformer(section)] : []),
     ],
   });
 
