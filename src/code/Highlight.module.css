@@ -5,7 +5,7 @@
 
   & :global(.line::before) {
     display: inline-block;
-    margin-right: theme("spacing.5");
+    margin-right: theme("spacing.6");
     width: var(--line-number-width, 1ch);
     content: attr(data-line);
     color: theme("colors.gray.600");
