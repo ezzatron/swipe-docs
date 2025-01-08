@@ -10,7 +10,10 @@ export default function RenderWhitespaceOnSelection() {
       );
 
       const selection = document.getSelection() ?? undefined;
-      const range = selection?.rangeCount ? selection.getRangeAt(0) : undefined;
+      const range =
+        !selection?.isCollapsed && selection?.rangeCount
+          ? selection.getRangeAt(0)
+          : undefined;
 
       for (const element of whitespace) {
         if (range?.intersectsNode(element)) {
