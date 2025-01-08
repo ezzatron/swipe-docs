@@ -17,6 +17,7 @@ type Props = {
   lang: BundledLanguage | SpecialLanguage;
   source: string;
   section: string | undefined;
+  lineNumbers: boolean;
 };
 
 export default async function Highlight({
@@ -24,6 +25,7 @@ export default async function Highlight({
   lang,
   source,
   section,
+  lineNumbers,
 }: Props) {
   const tree = await codeToHast(source.replace(/\n+$/, ""), {
     lang,
@@ -57,6 +59,7 @@ export default async function Highlight({
             className,
             styles.pre,
             "mt-0 rounded-b rounded-t-none font-mono text-sm",
+            { [styles.lineNumbers]: lineNumbers },
           )}
           {...props}
         />

@@ -7,7 +7,7 @@
     display: inline-block;
   }
 
-  & :global(.line::before) {
+  &.lineNumbers :global(.line::before) {
     display: inline-block;
     margin-right: theme("spacing.6");
     width: var(--line-number-width, 1ch);

@@ -14,6 +14,7 @@ type Props = {
   filename?: string;
   filenameContext?: number;
   section?: string;
+  lineNumbers?: boolean;
 };
 
 export default function CodeBlock({
@@ -23,6 +24,7 @@ export default function CodeBlock({
   filename,
   filenameContext = 1,
   section,
+  lineNumbers = false,
 }: Props) {
   const copyId = useId();
 
@@ -64,6 +66,7 @@ export default function CodeBlock({
         lang={lang}
         source={source}
         section={section}
+        lineNumbers={lineNumbers}
       />
     </div>
   );
