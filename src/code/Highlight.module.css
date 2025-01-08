@@ -13,6 +13,23 @@
     text-align: right;
   }
 
+  & :global(.space),
+  & :global(.tab) {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      color: theme("colors.gray.700");
+      user-select: none;
+    }
+  }
+  & :global(.space)::before {
+    content: "\0000B7";
+  }
+  & :global(.tab)::before {
+    content: "\002192";
+  }
+
   &[data-section] {
     & :global(.section-indent) {
       display: none;
