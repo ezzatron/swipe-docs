@@ -8,6 +8,7 @@ import LanguageIcon from "./LanguageIcon";
 import { extensionToLanguage, normalizeLanguage } from "./language";
 
 type Props = {
+  id?: string;
   lang?: BundledLanguage | SpecialLanguage;
   source: string;
   title?: ReactNode;
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export default function CodeBlock({
+  id: explicitId,
   lang,
   source,
   title,
@@ -26,7 +28,9 @@ export default function CodeBlock({
   section,
   lineNumbers = false,
 }: Props) {
-  const copyId = useId();
+  const implicitId = useId();
+  const id = explicitId ?? implicitId;
+  const copyId = `${id}-copy`;
 
   if (lang == null) {
     if (filename == null) {
@@ -51,7 +55,7 @@ export default function CodeBlock({
   }
 
   return (
-    <div>
+    <div id={explicitId}>
       <div className="flex items-center gap-2 rounded-t bg-gray-900 px-4 py-3 font-mono text-sm text-gray-400">
         <div className="translate-y-[-1px]">
           <LanguageIcon lang={lang} />
