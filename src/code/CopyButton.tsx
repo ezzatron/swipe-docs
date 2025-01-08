@@ -31,8 +31,8 @@ export default function CopyButton({ from }: Props) {
 
   return (
     <button
-      aria-label="Copy"
-      title="Copy"
+      aria-label="Copy code"
+      title="Copy code"
       onClick={handleClick}
       className="active:white hover:text-gray-200 focus-visible:text-gray-200"
     >

@@ -4,8 +4,9 @@ import { type BundledLanguage, type SpecialLanguage } from "shiki";
 import styles from "./CodeBlock.module.css";
 import CopyButton from "./CopyButton";
 import Highlight from "./Highlight";
-import LanguageIcon from "./LanguageIcon";
 import { extensionToLanguage, normalizeLanguage } from "./language";
+import LanguageIcon from "./LanguageIcon";
+import PermalinkButton from "./PermalinkButton";
 
 type Props = {
   id?: string;
@@ -62,7 +63,11 @@ export default function CodeBlock({
         </div>
 
         <div className={clsx(styles.title, "flex-grow")}>{title}</div>
-        <CopyButton from={copyId} />
+
+        <div className="flex items-center gap-3">
+          {explicitId && <PermalinkButton anchor={explicitId} />}
+          <CopyButton from={copyId} />
+        </div>
       </div>
 
       <Highlight
