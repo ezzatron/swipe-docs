@@ -9,7 +9,6 @@
     width: var(--line-number-width, 1ch);
     content: attr(data-line);
     color: theme("colors.gray.600");
-    user-select: none;
     text-align: right;
   }
 
@@ -20,7 +19,6 @@
     &::before {
       position: absolute;
       color: theme("colors.gray.700");
-      user-select: none;
     }
   }
   & :global(.space)::before {
