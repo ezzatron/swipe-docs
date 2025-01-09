@@ -27,6 +27,11 @@
 .pre :global(.tab)::before {
   content: "\002192";
 }
+/* hack to fix weird Safari text highlight gaps */
+.pre :global(:is(.space, .tab))::before {
+  left: -100px;
+  transform: translateX(100px);
+}
 
 .pre :global(.section-context) {
   display: none;
