@@ -1,6 +1,9 @@
-import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-import loremIpsumGo from "./example/lorem-ipsum.go?source";
 import CodeBlock from "./code/CodeBlock";
+
+import thisFile from "./message.mdx?source";
+
+import loremIpsumTs from "./example/lorem-ipsum.ts?source"; // [!section source-import-ts]
+import loremIpsumGo from "./example/lorem-ipsum.go?source"; // [!section source-import-go]
 
 # Syntax highlighting examples
 
@@ -11,85 +14,80 @@ import CodeBlock from "./code/CodeBlock";
 You can make a code block from an imported file. By default the code block will
 have the filename as the title, and show line numbers.
 
+{/* [!section-start cb-default-options] */}
+
 <CodeBlock {...loremIpsumTs} />
+
+{/* [!section-end cb-default-options] */}
 
 <details>
-<summary>Source</summary>
-
-```mdx
-import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-
-<CodeBlock {...loremIpsumTs} />
-```
-
+  <summary>Source</summary>
+  <CodeBlock {...thisFile} section="source-import-ts" title="Source import" />
+  <CodeBlock {...thisFile} section="cb-default-options" title="Code block" />
 </details>
 
 ### No line numbers
 
 You can disable line numbers.
 
+{/* [!section-start cb-no-line-numbers] */}
+
 <CodeBlock {...loremIpsumTs} lineNumbers={false} />
 
+{/* [!section-end cb-no-line-numbers] */}
+
 <details>
-<summary>Source</summary>
-
-```mdx
-import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-
-<CodeBlock {...loremIpsumTs} lineNumbers={false} />;
-```
-
+  <summary>Source</summary>
+  <CodeBlock {...thisFile} section="source-import-ts" title="Source import" />
+  <CodeBlock {...thisFile} section="cb-no-line-numbers" title="Code block" />
 </details>
 
 ### Extra filename context
 
 You can increase how much of the filename is shown.
 
+{/* [!section-start cb-filename-context] */}
+
 <CodeBlock {...loremIpsumTs} filenameContext={2} />
 
+{/* [!section-end cb-filename-context] */}
+
 <details>
-<summary>Source</summary>
-
-```mdx
-import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-
-<CodeBlock {...loremIpsumTs} filenameContext={2} />;
-```
-
+  <summary>Source</summary>
+  <CodeBlock {...thisFile} section="source-import-ts" title="Source import" />
+  <CodeBlock {...thisFile} section="cb-filename-context" title="Code block" />
 </details>
 
 ### Custom title
 
 You can set a custom title.
 
+{/* [!section-start cb-custom-title] */}
+
 <CodeBlock {...loremIpsumTs} title="Lorem ipsum" />
 
+{/* [!section-end cb-custom-title] */}
+
 <details>
-<summary>Source</summary>
-
-```mdx
-import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-
-<CodeBlock {...loremIpsumTs} title="Lorem ipsum" />;
-```
-
+  <summary>Source</summary>
+  <CodeBlock {...thisFile} section="source-import-ts" title="Source import" />
+  <CodeBlock {...thisFile} section="cb-custom-title" title="Code block" />
 </details>
 
 ### Linkable code blocks
 
 You can give the code block an ID, which makes it linkable.
 
+{/* [!section-start cb-permalink] */}
+
 <CodeBlock {...loremIpsumTs} id="lorem-ipsum-ts-permalink" />
 
+{/* [!section-end cb-permalink] */}
+
 <details>
-<summary>Source</summary>
-
-```mdx
-import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-
-<CodeBlock {...loremIpsumTs} id="lorem-ipsum-ts-permalink" />;
-```
-
+  <summary>Source</summary>
+  <CodeBlock {...thisFile} section="source-import-ts" title="Source import" />
+  <CodeBlock {...thisFile} section="cb-permalink" title="Code block" />
 </details>
 
 ### Support for tab indentation
@@ -97,17 +95,16 @@ import loremIpsumTs from "./example/lorem-ipsum.ts?source";
 You can highlight code for languages that use tab indentation. You can select
 any whitespace to make the tabs and spaces visible.
 
+{/* [!section-start cb-tabs] */}
+
 <CodeBlock {...loremIpsumGo} id="lorem-ipsum-go" />
 
+{/* [!section-end cb-tabs] */}
+
 <details>
-<summary>Source</summary>
-
-```mdx
-import loremIpsumGo from "./example/lorem-ipsum.go?source";
-
-<CodeBlock {...loremIpsumGo} id="lorem-ipsum-go" />;
-```
-
+  <summary>Source</summary>
+  <CodeBlock {...thisFile} section="source-import-go" title="Source import" />
+  <CodeBlock {...thisFile} section="cb-tabs" title="Code block" />
 </details>
 
 ### Sections with expandable context
@@ -115,6 +112,8 @@ import loremIpsumGo from "./example/lorem-ipsum.go?source";
 You can define sections in the example code with annotations, and show only a
 specific section. Sections are expandable to show more context.
 
+{/* [!section-start cb-sections] */}
+
 <CodeBlock
   {...loremIpsumTs}
   section="ipsum"
@@ -143,75 +142,26 @@ specific section. Sections are expandable to show more context.
     </>
   }
 />
+
+{/* [!section-end cb-sections] */}
 
 <details>
-<summary>Source</summary>
-
-```mdx
-import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-
-<CodeBlock
-  {...loremIpsumTs}
-  section="ipsum"
-  title={
-    <>
-      <code>ipsum</code> function
-    </>
-  }
-/>
-<CodeBlock
-  {...loremIpsumTs}
-  section="ipsum-adipiscing"
-  title={
-    <>
-      <code>ipsum</code> function <code>adipiscing</code> callback
-    </>
-  }
-/>
-<CodeBlock
-  {...loremIpsumTs}
-  section="ipsum-adipiscing-return"
-  title={
-    <>
-      <code>ipsum</code> function <code>adipiscing</code> callback{" "}
-      <code>return</code> statement
-    </>
-  }
-/>
-```
-
-```ts title="Section annotations"
-const dolor = 1;
-const sit = 2;
-const lorem = ipsum(dolor, sit);
-
-let amet = 0;
-
-lorem.adipiscing((sed, elit) => {
-  if (sed) amet += elit;
-});
-
-console.log(amet); // normal comment
-
-// [\!section-start ipsum]
-function ipsum(dolor: number, sit: number) {
-  return {
-    // [\!section-start ipsum-adipiscing]
-    adipiscing: (amet: (sed: boolean, elit: number) => void) => {
-      return amet(true, dolor + sit); // [\!section ipsum-adipiscing-return]
-    },
-    // [\!section-end ipsum-adipiscing]
-  };
-}
-// [\!section-end ipsum]
-```
-
+  <summary>Source</summary>
+  <CodeBlock {...thisFile} section="source-import-ts" title="Source import" />
+  <CodeBlock {...thisFile} section="cb-sections" title="Code blocks" />
+  <CodeBlock
+    {...loremIpsumTs}
+    source={loremIpsumTs.source.replaceAll(/\/\/ \[!/g, "// [\\!")}
+    title="Section annotations"
+  />
 </details>
 
 ### From Markdown code blocks
 
 You can use normal Markdown code blocks, which support all the same features.
 
+{/* [!section-start cb-markdown] */}
+
 ```
 Hello, World!
 ```
@@ -230,29 +180,10 @@ Hello, World!
 user@foo$ 1s -1 | grep ".txt"
 hello.txt
 ```
+
+{/* [!section-end cb-markdown] */}
 
 <details>
-<summary>Source</summary>
-
-````mdx
-```
-Hello, World!
-```
-
-```ts title="hello-world.ts"
-console.log("Hello, World!");
-```
-
-```sh
-echo "Hello, World!"
-```
-
-```console
-user@foo$ echo "Hello, World!" > hello.txt
-Hello, World!
-user@foo$ 1s -1 | grep ".txt"
-hello.txt
-```
-````
-
+  <summary>Source</summary>
+  <CodeBlock {...thisFile} section="cb-markdown" title="Code blocks" />
 </details>
