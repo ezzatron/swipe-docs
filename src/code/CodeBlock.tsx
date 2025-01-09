@@ -32,6 +32,7 @@ export default function CodeBlock({
   const implicitId = useId();
   const id = explicitId ?? implicitId;
   const copyId = `${id}-copy`;
+  const sectionId = `${id}-section`;
 
   if (lang == null) {
     if (filename == null) {
@@ -77,6 +78,7 @@ export default function CodeBlock({
         lang={lang}
         source={source}
         section={section}
+        sectionId={sectionId}
         lineNumbers={lineNumbers}
       />
     </div>

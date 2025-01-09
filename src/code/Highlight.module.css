@@ -1,6 +1,16 @@
+/* necessary to render tabs correctly */
 .pre :global(.line) * {
   display: inline-block;
 }
+
+/* selection color */
+.pre::selection,
+.pre *::selection {
+  /* this must be semi-transparent for Safari compatibility */
+  background-color: rgb(from theme("colors.gray.600") r g b / 50%);
+}
+
+/* line numbers ***************************************************************/
 
 .pre.lineNumbers :global(.line::before) {
   display: inline-block;
@@ -10,37 +20,68 @@
   color: theme("colors.gray.600");
   text-align: right;
 }
+/* hide line numbers when showing sections until the section is expanded */
+.pre:has(:global(.section-expanded:not(:checked))) :global(.line::before) {
+  display: none;
+}
+
+/* whitespace rendering *******************************************************/
 
 .pre :global(:is(.space, .tab)) {
   position: relative;
 }
-.pre :global(:is(.space, .tab))::before {
+.pre :global(:is(.space, .tab)::before) {
   position: absolute;
   color: transparent;
 }
-.pre :global(:is(.space, .tab).selected)::before {
+.pre :global(:is(.space, .tab).selected::before) {
   color: theme("colors.gray.600");
 }
-.pre :global(.space)::before {
-  content: "\0000B7";
+.pre :global(.space::before) {
+  content: "\0000B7"; /* middle dot */
 }
-.pre :global(.tab)::before {
-  content: "\002192";
+.pre :global(.tab::before) {
+  content: "\002192"; /* right arrow */
 }
-/* hack to fix weird Safari text highlight gaps */
-.pre :global(:is(.space, .tab))::before {
+/* hack to fix weird Safari text highlight gaps - still not perfect */
+.pre :global(:is(.space, .tab)::before) {
   left: -100px;
   transform: translateX(100px);
 }
 
-.pre :global(.section-context) {
-  display: none;
-}
-.pre :global(.section-content .section-indent) {
-  display: none;
-}
+/* sections *******************************************************************/
 
-.pre::selection,
-.pre *::selection {
-  background-color: rgb(from theme("colors.gray.600") r g b / 50%);
+/* interactive expander */
+.pre :global(.section-expander) {
+  display: block;
+  cursor: pointer;
+  color: theme("colors.gray.700");
+}
+.pre :global(:is(.section-expander:hover, .section-expander:focus-visible)) {
+  color: theme("colors.gray.200");
+}
+.pre :global(.section-expander:active) {
+  color: theme("colors.blue.400");
+}
+/* use more padding when the section is expanded */
+.pre:has(:global(.section-expanded:checked)) :global(.section-expander) {
+  padding-block: theme("spacing.1");
+}
+.pre :global(:is(.section-expander-show, .section-expander-hide)::before) {
+  content: "\0000B7\0000B7\0000B7"; /* three middle dots */
+}
+/* switch the show and hide content depending on expanded status */
+.pre :global(.section-expander-hide) {
+  display: none;
+}
+.pre:has(:global(.section-expanded:checked)) :global(.section-expander-hide) {
+  display: inline;
+}
+.pre:has(:global(.section-expanded:checked)) :global(.section-expander-show) {
+  display: none;
+}
+/* hide the context and indent when the section is collapsed */
+.pre:has(:global(.section-expanded:not(:checked)))
+  :global(:is(.section-context, .section-content .section-indent)) {
+  display: none;
 }

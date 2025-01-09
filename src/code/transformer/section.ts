@@ -1,11 +1,12 @@
 import type { Element } from "hast";
 import type { ShikiTransformer } from "shiki";
 
-export function section(name: string): ShikiTransformer {
+export function section(name: string, id: string): ShikiTransformer {
   return {
-    name: `section-${name}`,
+    name: `section-${name}-${id}`,
 
     code(code) {
+      const expandedId = `${id}-expanded`;
       const linesBefore: Element[] = [];
       const sectionLines: Element[] = [];
       const linesAfter: Element[] = [];
@@ -63,22 +64,43 @@ export function section(name: string): ShikiTransformer {
         {
           type: "element",
           tagName: "div",
-          properties: { class: "section-context" },
-          children: linesBefore,
-        },
-        {
-          type: "element",
-          tagName: "div",
           properties: { class: "section-content" },
           children: sectionLines,
         },
-        {
+      ];
+
+      if (linesBefore.length > 0) {
+        code.children.unshift(
+          {
+            type: "element",
+            tagName: "div",
+            properties: { class: "section-context" },
+            children: linesBefore,
+          },
+          createExpander(expandedId),
+        );
+      }
+
+      if (linesAfter.length > 0) {
+        code.children.push(createExpander(expandedId), {
           type: "element",
           tagName: "div",
           properties: { class: "section-context" },
           children: linesAfter,
+        });
+      }
+
+      this.pre.children.push({
+        type: "element",
+        tagName: "input",
+        properties: {
+          type: "checkbox",
+          id: expandedId,
+          class: "section-expanded",
+          hidden: true,
         },
-      ];
+        children: [],
+      });
 
       let minIndentCharCount = Infinity;
       let indent = "";
@@ -114,5 +136,35 @@ export function section(name: string): ShikiTransformer {
         }
       }
     },
+  };
+}
+
+function createExpander(expandedId: string): Element {
+  return {
+    type: "element",
+    tagName: "label",
+    properties: { for: expandedId, class: "section-expander" },
+    children: [
+      {
+        type: "element",
+        tagName: "span",
+        properties: {
+          class: "section-expander-show",
+          ariaLabel: "Show more",
+          title: "Show more",
+        },
+        children: [],
+      },
+      {
+        type: "element",
+        tagName: "span",
+        properties: {
+          class: "section-expander-hide",
+          ariaLabel: "Show less",
+          title: "Show less",
+        },
+        children: [],
+      },
+    ],
   };
 }

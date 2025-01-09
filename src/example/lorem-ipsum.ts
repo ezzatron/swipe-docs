@@ -21,5 +21,3 @@ function ipsum(dolor: number, sit: number) {
   };
 }
 // [!section-end ipsum]
-
-// hullo

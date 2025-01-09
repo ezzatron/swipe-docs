@@ -17,6 +17,7 @@ type Props = {
   lang: BundledLanguage | SpecialLanguage;
   source: string;
   section: string | undefined;
+  sectionId: string;
   lineNumbers: boolean;
 };
 
@@ -25,6 +26,7 @@ export default async function Highlight({
   lang,
   source,
   section,
+  sectionId,
   lineNumbers,
 }: Props) {
   const tree = await codeToHast(source.replace(/\n+$/, ""), {
@@ -37,7 +39,7 @@ export default async function Highlight({
       removeNotationEscapeTransformer,
       lineNumbersTransformer,
       renderWhitespaceTransformer,
-      ...(section ? [sectionTransformer(section)] : []),
+      ...(section ? [sectionTransformer(section, sectionId)] : []),
     ],
   });
 
