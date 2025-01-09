@@ -2,9 +2,88 @@ import loremIpsumTs from "./example/lorem-ipsum.ts?source";
 import loremIpsumGo from "./example/lorem-ipsum.go?source";
 import CodeBlock from "./code/CodeBlock";
 
-# MDX as a Server Component
+# Syntax highlighting examples
 
-This is a demo for rendering MDX as a server component.
+## From imported files
+
+### Default options
+
+You can make a code block from an imported file. By default the code block will
+have the filename as the title, and show line numbers.
+
+<CodeBlock {...loremIpsumTs} />
+
+```tsx title="Code to make this example"
+import loremIpsumTs from "./example/lorem-ipsum.ts?source";
+// ...
+<CodeBlock {...loremIpsumTs} />;
+```
+
+### No line numbers
+
+You can disable line numbers.
+
+<CodeBlock {...loremIpsumTs} lineNumbers={false} />
+
+```tsx title="Code to make this example"
+import loremIpsumTs from "./example/lorem-ipsum.ts?source";
+// ...
+<CodeBlock {...loremIpsumTs} lineNumbers={false} />;
+```
+
+### Extra filename context
+
+You can increase how much of the filename is shown.
+
+<CodeBlock {...loremIpsumTs} filenameContext={2} />
+
+```tsx title="Code to make this example"
+import loremIpsumTs from "./example/lorem-ipsum.ts?source";
+// ...
+<CodeBlock {...loremIpsumTs} filenameContext={2} />;
+```
+
+### Custom title
+
+You can set a custom title.
+
+<CodeBlock {...loremIpsumTs} title="Lorem ipsum" />
+
+```tsx title="Code to make this example"
+import loremIpsumTs from "./example/lorem-ipsum.ts?source";
+// ...
+<CodeBlock {...loremIpsumTs} title="Lorem ipsum" />;
+```
+
+### Linkable code blocks
+
+You can give the code block an ID, which makes it linkable.
+
+<CodeBlock {...loremIpsumTs} id="lorem-ipsum-ts-permalink" />
+
+```tsx title="Code to make this example"
+import loremIpsumTs from "./example/lorem-ipsum.ts?source";
+// ...
+<CodeBlock {...loremIpsumTs} id="lorem-ipsum-ts-permalink" />;
+```
+
+### Support for tab indentation
+
+You can highlight code for languages that use tab indentation. You can select
+any whitespace to make the tabs and spaces visible.
+
+<CodeBlock {...loremIpsumGo} id="lorem-ipsum-go" />
+
+```tsx title="Code to make this example"
+import loremIpsumGo from "./example/lorem-ipsum.go?source";
+// ...
+<CodeBlock {...loremIpsumGo} id="lorem-ipsum-go" />;
+```
+
+### Sections with expandable context
+
+You can define sections in the example code with annotations, and show only a
+specific section. Sections are expandable to show more context.
 
 <CodeBlock
   {...loremIpsumTs}
@@ -34,12 +113,69 @@ This is a demo for rendering MDX as a server component.
     </>
   }
 />
-<CodeBlock {...loremIpsumTs} />
-<CodeBlock {...loremIpsumTs} filenameContext={0} />
-<CodeBlock {...loremIpsumTs} filenameContext={3} />
-<CodeBlock {...loremIpsumTs} title="Lorem ipsum" id="lorem-ipsum-ts" />
-<CodeBlock {...loremIpsumGo} id="lorem-ipsum-go" />
-<CodeBlock {...loremIpsumGo} lineNumbers={false} />
+
+```tsx title="Code to make this example"
+import loremIpsumTs from "./example/lorem-ipsum.ts?source";
+// ...
+<CodeBlock
+  {...loremIpsumTs}
+  section="ipsum"
+  title={
+    <>
+      <code>ipsum</code> function
+    </>
+  }
+/>;
+<CodeBlock
+  {...loremIpsumTs}
+  section="ipsum-adipiscing"
+  title={
+    <>
+      <code>ipsum</code> function <code>adipiscing</code> callback
+    </>
+  }
+/>;
+<CodeBlock
+  {...loremIpsumTs}
+  section="ipsum-adipiscing-return"
+  title={
+    <>
+      <code>ipsum</code> function <code>adipiscing</code> callback{" "}
+      <code>return</code> statement
+    </>
+  }
+/>;
+```
+
+```ts title="Example annotated code"
+const dolor = 1;
+const sit = 2;
+const lorem = ipsum(dolor, sit);
+
+let amet = 0;
+
+lorem.adipiscing((sed, elit) => {
+  if (sed) amet += elit;
+});
+
+console.log(amet); // normal comment
+
+// [\!section-start ipsum]
+function ipsum(dolor: number, sit: number) {
+  return {
+    // [\!section-start ipsum-adipiscing]
+    adipiscing: (amet: (sed: boolean, elit: number) => void) => {
+      return amet(true, dolor + sit); // [\!section ipsum-adipiscing-return]
+    },
+    // [\!section-end ipsum-adipiscing]
+  };
+}
+// [\!section-end ipsum]
+```
+
+### From Markdown code blocks
+
+You can use normal Markdown code blocks, which support all the same features.
 
 ```
 Hello, World!
@@ -59,3 +195,24 @@ Hello, World!
 user@foo$ 1s -1 | grep ".txt"
 hello.txt
 ```
+
+````md title="Code to make this example"
+```
+Hello, World!
+```
+
+```ts title="hello-world.ts"
+console.log("Hello, World!");
+```
+
+```sh
+echo "Hello, World!"
+```
+
+```console
+user@foo$ echo "Hello, World!" > hello.txt
+Hello, World!
+user@foo$ 1s -1 | grep ".txt"
+hello.txt
+```
+````
