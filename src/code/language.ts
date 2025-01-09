@@ -23,5 +23,7 @@ export function normalizeLanguage(
 export function extensionToLanguage(
   ext: string,
 ): BundledLanguage | SpecialLanguage {
-  return (langByExtension[ext] ?? ext) as BundledLanguage | SpecialLanguage;
+  return (langByExtension[ext] ?? normalizeLanguage(ext)) as
+    | BundledLanguage
+    | SpecialLanguage;
 }
