@@ -62,7 +62,9 @@ export default function CodeBlock({
           <LanguageIcon lang={lang} />
         </div>
 
-        <div className={clsx(styles.title, "flex-grow")}>{title}</div>
+        <div className={clsx(styles.title, "text-truncate flex-grow")}>
+          {title}
+        </div>
 
         <div className="flex items-center gap-3">
           {explicitId && <PermalinkButton anchor={explicitId} />}
