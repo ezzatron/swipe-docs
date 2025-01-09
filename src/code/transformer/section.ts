@@ -98,6 +98,7 @@ export function section(name: string, id: string): ShikiTransformer {
           id: expandedId,
           class: "section-expanded",
           hidden: true,
+          ariaLabel: "Show more",
         },
         children: [],
       });

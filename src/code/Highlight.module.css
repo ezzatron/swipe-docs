@@ -51,31 +51,40 @@
 
 /* sections *******************************************************************/
 
-/* interactive expander */
+/* interactive handle */
 .pre :global(.section-expander) {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: theme("spacing.2");
   cursor: pointer;
-  color: theme("colors.gray.700");
+  color: theme("colors.gray.800");
 }
 .pre :global(:is(.section-expander:hover, .section-expander:focus-visible)) {
-  color: theme("colors.gray.200");
+  color: theme("colors.gray.600");
 }
 .pre :global(.section-expander:active) {
-  color: theme("colors.blue.400");
+  color: theme("colors.blue.600");
 }
-/* use more padding when the section is expanded */
-.pre:has(:global(.section-expanded:checked)) :global(.section-expander) {
-  padding-block: theme("spacing.1");
+.pre :global(.section-expander::before) {
+  content: "(\0000B7\0000B7\0000B7)";
 }
-.pre :global(:is(.section-expander-show, .section-expander-hide)::before) {
-  content: "\0000B7\0000B7\0000B7"; /* three middle dots */
+.pre :global(:is(.section-expander-show, .section-expander-hide)) {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  height: theme("lineHeight.7");
+}
+.pre :global(:is(.section-expander-show, .section-expander-hide)::after) {
+  flex-grow: 1;
+  border-top: 1px solid currentColor;
+  content: "";
 }
 /* switch the show and hide content depending on expanded status */
 .pre :global(.section-expander-hide) {
   display: none;
 }
 .pre:has(:global(.section-expanded:checked)) :global(.section-expander-hide) {
-  display: inline;
+  display: flex;
 }
 .pre:has(:global(.section-expanded:checked)) :global(.section-expander-show) {
   display: none;
