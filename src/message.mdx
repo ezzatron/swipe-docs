@@ -13,11 +13,16 @@ have the filename as the title, and show line numbers.
 
 <CodeBlock {...loremIpsumTs} />
 
-```tsx title="Code to make this example"
+<details>
+<summary>Source</summary>
+
+```mdx
 import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-// ...
-<CodeBlock {...loremIpsumTs} />;
+
+<CodeBlock {...loremIpsumTs} />
 ```
+
+</details>
 
 ### No line numbers
 
@@ -25,11 +30,16 @@ You can disable line numbers.
 
 <CodeBlock {...loremIpsumTs} lineNumbers={false} />
 
-```tsx title="Code to make this example"
+<details>
+<summary>Source</summary>
+
+```mdx
 import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-// ...
+
 <CodeBlock {...loremIpsumTs} lineNumbers={false} />;
 ```
+
+</details>
 
 ### Extra filename context
 
@@ -37,11 +47,16 @@ You can increase how much of the filename is shown.
 
 <CodeBlock {...loremIpsumTs} filenameContext={2} />
 
-```tsx title="Code to make this example"
+<details>
+<summary>Source</summary>
+
+```mdx
 import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-// ...
+
 <CodeBlock {...loremIpsumTs} filenameContext={2} />;
 ```
+
+</details>
 
 ### Custom title
 
@@ -49,11 +64,16 @@ You can set a custom title.
 
 <CodeBlock {...loremIpsumTs} title="Lorem ipsum" />
 
-```tsx title="Code to make this example"
+<details>
+<summary>Source</summary>
+
+```mdx
 import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-// ...
+
 <CodeBlock {...loremIpsumTs} title="Lorem ipsum" />;
 ```
+
+</details>
 
 ### Linkable code blocks
 
@@ -61,11 +81,16 @@ You can give the code block an ID, which makes it linkable.
 
 <CodeBlock {...loremIpsumTs} id="lorem-ipsum-ts-permalink" />
 
-```tsx title="Code to make this example"
+<details>
+<summary>Source</summary>
+
+```mdx
 import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-// ...
+
 <CodeBlock {...loremIpsumTs} id="lorem-ipsum-ts-permalink" />;
 ```
+
+</details>
 
 ### Support for tab indentation
 
@@ -74,11 +99,16 @@ any whitespace to make the tabs and spaces visible.
 
 <CodeBlock {...loremIpsumGo} id="lorem-ipsum-go" />
 
-```tsx title="Code to make this example"
+<details>
+<summary>Source</summary>
+
+```mdx
 import loremIpsumGo from "./example/lorem-ipsum.go?source";
-// ...
+
 <CodeBlock {...loremIpsumGo} id="lorem-ipsum-go" />;
 ```
+
+</details>
 
 ### Sections with expandable context
 
@@ -114,9 +144,12 @@ specific section. Sections are expandable to show more context.
   }
 />
 
-```tsx title="Code to make this example"
+<details>
+<summary>Source</summary>
+
+```mdx
 import loremIpsumTs from "./example/lorem-ipsum.ts?source";
-// ...
+
 <CodeBlock
   {...loremIpsumTs}
   section="ipsum"
@@ -125,7 +158,8 @@ import loremIpsumTs from "./example/lorem-ipsum.ts?source";
       <code>ipsum</code> function
     </>
   }
-/>;
+/>
+;
 <CodeBlock
   {...loremIpsumTs}
   section="ipsum-adipiscing"
@@ -134,7 +168,8 @@ import loremIpsumTs from "./example/lorem-ipsum.ts?source";
       <code>ipsum</code> function <code>adipiscing</code> callback
     </>
   }
-/>;
+/>
+;
 <CodeBlock
   {...loremIpsumTs}
   section="ipsum-adipiscing-return"
@@ -144,10 +179,11 @@ import loremIpsumTs from "./example/lorem-ipsum.ts?source";
       <code>return</code> statement
     </>
   }
-/>;
+/>
+;
 ```
 
-```ts title="Example annotated code"
+```ts title="Section annotations"
 const dolor = 1;
 const sit = 2;
 const lorem = ipsum(dolor, sit);
@@ -173,6 +209,8 @@ function ipsum(dolor: number, sit: number) {
 // [\!section-end ipsum]
 ```
 
+</details>
+
 ### From Markdown code blocks
 
 You can use normal Markdown code blocks, which support all the same features.
@@ -196,7 +234,10 @@ user@foo$ 1s -1 | grep ".txt"
 hello.txt
 ```
 
-````md title="Code to make this example"
+<details>
+<summary>Source</summary>
+
+````mdx
 ```
 Hello, World!
 ```
@@ -216,3 +257,5 @@ user@foo$ 1s -1 | grep ".txt"
 hello.txt
 ```
 ````
+
+</details>
