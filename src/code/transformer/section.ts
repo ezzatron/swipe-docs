@@ -6,6 +6,9 @@ export function section(name: string): ShikiTransformer {
     name: `section-${name}`,
 
     code(code) {
+      const linesBefore: Element[] = [];
+      const sectionLines: Element[] = [];
+      const linesAfter: Element[] = [];
       const sectionIndentation: [string, Element[], Element][] = [];
       let hasSection = false;
 
@@ -18,12 +21,17 @@ export function section(name: string): ShikiTransformer {
           typeof sectionsData === "string" ? sectionsData.split(" ") : [];
 
         if (!sections.includes(name)) {
-          line.properties.hidden = true;
+          if (hasSection) {
+            linesAfter.push(line);
+          } else {
+            linesBefore.push(line);
+          }
 
           continue;
         }
 
         hasSection = true;
+        sectionLines.push(line);
 
         const [firstChild] = line.children;
         if (firstChild?.type !== "element") continue;
@@ -51,7 +59,26 @@ export function section(name: string): ShikiTransformer {
 
       if (!hasSection) throw new Error(`Missing code section ${name}`);
 
-      this.pre.properties["data-section"] = name;
+      code.children = [
+        {
+          type: "element",
+          tagName: "div",
+          properties: { class: "section-context" },
+          children: linesBefore,
+        },
+        {
+          type: "element",
+          tagName: "div",
+          properties: { class: "section-content" },
+          children: sectionLines,
+        },
+        {
+          type: "element",
+          tagName: "div",
+          properties: { class: "section-context" },
+          children: linesAfter,
+        },
+      ];
 
       let minIndentCharCount = Infinity;
       let indent = "";
@@ -76,15 +103,15 @@ export function section(name: string): ShikiTransformer {
         }
       }
 
-      if (!hasConsistentIndent) return;
-
-      for (const [, , firstChild] of sectionIndentation) {
-        firstChild.children.splice(0, indentElements.length, {
-          type: "element",
-          tagName: "span",
-          children: indentElements,
-          properties: { class: "section-indent" },
-        });
+      if (hasConsistentIndent) {
+        for (const [, , firstChild] of sectionIndentation) {
+          firstChild.children.splice(0, indentElements.length, {
+            type: "element",
+            tagName: "span",
+            children: indentElements,
+            properties: { class: "section-indent" },
+          });
+        }
       }
     },
   };

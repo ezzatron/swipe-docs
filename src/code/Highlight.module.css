@@ -35,9 +35,10 @@
     content: "\002192";
   }
 
-  &[data-section] {
-    & :global(.section-indent) {
-      display: none;
-    }
+  & :global(.section-context) {
+    display: none;
+  }
+  & :global(.section-content .section-indent) {
+    display: none;
   }
 }
