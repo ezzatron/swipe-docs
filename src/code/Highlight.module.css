@@ -37,5 +37,5 @@
 
 .pre::selection,
 .pre *::selection {
-  background-color: rgb(from theme("colors.gray.600") r g b / 0.75);
+  background-color: rgb(from theme("colors.gray.600") r g b / 50%);
 }
