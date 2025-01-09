@@ -1,3 +1,9 @@
+/* expand code element so that section expanders are full width */
+.pre code {
+  display: block;
+  min-width: fit-content;
+}
+
 /* necessary to render tabs correctly */
 .pre :global(.line) * {
   display: inline-block;
