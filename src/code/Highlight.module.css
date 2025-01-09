@@ -1,44 +1,41 @@
-.pre {
-  & *::selection {
-    background-color: theme("colors.gray.800");
-  }
+.pre :global(.line) * {
+  display: inline-block;
+}
 
-  & :global(.line) * {
-    display: inline-block;
-  }
+.pre.lineNumbers :global(.line::before) {
+  display: inline-block;
+  margin-right: theme("spacing.6");
+  width: var(--line-number-width, 1ch);
+  content: attr(data-line);
+  color: theme("colors.gray.600");
+  text-align: right;
+}
 
-  &.lineNumbers :global(.line::before) {
-    display: inline-block;
-    margin-right: theme("spacing.6");
-    width: var(--line-number-width, 1ch);
-    content: attr(data-line);
-    color: theme("colors.gray.600");
-    text-align: right;
-  }
+.pre :global(:is(.space, .tab)) {
+  position: relative;
+}
+.pre :global(:is(.space, .tab))::before {
+  position: absolute;
+  color: transparent;
+}
+.pre :global(:is(.space, .tab).selected)::before {
+  color: theme("colors.gray.600");
+}
+.pre :global(.space)::before {
+  content: "\0000B7";
+}
+.pre :global(.tab)::before {
+  content: "\002192";
+}
 
-  & :global(.space),
-  & :global(.tab) {
-    position: relative;
+.pre :global(.section-context) {
+  display: none;
+}
+.pre :global(.section-content .section-indent) {
+  display: none;
+}
 
-    &::before {
-      position: absolute;
-      color: transparent;
-    }
-    &:global(.selected)::before {
-      color: theme("colors.gray.600");
-    }
-  }
-  & :global(.space)::before {
-    content: "\0000B7";
-  }
-  & :global(.tab)::before {
-    content: "\002192";
-  }
-
-  & :global(.section-context) {
-    display: none;
-  }
-  & :global(.section-content .section-indent) {
-    display: none;
-  }
+.pre::selection,
+.pre *::selection {
+  background-color: rgb(from theme("colors.gray.600") r g b / 0.75);
 }
