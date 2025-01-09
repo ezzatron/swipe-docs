@@ -1,5 +1,3 @@
-"use client";
-
 import { LinkIcon } from "lucide-react";
 
 type Props = {
