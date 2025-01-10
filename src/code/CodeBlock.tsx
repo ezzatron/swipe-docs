@@ -1,16 +1,16 @@
 import clsx from "clsx";
 import { useId, type ReactNode } from "react";
-import { type BundledLanguage, type SpecialLanguage } from "shiki";
 import styles from "./CodeBlock.module.css";
 import CopyButton from "./CopyButton";
 import Highlight from "./Highlight";
 import { extensionToLanguage, normalizeLanguage } from "./language";
 import LanguageIcon from "./LanguageIcon";
 import PermalinkButton from "./PermalinkButton";
+import { type Language } from "./shiki";
 
 type Props = {
   id?: string;
-  lang?: BundledLanguage | SpecialLanguage;
+  lang?: Language;
   source: string;
   title?: ReactNode;
   filename?: string;

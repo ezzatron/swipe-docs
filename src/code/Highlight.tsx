@@ -2,8 +2,8 @@ import clsx from "clsx";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { Fragment, type CSSProperties } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
-import { codeToHast, type BundledLanguage, type SpecialLanguage } from "shiki";
 import styles from "./Highlight.module.css";
+import { codeToHast, type Language } from "./shiki";
 import { collapseNewlines as collapseNewlinesTransformer } from "./transformer/collapse-newlines";
 import { lineNumbers as lineNumbersTransformer } from "./transformer/line-numbers";
 import { notationSections as notationSectionsTransformer } from "./transformer/notation-sections";
@@ -14,7 +14,7 @@ import { stripNotations as stripNotationsTransformer } from "./transformer/strip
 
 type Props = {
   copyId: string;
-  lang: BundledLanguage | SpecialLanguage;
+  lang: Language;
   source: string;
   section: string | undefined;
   sectionId: string;
