@@ -26,10 +26,6 @@
   color: theme("colors.gray.600");
   text-align: right;
 }
-/* hide line numbers when showing sections until the section is expanded */
-.pre:has(:global(.section-expanded:not(:checked))) :global(.line::before) {
-  display: none;
-}
 
 /* whitespace rendering *******************************************************/
 
@@ -95,8 +91,13 @@
 .pre:has(:global(.section-expanded:checked)) :global(.section-expander-show) {
   display: none;
 }
+/* hide line numbers when the section is collapsed */
+.pre[data-section]:not(:has(:global(.section-expanded:checked)))
+  :global(.line::before) {
+  display: none;
+}
 /* hide the context and indent when the section is collapsed */
-.pre:has(:global(.section-expanded:not(:checked)))
+.pre[data-section]:not(:has(:global(.section-expanded:checked)))
   :global(:is(.section-context, .section-content .section-indent)) {
   display: none;
 }

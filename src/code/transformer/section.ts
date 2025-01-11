@@ -1,7 +1,11 @@
 import type { Element } from "hast";
 import type { ShikiTransformer } from "shiki";
 
-export function section(name: string, id: string): ShikiTransformer {
+export function section(
+  name: string,
+  id: string,
+  renderContext: boolean,
+): ShikiTransformer {
   return {
     name: `section-${name}-${id}`,
 
@@ -60,6 +64,7 @@ export function section(name: string, id: string): ShikiTransformer {
 
       if (!hasSection) throw new Error(`Missing code section ${name}`);
 
+      this.pre.properties["data-section"] = name;
       code.children = [
         {
           type: "element",
@@ -69,7 +74,7 @@ export function section(name: string, id: string): ShikiTransformer {
         },
       ];
 
-      if (linesBefore.length > 0) {
+      if (renderContext && linesBefore.length > 0) {
         code.children.unshift(
           {
             type: "element",
@@ -81,7 +86,7 @@ export function section(name: string, id: string): ShikiTransformer {
         );
       }
 
-      if (linesAfter.length > 0) {
+      if (renderContext && linesAfter.length > 0) {
         code.children.push(createExpander(expandedId), {
           type: "element",
           tagName: "div",
@@ -90,18 +95,20 @@ export function section(name: string, id: string): ShikiTransformer {
         });
       }
 
-      this.pre.children.push({
-        type: "element",
-        tagName: "input",
-        properties: {
-          type: "checkbox",
-          id: expandedId,
-          class: "section-expanded",
-          hidden: true,
-          ariaLabel: "Show more",
-        },
-        children: [],
-      });
+      if (renderContext) {
+        this.pre.children.push({
+          type: "element",
+          tagName: "input",
+          properties: {
+            type: "checkbox",
+            id: expandedId,
+            class: "section-expanded",
+            hidden: true,
+            ariaLabel: "Show more",
+          },
+          children: [],
+        });
+      }
 
       let minIndentCharCount = Infinity;
       let indent = "";

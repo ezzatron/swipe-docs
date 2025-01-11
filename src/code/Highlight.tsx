@@ -20,6 +20,7 @@ type Props = {
   source: string;
   section: string | undefined;
   sectionId: string;
+  sectionContext: boolean;
   lineNumbers: boolean;
 };
 
@@ -29,6 +30,7 @@ export default async function Highlight({
   source,
   section,
   sectionId,
+  sectionContext,
   lineNumbers,
 }: Props) {
   const tree = await codeToHast(source, {
@@ -43,7 +45,9 @@ export default async function Highlight({
       trimSectionsTransformer,
       lineNumbersTransformer,
       renderWhitespaceTransformer,
-      ...(section ? [sectionTransformer(section, sectionId)] : []),
+      ...(section
+        ? [sectionTransformer(section, sectionId, sectionContext)]
+        : []),
     ],
   });
 

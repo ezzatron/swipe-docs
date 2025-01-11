@@ -15,8 +15,9 @@ type Props = {
   title?: ReactNode;
   filename?: string;
   filenameContext?: number;
-  section?: string;
   lineNumbers?: boolean;
+  section?: string;
+  sectionContext?: boolean;
 };
 
 export default function CodeBlock({
@@ -26,8 +27,9 @@ export default function CodeBlock({
   title,
   filename,
   filenameContext = 1,
-  section,
   lineNumbers = false,
+  section,
+  sectionContext = true,
 }: Props) {
   const implicitId = useId();
   const id = explicitId ?? implicitId;
@@ -77,9 +79,10 @@ export default function CodeBlock({
         copyId={copyId}
         lang={lang}
         source={source}
+        lineNumbers={lineNumbers}
         section={section}
         sectionId={sectionId}
-        lineNumbers={lineNumbers}
+        sectionContext={sectionContext}
       />
     </div>
   );
