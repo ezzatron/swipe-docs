@@ -20,8 +20,8 @@ export default {
               borderRadius: theme("borderRadius.DEFAULT"),
               color: null,
               fontWeight: null,
-              paddingBlock: theme("padding.1"),
-              paddingInline: theme("padding.2"),
+              paddingBlock: ".2em",
+              paddingInline: ".4em",
               tabSize: "2",
             },
             "code::before": {
