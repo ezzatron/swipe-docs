@@ -1,5 +1,5 @@
-import type { ElementContent } from "hast";
 import type { ShikiTransformer } from "shiki";
+import { isEmptyLine } from "../is-empty-line";
 
 export const collapseEmptyLines: ShikiTransformer = {
   name: "collapse-empty-lines",
@@ -37,13 +37,3 @@ export const collapseEmptyLines: ShikiTransformer = {
     }
   },
 };
-
-function isEmptyLine(content: ElementContent): boolean {
-  if (content.type !== "element") return false;
-  if (content.children.length > 1) return false;
-  if (content.children.length === 0) return true;
-
-  const [child] = content.children;
-
-  return child.type === "text" && child.value === "\n";
-}

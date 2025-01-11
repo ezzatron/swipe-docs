@@ -12,6 +12,7 @@ import { removeNotationEscape as removeNotationEscapeTransformer } from "./trans
 import { renderWhitespace as renderWhitespaceTransformer } from "./transformer/render-whitespace";
 import { section as sectionTransformer } from "./transformer/section";
 import { stripNotations as stripNotationsTransformer } from "./transformer/strip-notations";
+import { trimSections as trimSectionsTransformer } from "./transformer/trim-sections";
 
 type Props = {
   copyId: string;
@@ -39,6 +40,7 @@ export default async function Highlight({
       stripNotationsTransformer,
       removeNotationEscapeTransformer,
       collapseEmptyLinesTransformer,
+      trimSectionsTransformer,
       lineNumbersTransformer,
       renderWhitespaceTransformer,
       ...(section ? [sectionTransformer(section, sectionId)] : []),
