@@ -30,19 +30,31 @@ export const stripNotations: ShikiTransformer = {
           // comment still has content after stripping notations
           text.value = `${start}${content}${end}`;
         } else {
-          // empty comment after stripping notations, remove it
-          line.children.splice(j, 1);
-
-          // strip trailing whitespace from any previous element
           const prevSibling = line.children[j - 1];
-          if (prevSibling?.type === "element") {
-            const prevText =
-              prevSibling.children[prevSibling.children.length - 1];
+          const prevText =
+            prevSibling?.type === "element"
+              ? prevSibling.children[0]
+              : undefined;
+          const nextSibling = line.children[j + 1];
+          const nextText =
+            nextSibling?.type === "element"
+              ? nextSibling.children[0]
+              : undefined;
+          let isJSXComment = false;
 
-            if (prevText?.type === "text") {
-              prevText.value = prevText.value.trimEnd();
-            }
+          if (prevText?.type === "text") {
+            // strip trailing whitespace from any previous element
+            prevText.value = prevText.value.trimEnd();
+
+            // strip JSX comment braces
+            isJSXComment =
+              prevText.value === "{" &&
+              nextText?.type === "text" &&
+              nextText.value === "}";
           }
+
+          // empty comment after stripping notations, remove it
+          line.children.splice(isJSXComment ? j - 1 : j, isJSXComment ? 3 : 1);
         }
       }
 
