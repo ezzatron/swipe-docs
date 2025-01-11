@@ -1,11 +1,16 @@
 import type { ElementContent } from "hast";
 
-export function isEmptyLine(content: ElementContent): boolean {
-  if (content.type !== "element") return false;
-  if (content.children.length > 1) return false;
-  if (content.children.length === 0) return true;
+export function isEmptyLine(line: ElementContent): boolean {
+  if (line.type !== "element") return false;
+  if (line.children.length > 1) return false;
+  if (line.children.length === 0) return true;
 
-  const [child] = content.children;
+  const [child] = line.children;
 
-  return child.type === "text" && child.value === "\n";
+  if (child.type === "text") return child.value === "\n";
+  if (child.type !== "element") return false;
+
+  const [text] = child.children;
+
+  return text?.type === "text" && text.value === "";
 }
