@@ -1,5 +1,6 @@
 import type { Element } from "hast";
 import type { ShikiTransformer } from "shiki";
+import { stripLastNewline } from "../lines";
 
 export function section(
   name: string,
@@ -64,6 +65,8 @@ export function section(
 
       if (!hasSection) throw new Error(`Missing code section ${name}`);
 
+      stripLastNewline(sectionLines);
+
       this.pre.properties["data-section"] = name;
       code.children = [
         {
@@ -75,6 +78,8 @@ export function section(
       ];
 
       if (renderContext && linesBefore.length > 0) {
+        stripLastNewline(linesBefore);
+
         code.children.unshift(
           {
             type: "element",

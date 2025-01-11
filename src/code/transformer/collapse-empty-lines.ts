@@ -1,5 +1,5 @@
 import type { ShikiTransformer } from "shiki";
-import { isEmptyLine } from "../is-empty-line";
+import { isEmptyLine, stripLastNewline } from "../lines";
 
 export const collapseEmptyLines: ShikiTransformer = {
   name: "collapse-empty-lines",
@@ -26,14 +26,6 @@ export const collapseEmptyLines: ShikiTransformer = {
     const firstLine = code.children[0];
     if (isEmptyLine(firstLine)) code.children.shift();
 
-    const lastLine = code.children[code.children.length - 1];
-
-    if (lastLine?.type === "element") {
-      const lastChild = lastLine.children[lastLine.children.length - 1];
-
-      if (lastChild?.type === "text" && lastChild.value === "\n") {
-        lastLine.children.pop();
-      }
-    }
+    stripLastNewline(code.children);
   },
 };

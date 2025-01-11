@@ -14,3 +14,15 @@ export function isEmptyLine(line: ElementContent): boolean {
 
   return text?.type === "text" && text.value === "";
 }
+
+export function stripLastNewline(lines: ElementContent[]): void {
+  const lastLine = lines[lines.length - 1];
+
+  if (lastLine?.type === "element") {
+    const lastChild = lastLine.children[lastLine.children.length - 1];
+
+    if (lastChild?.type === "text" && lastChild.value === "\n") {
+      lastLine.children.pop();
+    }
+  }
+}

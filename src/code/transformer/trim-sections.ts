@@ -1,6 +1,6 @@
 import type { ElementContent } from "hast";
 import type { ShikiTransformer } from "shiki";
-import { isEmptyLine } from "../is-empty-line";
+import { isEmptyLine } from "../lines";
 
 export const trimSections: ShikiTransformer = {
   name: "trim-sections",
