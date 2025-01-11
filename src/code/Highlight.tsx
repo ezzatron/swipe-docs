@@ -35,7 +35,10 @@ export default async function Highlight({
 }: Props) {
   const tree = await codeToHast(source, {
     lang,
-    theme: "github-dark-default",
+    themes: {
+      dark: "github-dark-default",
+      light: "github-light-default",
+    },
     transformers: [
       collapseNewlinesTransformer,
       notationSectionsTransformer,

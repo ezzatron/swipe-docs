@@ -34,14 +34,14 @@ export default function CopyButton({ from }: Props) {
       aria-label="Copy code"
       title="Copy code"
       onClick={handleClick}
-      className="hover:text-gray-200 focus-visible:text-gray-200 active:text-blue-400"
+      className="hover:text-gray-950 focus-visible:text-gray-950 active:text-blue-500 dark:hover:text-gray-200 dark:focus-visible:text-gray-200 dark:active:text-blue-400"
     >
       {state === "IDLE" ? <CopyIcon size={16} /> : undefined}
       {state === "COPIED" ? (
-        <CheckIcon size={16} className="text-green-400" />
+        <CheckIcon size={16} className="text-green-500 dark:text-green-400" />
       ) : undefined}
       {state === "FAILED" ? (
-        <XIcon size={16} className="text-red-400" />
+        <XIcon size={16} className="text-red-500 dark:text-red-400" />
       ) : undefined}
     </button>
   );

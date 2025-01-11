@@ -160,7 +160,7 @@ function createExpander(expandedId: string): Element {
     children: [
       {
         type: "element",
-        tagName: "span",
+        tagName: "div",
         properties: {
           class: "section-expander-show",
           ariaLabel: "Show more",
@@ -170,7 +170,7 @@ function createExpander(expandedId: string): Element {
       },
       {
         type: "element",
-        tagName: "span",
+        tagName: "div",
         properties: {
           class: "section-expander-hide",
           ariaLabel: "Show less",

@@ -13,17 +13,16 @@
 .pre::selection,
 .pre *::selection {
   /* this must be semi-transparent for Safari compatibility */
-  background-color: rgb(from theme("colors.gray.600") r g b / 50%);
+  background-color: rgb(from theme("colors.blue.300") r g b / 50%);
 }
 
-/* line numbers ***************************************************************/
-
+/* line numbers */
 .pre.lineNumbers :global(.line::before) {
   display: inline-block;
   margin-right: theme("spacing.6");
   width: var(--line-number-width, 1ch);
   content: attr(data-line);
-  color: theme("colors.gray.600");
+  color: theme("colors.gray.400");
   text-align: right;
 }
 
@@ -37,7 +36,7 @@
   color: transparent;
 }
 .pre :global(:is(.space, .tab).selected::before) {
-  color: theme("colors.gray.600");
+  color: theme("colors.gray.400");
 }
 .pre :global(.space::before) {
   content: "\0000B7"; /* middle dot */
@@ -59,13 +58,13 @@
   align-items: center;
   gap: theme("spacing.2");
   cursor: pointer;
-  color: theme("colors.gray.800");
+  color: theme("colors.gray.300");
 }
 .pre :global(:is(.section-expander:hover, .section-expander:focus-visible)) {
-  color: theme("colors.gray.600");
+  color: theme("colors.gray.500");
 }
 .pre :global(.section-expander:active) {
-  color: theme("colors.blue.600");
+  color: theme("colors.blue.500");
 }
 .pre :global(.section-expander::before) {
   content: "(\0000B7\0000B7\0000B7)";
@@ -100,4 +99,41 @@
 .pre[data-section]:not(:has(:global(.section-expanded:checked)))
   :global(:is(.section-context, .section-content .section-indent)) {
   display: none;
+}
+
+/* dark mode */
+@media (prefers-color-scheme: dark) {
+  .pre,
+  .pre span {
+    background-color: var(--shiki-dark-bg) !important;
+    color: var(--shiki-dark) !important;
+  }
+
+  /* selection color */
+  .pre::selection,
+  .pre *::selection {
+    /* this must be semi-transparent for Safari compatibility */
+    background-color: rgb(from theme("colors.gray.600") r g b / 50%);
+  }
+
+  /* line numbers */
+  .pre.lineNumbers :global(.line::before) {
+    color: theme("colors.gray.600");
+  }
+
+  /* whitespace rendering */
+  .pre :global(:is(.space, .tab).selected::before) {
+    color: theme("colors.gray.600");
+  }
+
+  /* section interactive handle */
+  .pre :global(.section-expander) {
+    color: theme("colors.gray.800");
+  }
+  .pre :global(:is(.section-expander:hover, .section-expander:focus-visible)) {
+    color: theme("colors.gray.600");
+  }
+  .pre :global(.section-expander:active) {
+    color: theme("colors.blue.600");
+  }
 }

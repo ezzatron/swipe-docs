@@ -16,7 +16,6 @@ export default {
         DEFAULT: {
           css: {
             code: {
-              backgroundColor: theme("colors.gray.800"),
               borderRadius: theme("borderRadius.DEFAULT"),
               color: null,
               fontWeight: null,
