@@ -17,7 +17,7 @@ export default function CopyButton({ from }: Props) {
       setState("FAILED");
     } else {
       try {
-        await navigator.clipboard.writeText(text.replace(/\n+$/, ""));
+        await navigator.clipboard.writeText(text);
         setState("COPIED");
       } catch {
         setState("FAILED");

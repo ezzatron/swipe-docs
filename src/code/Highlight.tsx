@@ -4,6 +4,7 @@ import { Fragment, type CSSProperties } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import styles from "./Highlight.module.css";
 import { codeToHast, type Language } from "./shiki";
+import { collapseEmptyLines as collapseEmptyLinesTransformer } from "./transformer/collapse-empty-lines";
 import { collapseNewlines as collapseNewlinesTransformer } from "./transformer/collapse-newlines";
 import { lineNumbers as lineNumbersTransformer } from "./transformer/line-numbers";
 import { notationSections as notationSectionsTransformer } from "./transformer/notation-sections";
@@ -29,7 +30,7 @@ export default async function Highlight({
   sectionId,
   lineNumbers,
 }: Props) {
-  const tree = await codeToHast(source.replace(/\n+$/, ""), {
+  const tree = await codeToHast(source, {
     lang,
     theme: "github-dark-default",
     transformers: [
@@ -37,6 +38,7 @@ export default async function Highlight({
       notationSectionsTransformer,
       stripNotationsTransformer,
       removeNotationEscapeTransformer,
+      collapseEmptyLinesTransformer,
       lineNumbersTransformer,
       renderWhitespaceTransformer,
       ...(section ? [sectionTransformer(section, sectionId)] : []),
