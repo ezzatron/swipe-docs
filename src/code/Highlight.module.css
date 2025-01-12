@@ -54,9 +54,6 @@
 
 /* interactive handle */
 .pre :global(.section-expander) {
-  display: flex;
-  align-items: center;
-  gap: theme("spacing.2");
   cursor: pointer;
   color: theme("colors.gray.300");
 }
@@ -66,13 +63,13 @@
 .pre :global(.section-expander:active) {
   color: theme("colors.blue.500");
 }
-.pre :global(.section-expander::before) {
-  content: "(\0000B7\0000B7\0000B7)";
+.pre :global(:is(.section-expander-show, .section-expander-hide)::before) {
+  content: "(\0000B7\0000B7\0000B7)"; /* three middle dots */
 }
 .pre :global(:is(.section-expander-show, .section-expander-hide)) {
   display: flex;
-  flex-grow: 1;
   align-items: center;
+  gap: theme("spacing.2");
   height: theme("lineHeight.7");
 }
 .pre :global(:is(.section-expander-show, .section-expander-hide)::after) {
@@ -128,12 +125,12 @@
 
   /* section interactive handle */
   .pre :global(.section-expander) {
-    color: theme("colors.gray.800");
+    color: theme("colors.gray.700");
   }
   .pre :global(:is(.section-expander:hover, .section-expander:focus-visible)) {
-    color: theme("colors.gray.600");
+    color: theme("colors.gray.500");
   }
   .pre :global(.section-expander:active) {
-    color: theme("colors.blue.600");
+    color: theme("colors.blue.500");
   }
 }
