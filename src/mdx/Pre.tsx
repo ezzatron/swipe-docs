@@ -1,6 +1,5 @@
 import { Children, type JSX, type ReactElement } from "react";
 import CodeBlock from "../code/CodeBlock";
-import type { Language } from "../code/shiki";
 
 const LANGUAGE_PATTERN = /^language-(.+)$/;
 
@@ -14,7 +13,7 @@ export default function Pre({ children, title }: Props) {
   const { props } = Children.only(children);
   const { children: source, className, ...codeProps } = props;
   const match = className ? LANGUAGE_PATTERN.exec(className) : null;
-  const lang = match?.[1] as Language;
+  const flag = match?.[1];
 
-  return <CodeBlock {...codeProps} lang={lang} title={title} source={source} />;
+  return <CodeBlock {...codeProps} flag={flag} title={title} source={source} />;
 }

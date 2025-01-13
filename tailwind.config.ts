@@ -35,7 +35,7 @@ export default {
         },
         invert: {
           css: {
-            "--tw-prose-code-bg": theme("colors.gray.800"),
+            "--tw-prose-code-bg": theme("colors.gray.700"),
           },
         },
       }),

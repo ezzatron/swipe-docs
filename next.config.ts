@@ -7,6 +7,7 @@ const require = createRequire(import.meta.url);
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+  serverExternalPackages: ["@wooorm/starry-night"],
   webpack: (config) => {
     config.module.rules = [
       {

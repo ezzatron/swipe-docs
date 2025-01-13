@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "@wooorm/starry-night/style/both";
+@import "./code/code-block.css";
+
 @layer utilities {
   .text-truncate {
     min-width: 0;

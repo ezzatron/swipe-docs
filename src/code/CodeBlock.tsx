@@ -1,16 +1,31 @@
 import clsx from "clsx";
-import { useId, type ReactNode } from "react";
+import { toJsxRuntime } from "hast-util-to-jsx-runtime";
+import { cache, Fragment, type ReactNode } from "react";
+import slugify from "react-slugify";
+import { jsx, jsxs } from "react/jsx-runtime";
 import styles from "./CodeBlock.module.css";
 import CopyButton from "./CopyButton";
-import Highlight from "./Highlight";
-import { extensionToLanguage, normalizeLanguage } from "./language";
+import { flagToScope, highlight } from "./highlight";
 import LanguageIcon from "./LanguageIcon";
 import PermalinkButton from "./PermalinkButton";
-import { type Language } from "./shiki";
+import { isCommandLine } from "./scope";
+
+const createSlugify = cache(() => {
+  const slugCounts: Record<string, number> = {};
+
+  return (title: ReactNode): string => {
+    const slug = slugify(title);
+    const dashSlug = slug ? `-${slug}` : "";
+    const count = slugCounts[slug] ?? 0;
+    slugCounts[slug] = count + 1;
+
+    return count > 0 ? `cb${dashSlug}-${count}` : `cb${dashSlug}`;
+  };
+});
 
 type Props = {
   id?: string;
-  lang?: Language;
+  flag?: string;
   source: string;
   title?: ReactNode;
   filename?: string;
@@ -21,8 +36,8 @@ type Props = {
 };
 
 export default function CodeBlock({
-  id: explicitId,
-  lang,
+  id,
+  flag,
   source,
   title,
   filename,
@@ -31,21 +46,11 @@ export default function CodeBlock({
   section,
   sectionContext = true,
 }: Props) {
-  const implicitId = useId();
-  const id = explicitId ?? implicitId;
-  const copyId = `${id}-copy`;
-  const sectionId = `${id}-section`;
-
-  if (lang == null) {
-    if (filename == null) {
-      lang = "text";
-    } else {
-      const ext = filename.split(".").slice(-1)[0];
-      lang = extensionToLanguage(ext);
-    }
-  } else {
-    lang = normalizeLanguage(lang);
-  }
+  const scope: string | undefined = flag
+    ? flagToScope(flag)
+    : filename
+      ? flagToScope(filename)
+      : undefined;
 
   if (title == null) {
     if (filename != null) {
@@ -53,42 +58,45 @@ export default function CodeBlock({
         filenameContext < 1
           ? ""
           : filename.split("/").slice(-filenameContext).join("/");
-    } else if (lang === "shellscript" || lang === "shellsession") {
-      title = "Command Line";
     }
   }
 
+  if (!id) id = createSlugify()(title);
+  if (title == null && isCommandLine(scope)) title = "Command Line";
+
+  const preId = `${id}-pre`;
+  const tree = highlight(source, {
+    id: preId,
+    scope,
+    lineNumbers,
+    section,
+    sectionContext,
+  });
+  const highlighted = toJsxRuntime(tree, { Fragment, jsx, jsxs });
+
   return (
-    <div id={explicitId}>
-      <div className="flex gap-2 rounded-t bg-gray-200 px-4 py-3 font-mono text-sm text-gray-600 sm:items-start dark:bg-gray-900 dark:text-gray-400">
+    <div id={id} className="my-6 overflow-clip rounded font-mono text-sm">
+      <div className="flex gap-2 bg-gray-200 px-4 py-3 text-gray-600 sm:items-start dark:bg-gray-800 dark:text-gray-400">
         <div className="hidden sm:mt-0.5 sm:block">
-          <LanguageIcon lang={lang} />
+          <LanguageIcon scope={scope} />
         </div>
 
         <div
           className={clsx(
             styles.title,
-            "mr-2 min-h-5 flex-grow border-r border-gray-300 dark:border-gray-800",
+            "mr-2 min-h-5 flex-grow border-r border-gray-300 pr-4 dark:border-gray-700",
           )}
         >
           {title}
         </div>
 
         <div className="flex items-center gap-3 sm:mt-0.5">
-          {explicitId && <PermalinkButton anchor={explicitId} />}
-          <CopyButton from={copyId} />
+          <PermalinkButton anchor={id} />
+          <CopyButton from={preId} />
         </div>
       </div>
 
-      <Highlight
-        copyId={copyId}
-        lang={lang}
-        source={source}
-        lineNumbers={lineNumbers}
-        section={section}
-        sectionId={sectionId}
-        sectionContext={sectionContext}
-      />
+      <div className="not-prose">{highlighted}</div>
     </div>
   );
 }

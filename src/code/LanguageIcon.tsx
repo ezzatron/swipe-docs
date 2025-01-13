@@ -1,15 +1,14 @@
 import { FileTextIcon, SquareTerminalIcon } from "lucide-react";
+import { isCommandLine } from "./scope";
 
 type Props = {
-  lang: string;
+  scope: string | undefined;
 };
 
-export default function LanguageIcon({ lang }: Props) {
-  switch (lang) {
-    case "shellscript":
-    case "shellsession":
-      return <SquareTerminalIcon size={16} />;
-  }
-
-  return <FileTextIcon size={16} />;
+export default function LanguageIcon({ scope }: Props) {
+  return isCommandLine(scope) ? (
+    <SquareTerminalIcon size={16} />
+  ) : (
+    <FileTextIcon size={16} />
+  );
 }

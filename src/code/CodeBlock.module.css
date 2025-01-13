@@ -1,3 +1,4 @@
+/* title is already monospaced, no need to reduce font size */
 .title code {
   font-size: 1em;
 }

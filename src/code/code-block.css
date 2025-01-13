@@ -1,0 +1,152 @@
+:root {
+  --cb-bg: theme("colors.gray.100");
+  --cb-line-number: theme("colors.gray.400");
+  --cb-scrollbar: theme("colors.gray.300");
+  --cb-section-expander-active: theme("colors.blue.500");
+  --cb-section-expander-focused: theme("colors.gray.500");
+  --cb-section-expander: theme("colors.gray.300");
+  --cb-selection: rgb(from theme("colors.blue.400") r g b / 25%);
+  --cb-whitespace: theme("colors.gray.400");
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cb-bg: theme("colors.gray.900");
+    --cb-line-number: theme("colors.gray.600");
+    --cb-scrollbar: theme("colors.gray.700");
+    --cb-section-expander-active: theme("colors.blue.500");
+    --cb-section-expander-focused: theme("colors.gray.500");
+    --cb-section-expander: theme("colors.gray.700");
+    --cb-selection: rgb(from theme("colors.blue.500") r g b / 25%);
+    --cb-whitespace: theme("colors.gray.600");
+  }
+}
+
+.cb {
+  background-color: var(--cb-bg);
+  padding-inline: theme("padding.4");
+  padding-block: theme("padding.3");
+  tab-size: 2;
+}
+
+/* nothing but code lines should be selectable */
+.cb,
+.cb * {
+  user-select: none;
+}
+.cb-l,
+.cb-l * {
+  user-select: text;
+}
+
+/* selection color */
+.cb::selection,
+.cb *::selection {
+  background-color: var(--cb-selection);
+}
+
+/* flex line numbers and code */
+:is(.cb-sc, .cb-sx) {
+  display: flex;
+}
+
+/* line numbers */
+.cb-ln {
+  flex-shrink: 0;
+  color: var(--cb-line-number);
+}
+.cb-n {
+  padding-right: theme("padding.6");
+  text-align: right;
+}
+
+/* code */
+.cb code {
+  flex-grow: 1;
+  overflow-x: auto;
+  overflow-y: clip;
+}
+
+/* code scrollbar */
+@supports (scrollbar-color: auto) {
+  .cb code {
+    scrollbar-color: var(--cb-scrollbar) transparent;
+  }
+}
+@supports selector(::-webkit-scrollbar) {
+  .cb code::-webkit-scrollbar-thumb {
+    border-radius: theme("borderRadius.full");
+    background-color: var(--cb-scrollbar);
+  }
+  .cb code::-webkit-scrollbar {
+    background-color: transparent;
+    height: theme("size.2");
+  }
+}
+
+/* whitespace rendering */
+.cb code :is(.cb-s, .cb-t) {
+  position: relative;
+}
+.cb code :is(.cb-s, .cb-t)::before {
+  position: absolute;
+  color: transparent;
+}
+/* hack to fix weird Safari text highlight gaps */
+.cb code :is(.cb-s, .cb-t)::before {
+  left: -100px;
+  transform: translateX(100px);
+}
+.cb code .cb-s::before {
+  content: "\0000B7"; /* middle dot */
+}
+.cb code .cb-t::before {
+  content: "\002192"; /* right arrow */
+}
+.cb code .selected:is(.cb-s, .cb-t)::before {
+  color: var(--cb-whitespace);
+}
+
+/* section expander */
+.cb-sh {
+  cursor: pointer;
+  color: var(--cb-section-expander);
+}
+.cb-sh:is(:focus-visible, :hover) {
+  color: var(--cb-section-expander-focused);
+}
+.cb-sh:active {
+  color: var(--cb-section-expander-active);
+}
+.cb-sh-h,
+.cb-sh-s {
+  display: flex;
+  align-items: center;
+  gap: theme("spacing.2");
+  height: theme("lineHeight.7");
+}
+:is(.cb-sh-h, .cb-sh-s)::before {
+  content: "(\0000B7\0000B7\0000B7)"; /* three middle dots in parentheses */
+}
+:is(.cb-sh-h, .cb-sh-s)::after {
+  flex-grow: 1;
+  border-top: 1px solid currentColor;
+  content: "";
+}
+/* switch the show and hide content depending on expanded status */
+.cb-sh-h {
+  display: none;
+}
+.cb:has(.cb-se:checked) .cb-sh-h {
+  display: flex;
+}
+.cb:has(.cb-se:checked) .cb-sh-s {
+  display: none;
+}
+/* hide line numbers when the section is collapsed */
+.cb[data-s]:not(:has(.cb-se:checked)) .cb-ln {
+  display: none;
+}
+/* hide the context and indent when the section is collapsed */
+.cb[data-s]:not(:has(.cb-se:checked)) :is(.cb-sx, .cb-sc-i) {
+  display: none;
+}

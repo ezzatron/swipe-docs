@@ -11,17 +11,29 @@ export default function CopyButton({ from }: Props) {
   const [state, setState] = useState<"IDLE" | "COPIED" | "FAILED">("IDLE");
 
   const handleClick = useCallback(async () => {
-    const text = document.getElementById(from)?.innerText;
+    const pre = document.getElementById(from);
 
-    if (text == null) {
+    if (!pre) {
       setState("FAILED");
-    } else {
-      try {
-        await navigator.clipboard.writeText(text);
-        setState("COPIED");
-      } catch {
-        setState("FAILED");
-      }
+
+      return;
+    }
+
+    const lines = pre.getElementsByClassName(
+      "cb-l",
+    ) as HTMLCollectionOf<HTMLDivElement>;
+
+    let text = "";
+    for (let i = 0; i < lines.length; ++i) {
+      if (lines[i].offsetParent != null) text += lines[i].innerText;
+    }
+    text = text.slice(0, -1);
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setState("COPIED");
+    } catch {
+      setState("FAILED");
     }
 
     setTimeout(() => {
