@@ -15,7 +15,9 @@ export default {
       typography: ({ theme }: PluginUtils) => ({
         DEFAULT: {
           css: {
+            "--tw-prose-code-bg": theme("colors.gray.100"),
             code: {
+              backgroundColor: "var(--tw-prose-code-bg)",
               borderRadius: theme("borderRadius.DEFAULT"),
               color: null,
               fontWeight: null,
@@ -29,6 +31,11 @@ export default {
             "code::after": {
               content: '""',
             },
+          },
+        },
+        invert: {
+          css: {
+            "--tw-prose-code-bg": theme("colors.gray.800"),
           },
         },
       }),
