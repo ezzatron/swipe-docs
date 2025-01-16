@@ -84,25 +84,26 @@
 }
 
 /* whitespace rendering */
-.cb code :is(.cb-s, .cb-t) {
+.cb-s,
+.cb-t {
   position: relative;
 }
-.cb code :is(.cb-s, .cb-t)::before {
+:is(.cb-s, .cb-t)::before {
   position: absolute;
   color: transparent;
 }
 /* hack to fix weird Safari text highlight gaps */
-.cb code :is(.cb-s, .cb-t)::before {
+:is(.cb-s, .cb-t)::before {
   left: -100px;
   transform: translateX(100px);
 }
-.cb code .cb-s::before {
+.cb-s::before {
   content: "\0000B7"; /* middle dot */
 }
-.cb code .cb-t::before {
+.cb-t::before {
   content: "\002192"; /* right arrow */
 }
-.cb code .selected:is(.cb-s, .cb-t)::before {
+:is(.cb-s, .cb-t).selected::before {
   color: var(--cb-whitespace);
 }
 
