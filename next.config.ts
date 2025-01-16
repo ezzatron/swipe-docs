@@ -1,7 +1,9 @@
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 import { createRequire } from "node:module";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeMdxCodeProps from "rehype-mdx-code-props";
+import rehypeSlug from "rehype-slug";
 
 const require = createRequire(import.meta.url);
 
@@ -31,7 +33,7 @@ const nextConfig: NextConfig = {
 const withMDX = createMDX({
   options: {
     jsx: true,
-    rehypePlugins: [rehypeMdxCodeProps],
+    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings, rehypeMdxCodeProps],
   },
 });
 
