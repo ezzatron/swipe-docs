@@ -1,6 +1,5 @@
 import type { Element, ElementContent, Root, Text } from "hast";
 import { visit } from "unist-util-visit";
-import { highlighter } from "./highlighter";
 
 /**
  * Matches comments.
@@ -59,26 +58,17 @@ const WHITESPACE_CLASS_MAP: Record<string, string> = {
 
 const SECTION_DATA = "data-s";
 
-export function flagToScope(flag: string): string | undefined {
-  return highlighter.flagToScope(flag);
-}
-
 type Options = {
   id: string;
   lineNumbers: boolean;
-  scope?: string;
   section?: string;
   sectionContext: boolean;
 };
 
-export function highlight(
-  source: string,
-  { id, lineNumbers, scope, section, sectionContext }: Options,
+export function transform(
+  tree: Root,
+  { id, lineNumbers, section, sectionContext }: Options,
 ): Root {
-  const tree: Root = scope
-    ? highlighter.highlight(source, scope)
-    : { type: "root", children: [{ type: "text", value: source }] };
-
   const lines: Element[] = splitLines(tree);
   const [annotations, annotationComments] = parseAnnotations(lines);
 

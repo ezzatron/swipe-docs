@@ -13,11 +13,11 @@ const nextConfig: NextConfig = {
       {
         oneOf: [
           {
-            resourceQuery: /source/,
-            use: require.resolve("./src/code/source-loader.js"),
+            resourceQuery: /code/,
+            use: require.resolve("./src/code/loader.js"),
           },
           {
-            resourceQuery: { not: [/source/] },
+            resourceQuery: { not: [/code/] },
             rules: config.module.rules,
           },
         ],

@@ -1,14 +1,15 @@
 import clsx from "clsx";
+import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { cache, Fragment, type ReactNode } from "react";
 import slugify from "react-slugify";
 import { jsx, jsxs } from "react/jsx-runtime";
 import styles from "./CodeBlock.module.css";
 import CopyButton from "./CopyButton";
-import { flagToScope, highlight } from "./highlight";
 import LanguageIcon from "./LanguageIcon";
 import PermalinkButton from "./PermalinkButton";
 import { isCommandLine } from "./scope";
+import { transform } from "./transform";
 
 const createSlugify = cache(() => {
   const slugCounts: Record<string, number> = {};
@@ -24,9 +25,9 @@ const createSlugify = cache(() => {
 });
 
 type Props = {
+  tree: Root;
+  scope: string | undefined;
   id?: string;
-  flag?: string;
-  source: string;
   title?: ReactNode;
   filename?: string;
   filenameContext?: number;
@@ -36,9 +37,9 @@ type Props = {
 };
 
 export default function CodeBlock({
+  tree,
+  scope,
   id,
-  flag,
-  source,
   title,
   filename,
   filenameContext = 1,
@@ -46,12 +47,6 @@ export default function CodeBlock({
   section,
   sectionContext = true,
 }: Props) {
-  const scope: string | undefined = flag
-    ? flagToScope(flag)
-    : filename
-      ? flagToScope(filename)
-      : undefined;
-
   if (title == null) {
     if (filename != null) {
       title =
@@ -65,14 +60,13 @@ export default function CodeBlock({
   if (title == null && isCommandLine(scope)) title = "Command Line";
 
   const preId = `${id}-pre`;
-  const tree = highlight(source, {
+  const transformed = transform(tree, {
     id: preId,
-    scope,
     lineNumbers,
     section,
     sectionContext,
   });
-  const highlighted = toJsxRuntime(tree, { Fragment, jsx, jsxs });
+  const highlighted = toJsxRuntime(transformed, { Fragment, jsx, jsxs });
 
   return (
     <div id={id} className="my-6 overflow-clip rounded font-mono text-sm">
