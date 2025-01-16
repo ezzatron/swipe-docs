@@ -1,5 +1,5 @@
 // @ts-check
-import { highlight } from "./highlighter.js";
+import { highlight } from "./highlight.js";
 
 export default function codeLoader(source) {
   const [scope, tree] = highlight(this.resourcePath, source);
