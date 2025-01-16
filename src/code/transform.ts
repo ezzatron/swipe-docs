@@ -90,12 +90,18 @@ export function transform(
     tagName: "pre",
     properties: { id, class: CODE_BLOCK_CLASS, "data-s": section },
     children: [
-      fillCodeSection(sectionLines, lineNumbers, linesBefore.length + 1, {
-        type: "element",
-        tagName: "div",
-        properties: { class: SECTION_CONTENT_CLASS },
-        children: [],
-      }),
+      fillCodeSection(
+        sectionLines,
+        lineNumbers,
+        linesBefore.length + 1,
+        lines.length,
+        {
+          type: "element",
+          tagName: "div",
+          properties: { class: SECTION_CONTENT_CLASS },
+          children: [],
+        },
+      ),
     ],
   };
   const result: Root = { type: "root", children: [pre] };
@@ -118,7 +124,7 @@ export function transform(
 
   if (hasBefore) {
     pre.children.unshift(
-      fillCodeSection(linesBefore, lineNumbers, 1, {
+      fillCodeSection(linesBefore, lineNumbers, 1, lines.length, {
         type: "element",
         tagName: "div",
         properties: { class: SECTION_CONTEXT_CLASS },
@@ -135,6 +141,7 @@ export function transform(
         linesAfter,
         lineNumbers,
         linesBefore.length + sectionLines.length + 1,
+        lines.length,
         {
           type: "element",
           tagName: "div",
@@ -560,10 +567,13 @@ function fillCodeSection(
   lines: Element[],
   lineNumbers: boolean,
   startLine: number,
+  totalLines: number,
   parent: Element,
 ): Element {
   if (lineNumbers) {
-    parent.children.push(createLineNumbers(startLine, lines.length));
+    parent.children.push(
+      createLineNumbers(startLine, lines.length, totalLines),
+    );
   }
 
   parent.children.push({
@@ -576,11 +586,16 @@ function fillCodeSection(
   return parent;
 }
 
-function createLineNumbers(start: number, count: number): Element {
+function createLineNumbers(
+  start: number,
+  count: number,
+  totalLines: number,
+): Element {
+  const width = `${String(totalLines).length}ch`;
   const numbers: Element = {
     type: "element",
     tagName: "div",
-    properties: { class: LINE_NUMBERS_CLASS },
+    properties: { class: LINE_NUMBERS_CLASS, style: `width: ${width}` },
     children: [],
   };
 

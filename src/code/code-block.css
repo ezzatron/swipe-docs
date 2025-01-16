@@ -52,10 +52,8 @@
 /* line numbers */
 .cb-ln {
   flex-shrink: 0;
+  margin-right: theme("padding.6");
   color: var(--cb-line-number);
-}
-.cb-n {
-  padding-right: theme("padding.6");
   text-align: right;
 }
 
