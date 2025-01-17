@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "@wooorm/starry-night/style/both";
+@import "./code/code-theme.css";
 @import "./code/code-block.css";
 
 @layer utilities {
