@@ -63,27 +63,35 @@ type Options = {
   lineNumbers: boolean;
   section?: string;
   noSectionContext: boolean;
+  noAnnotations: boolean;
 };
 
 export function transform(
   tree: Root,
-  { id, lineNumbers, section, noSectionContext }: Options,
+  { id, lineNumbers, section, noSectionContext, noAnnotations }: Options,
 ): Root {
   const lines: Element[] = splitLines(tree);
-  const [annotations, annotationComments] = parseAnnotations(lines);
+  const [annotations, annotationComments] = parseAnnotations(
+    lines,
+    noAnnotations,
+  );
 
-  addSections(lines, annotations);
+  if (!noAnnotations) addSections(lines, annotations);
   cleanupLines(lines, annotationComments);
-  trimSectionLines(lines);
-  trimSectionLines(lines.toReversed());
+  if (!noAnnotations) trimSectionLines(lines);
+  if (!noAnnotations) trimSectionLines(lines.toReversed());
   wrapWhitespace(lines);
 
-  const [sectionLines, linesBefore, linesAfter] = splitSection(lines, section);
+  const [sectionLines, linesBefore, linesAfter] = splitSection(
+    lines,
+    section,
+    noAnnotations,
+  );
   const hasBefore = linesBefore.length > 0;
   const hasAfter = linesAfter.length > 0;
   const hasContext = hasBefore || hasAfter;
 
-  wrapSectionIndent(sectionLines);
+  if (!noAnnotations) wrapSectionIndent(sectionLines);
 
   const pre: Element = {
     type: "element",
@@ -201,6 +209,7 @@ type AnnotationComment = [start: string, content: string, end: string];
 
 function parseAnnotations(
   lines: Element[],
+  noAnnotations: boolean,
 ): [
   annotations: Record<number, Annotation[]>,
   comments: Map<Text, AnnotationComment>,
@@ -208,6 +217,8 @@ function parseAnnotations(
   const annotations: Record<number, Annotation[]> = {};
   const comments: Map<Text, [start: string, content: string, end: string]> =
     new Map();
+
+  if (noAnnotations) return [annotations, comments];
 
   for (let i = 0; i < lines.length; ++i) {
     const line = lines[i];
@@ -444,8 +455,9 @@ function wrapWhitespace(lines: Element[]): void {
 function splitSection(
   lines: Element[],
   name: string | undefined,
+  noAnnotations: boolean,
 ): [sectionLines: Element[], linesBefore: Element[], linesAfter: Element[]] {
-  if (!name) return [lines, [], []];
+  if (noAnnotations || !name) return [lines, [], []];
 
   const sectionLines: Element[] = [];
   const linesBefore: Element[] = [];

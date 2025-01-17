@@ -36,6 +36,7 @@ type Props = {
   lineNumbers?: boolean;
   section?: string;
   noSectionContext?: boolean;
+  noAnnotations?: boolean;
 };
 
 export default async function CodeBlock({
@@ -48,6 +49,7 @@ export default async function CodeBlock({
   lineNumbers = false,
   section,
   noSectionContext = false,
+  noAnnotations = false,
 }: Props) {
   if (title == null) {
     if (filename) {
@@ -78,6 +80,7 @@ export default async function CodeBlock({
     lineNumbers,
     section,
     noSectionContext,
+    noAnnotations,
   });
   const highlighted = toJsxRuntime(transformed, { Fragment, jsx, jsxs });
 
