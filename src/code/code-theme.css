@@ -1,99 +1,102 @@
-/* This is a theme distributed by `starry-night`.
- * It’s based on what GitHub uses on their site.
- * See <https://github.com/wooorm/starry-night> for more info. */
+/**
+ * Based on a theme distributed by `starry-night`, which in turn is based on
+ * what GitHub uses on their site.
+ *
+ * See <https://github.com/wooorm/starry-night> for more info.
+ */
 :root {
-  --color-prettylights-syntax-comment: #59636e;
-  --color-prettylights-syntax-constant: #0550ae;
-  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
-  --color-prettylights-syntax-entity: #6639ba;
-  --color-prettylights-syntax-storage-modifier-import: #1f2328;
-  --color-prettylights-syntax-entity-tag: #0550ae;
-  --color-prettylights-syntax-keyword: #cf222e;
-  --color-prettylights-syntax-string: #0a3069;
-  --color-prettylights-syntax-variable: #953800;
-  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
-  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
-  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
-  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
-  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
-  --color-prettylights-syntax-carriage-return-bg: #cf222e;
-  --color-prettylights-syntax-string-regexp: #116329;
-  --color-prettylights-syntax-markup-list: #3b2300;
-  --color-prettylights-syntax-markup-heading: #0550ae;
-  --color-prettylights-syntax-markup-italic: #1f2328;
-  --color-prettylights-syntax-markup-bold: #1f2328;
-  --color-prettylights-syntax-markup-deleted-text: #82071e;
-  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
-  --color-prettylights-syntax-markup-inserted-text: #116329;
-  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
-  --color-prettylights-syntax-markup-changed-text: #953800;
-  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
-  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
-  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
-  --color-prettylights-syntax-meta-diff-range: #8250df;
-  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --cb-comment: #59636e;
+  --cb-constant: #0550ae;
+  --cb-constant-other-reference-link: #0a3069;
+  --cb-entity: #6639ba;
+  --cb-storage-modifier-import: #1f2328;
+  --cb-entity-tag: #0550ae;
+  --cb-keyword: #cf222e;
+  --cb-string: #0a3069;
+  --cb-variable: #953800;
+  --cb-bracket-unmatched: #82071e;
+  --cb-bracket-angle: #59636e;
+  --cb-invalid-illegal-text: #f6f8fa;
+  --cb-invalid-illegal-bg: #82071e;
+  --cb-carriage-return-text: #f6f8fa;
+  --cb-carriage-return-bg: #cf222e;
+  --cb-string-regexp: #116329;
+  --cb-markup-list: #3b2300;
+  --cb-markup-heading: #0550ae;
+  --cb-markup-italic: #1f2328;
+  --cb-markup-bold: #1f2328;
+  --cb-markup-deleted-text: #82071e;
+  --cb-markup-deleted-bg: #ffebe9;
+  --cb-markup-inserted-text: #116329;
+  --cb-markup-inserted-bg: #dafbe1;
+  --cb-markup-changed-text: #953800;
+  --cb-markup-changed-bg: #ffd8b5;
+  --cb-markup-ignored-text: #d1d9e0;
+  --cb-markup-ignored-bg: #0550ae;
+  --cb-meta-diff-range: #8250df;
+  --cb-gutter-mark: #818b98;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-prettylights-syntax-comment: #9198a1;
-    --color-prettylights-syntax-constant: #79c0ff;
-    --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
-    --color-prettylights-syntax-entity: #d2a8ff;
-    --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
-    --color-prettylights-syntax-entity-tag: #7ee787;
-    --color-prettylights-syntax-keyword: #ff7b72;
-    --color-prettylights-syntax-string: #a5d6ff;
-    --color-prettylights-syntax-variable: #ffa657;
-    --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
-    --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
-    --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
-    --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
-    --color-prettylights-syntax-carriage-return-text: #f0f6fc;
-    --color-prettylights-syntax-carriage-return-bg: #b62324;
-    --color-prettylights-syntax-string-regexp: #7ee787;
-    --color-prettylights-syntax-markup-list: #f2cc60;
-    --color-prettylights-syntax-markup-heading: #1f6feb;
-    --color-prettylights-syntax-markup-italic: #f0f6fc;
-    --color-prettylights-syntax-markup-bold: #f0f6fc;
-    --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
-    --color-prettylights-syntax-markup-deleted-bg: #67060c;
-    --color-prettylights-syntax-markup-inserted-text: #aff5b4;
-    --color-prettylights-syntax-markup-inserted-bg: #033a16;
-    --color-prettylights-syntax-markup-changed-text: #ffdfb6;
-    --color-prettylights-syntax-markup-changed-bg: #5a1e02;
-    --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
-    --color-prettylights-syntax-markup-ignored-bg: #1158c7;
-    --color-prettylights-syntax-meta-diff-range: #d2a8ff;
-    --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+    --cb-comment: #9198a1;
+    --cb-constant: #79c0ff;
+    --cb-constant-other-reference-link: #a5d6ff;
+    --cb-entity: #d2a8ff;
+    --cb-storage-modifier-import: #f0f6fc;
+    --cb-entity-tag: #7ee787;
+    --cb-keyword: #ff7b72;
+    --cb-string: #a5d6ff;
+    --cb-variable: #ffa657;
+    --cb-bracket-unmatched: #f85149;
+    --cb-bracket-angle: #9198a1;
+    --cb-invalid-illegal-text: #f0f6fc;
+    --cb-invalid-illegal-bg: #8e1519;
+    --cb-carriage-return-text: #f0f6fc;
+    --cb-carriage-return-bg: #b62324;
+    --cb-string-regexp: #7ee787;
+    --cb-markup-list: #f2cc60;
+    --cb-markup-heading: #1f6feb;
+    --cb-markup-italic: #f0f6fc;
+    --cb-markup-bold: #f0f6fc;
+    --cb-markup-deleted-text: #ffdcd7;
+    --cb-markup-deleted-bg: #67060c;
+    --cb-markup-inserted-text: #aff5b4;
+    --cb-markup-inserted-bg: #033a16;
+    --cb-markup-changed-text: #ffdfb6;
+    --cb-markup-changed-bg: #5a1e02;
+    --cb-markup-ignored-text: #f0f6fc;
+    --cb-markup-ignored-bg: #1158c7;
+    --cb-meta-diff-range: #d2a8ff;
+    --cb-gutter-mark: #3d444d;
   }
 }
 
 .pl-c {
-  color: var(--color-prettylights-syntax-comment);
+  color: var(--cb-comment);
 }
 
 .pl-c1,
 .pl-s .pl-v {
-  color: var(--color-prettylights-syntax-constant);
+  color: var(--cb-constant);
 }
 
 .pl-e,
 .pl-en {
-  color: var(--color-prettylights-syntax-entity);
+  color: var(--cb-entity);
 }
 
 .pl-smi,
 .pl-s .pl-s1 {
-  color: var(--color-prettylights-syntax-storage-modifier-import);
+  color: var(--cb-storage-modifier-import);
 }
 
 .pl-ent {
-  color: var(--color-prettylights-syntax-entity-tag);
+  color: var(--cb-entity-tag);
 }
 
 .pl-k {
-  color: var(--color-prettylights-syntax-keyword);
+  color: var(--cb-keyword);
 }
 
 .pl-s,
@@ -103,88 +106,88 @@
 .pl-sr .pl-cce,
 .pl-sr .pl-sre,
 .pl-sr .pl-sra {
-  color: var(--color-prettylights-syntax-string);
+  color: var(--cb-string);
 }
 
 .pl-v,
 .pl-smw {
-  color: var(--color-prettylights-syntax-variable);
+  color: var(--cb-variable);
 }
 
 .pl-bu {
-  color: var(--color-prettylights-syntax-brackethighlighter-unmatched);
+  color: var(--cb-bracket-unmatched);
 }
 
 .pl-ii {
-  background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
-  color: var(--color-prettylights-syntax-invalid-illegal-text);
+  background-color: var(--cb-invalid-illegal-bg);
+  color: var(--cb-invalid-illegal-text);
 }
 
 .pl-c2 {
-  background-color: var(--color-prettylights-syntax-carriage-return-bg);
-  color: var(--color-prettylights-syntax-carriage-return-text);
+  background-color: var(--cb-carriage-return-bg);
+  color: var(--cb-carriage-return-text);
 }
 
 .pl-sr .pl-cce {
-  color: var(--color-prettylights-syntax-string-regexp);
+  color: var(--cb-string-regexp);
   font-weight: bold;
 }
 
 .pl-ml {
-  color: var(--color-prettylights-syntax-markup-list);
+  color: var(--cb-markup-list);
 }
 
 .pl-mh,
 .pl-mh .pl-en,
 .pl-ms {
-  color: var(--color-prettylights-syntax-markup-heading);
+  color: var(--cb-markup-heading);
   font-weight: bold;
 }
 
 .pl-mi {
-  color: var(--color-prettylights-syntax-markup-italic);
+  color: var(--cb-markup-italic);
   font-style: italic;
 }
 
 .pl-mb {
-  color: var(--color-prettylights-syntax-markup-bold);
+  color: var(--cb-markup-bold);
   font-weight: bold;
 }
 
 .pl-md {
-  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
-  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--cb-markup-deleted-bg);
+  color: var(--cb-markup-deleted-text);
 }
 
 .pl-mi1 {
-  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
-  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--cb-markup-inserted-bg);
+  color: var(--cb-markup-inserted-text);
 }
 
 .pl-mc {
-  background-color: var(--color-prettylights-syntax-markup-changed-bg);
-  color: var(--color-prettylights-syntax-markup-changed-text);
+  background-color: var(--cb-markup-changed-bg);
+  color: var(--cb-markup-changed-text);
 }
 
 .pl-mi2 {
-  background-color: var(--color-prettylights-syntax-markup-ignored-bg);
-  color: var(--color-prettylights-syntax-markup-ignored-text);
+  background-color: var(--cb-markup-ignored-bg);
+  color: var(--cb-markup-ignored-text);
 }
 
 .pl-mdr {
-  color: var(--color-prettylights-syntax-meta-diff-range);
+  color: var(--cb-meta-diff-range);
   font-weight: bold;
 }
 
 .pl-ba {
-  color: var(--color-prettylights-syntax-brackethighlighter-angle);
+  color: var(--cb-bracket-angle);
 }
 
 .pl-sg {
-  color: var(--color-prettylights-syntax-sublimelinter-gutter-mark);
+  color: var(--cb-gutter-mark);
 }
 
 .pl-corl {
-  color: var(--color-prettylights-syntax-constant-other-reference-link);
+  color: var(--cb-constant-other-reference-link);
   text-decoration: underline;
 }
