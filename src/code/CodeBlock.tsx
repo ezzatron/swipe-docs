@@ -35,7 +35,7 @@ type Props = {
   filenameContext?: number;
   lineNumbers?: boolean;
   section?: string;
-  sectionContext?: boolean;
+  noSectionContext?: boolean;
 };
 
 export default async function CodeBlock({
@@ -47,7 +47,7 @@ export default async function CodeBlock({
   filenameContext = 1,
   lineNumbers = false,
   section,
-  sectionContext = true,
+  noSectionContext = false,
 }: Props) {
   const highlighter = await createHighlighter();
   const scope = flag
@@ -63,7 +63,7 @@ export default async function CodeBlock({
     id: preId,
     lineNumbers,
     section,
-    sectionContext,
+    noSectionContext,
   });
   const highlighted = toJsxRuntime(transformed, { Fragment, jsx, jsxs });
 

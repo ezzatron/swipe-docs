@@ -62,12 +62,12 @@ type Options = {
   id: string;
   lineNumbers: boolean;
   section?: string;
-  sectionContext: boolean;
+  noSectionContext: boolean;
 };
 
 export function transform(
   tree: Root,
-  { id, lineNumbers, section, sectionContext }: Options,
+  { id, lineNumbers, section, noSectionContext }: Options,
 ): Root {
   const lines: Element[] = splitLines(tree);
   const [annotations, annotationComments] = parseAnnotations(lines);
@@ -106,7 +106,7 @@ export function transform(
   };
   const result: Root = { type: "root", children: [pre] };
 
-  if (!sectionContext || !hasContext) return result;
+  if (noSectionContext || !hasContext) return result;
 
   const expandedId = `${id}-expanded`;
   pre.children.push({
