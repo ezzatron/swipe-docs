@@ -49,12 +49,26 @@ export default async function CodeBlock({
   section,
   noSectionContext = false,
 }: Props) {
+  if (title == null) {
+    if (filename) {
+      title =
+        filenameContext < 1
+          ? ""
+          : filename.split("/").slice(-filenameContext).join("/");
+    }
+  }
+
+  if (!id) id = createSlugify()(title);
+
   const highlighter = await createHighlighter();
   const scope = flag
     ? highlighter.flagToScope(flag)
     : filename
       ? highlighter.flagToScope(filename)
       : undefined;
+
+  if (title == null && isCommandLine(scope)) title = "Command Line";
+
   const tree: Root = scope
     ? highlighter.highlight(source, scope)
     : { type: "root", children: [{ type: "text", value: source }] };
@@ -66,18 +80,6 @@ export default async function CodeBlock({
     noSectionContext,
   });
   const highlighted = toJsxRuntime(transformed, { Fragment, jsx, jsxs });
-
-  if (title == null) {
-    if (filename != null) {
-      title =
-        filenameContext < 1
-          ? ""
-          : filename.split("/").slice(-filenameContext).join("/");
-    }
-  }
-
-  if (!id) id = createSlugify()(title);
-  if (title == null && isCommandLine(scope)) title = "Command Line";
 
   return (
     <div id={id} className="my-6 overflow-clip rounded font-mono text-sm">
