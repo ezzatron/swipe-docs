@@ -607,7 +607,7 @@ function createLineNumbers(
   const numbers: Element = {
     type: "element",
     tagName: "div",
-    properties: { class: LINE_NUMBERS_CLASS, style: `width: ${width}` },
+    properties: { class: LINE_NUMBERS_CLASS, style: `--cb-w: ${width}` },
     children: [],
   };
 
