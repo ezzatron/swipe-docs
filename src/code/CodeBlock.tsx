@@ -1,3 +1,4 @@
+import { all, createStarryNight } from "@wooorm/starry-night";
 import clsx from "clsx";
 import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
@@ -11,6 +12,7 @@ import PermalinkButton from "./PermalinkButton";
 import { isCommandLine } from "./scope";
 import { transform } from "./transform";
 
+const createHighlighter = cache(() => createStarryNight(all));
 const createSlugify = cache(() => {
   const slugCounts: Record<string, number> = {};
 
@@ -25,8 +27,8 @@ const createSlugify = cache(() => {
 });
 
 type Props = {
-  tree: Root;
-  scope: string | undefined;
+  source: string;
+  flag: string | undefined;
   id?: string;
   title?: ReactNode;
   filename?: string;
@@ -36,9 +38,9 @@ type Props = {
   sectionContext?: boolean;
 };
 
-export default function CodeBlock({
-  tree,
-  scope,
+export default async function CodeBlock({
+  source,
+  flag,
   id,
   title,
   filename,
@@ -47,6 +49,24 @@ export default function CodeBlock({
   section,
   sectionContext = true,
 }: Props) {
+  const highlighter = await createHighlighter();
+  const scope = flag
+    ? highlighter.flagToScope(flag)
+    : filename
+      ? highlighter.flagToScope(filename)
+      : undefined;
+  const tree: Root = scope
+    ? highlighter.highlight(source, scope)
+    : { type: "root", children: [{ type: "text", value: source }] };
+  const preId = `${id}-pre`;
+  const transformed = transform(tree, {
+    id: preId,
+    lineNumbers,
+    section,
+    sectionContext,
+  });
+  const highlighted = toJsxRuntime(transformed, { Fragment, jsx, jsxs });
+
   if (title == null) {
     if (filename != null) {
       title =
@@ -58,15 +78,6 @@ export default function CodeBlock({
 
   if (!id) id = createSlugify()(title);
   if (title == null && isCommandLine(scope)) title = "Command Line";
-
-  const preId = `${id}-pre`;
-  const transformed = transform(tree, {
-    id: preId,
-    lineNumbers,
-    section,
-    sectionContext,
-  });
-  const highlighted = toJsxRuntime(transformed, { Fragment, jsx, jsxs });
 
   return (
     <div id={id} className="my-6 overflow-clip rounded font-mono text-sm">

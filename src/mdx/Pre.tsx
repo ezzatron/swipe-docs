@@ -1,6 +1,5 @@
 import { Children, type JSX, type ReactElement } from "react";
 import CodeBlock from "../code/CodeBlock";
-import { highlight } from "../code/highlight";
 
 const LANGUAGE_PATTERN = /^language-(.+)$/;
 
@@ -15,7 +14,6 @@ export default function Pre({ children, title }: Props) {
   const { children: source, className, ...codeProps } = props;
   const match = className ? LANGUAGE_PATTERN.exec(className) : null;
   const flag = match?.[1];
-  const [scope, tree] = highlight(flag, source);
 
-  return <CodeBlock {...codeProps} tree={tree} scope={scope} title={title} />;
+  return <CodeBlock {...codeProps} source={source} flag={flag} title={title} />;
 }
