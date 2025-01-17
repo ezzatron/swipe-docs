@@ -22,7 +22,7 @@
 }
 
 .cb {
-  display: grid;
+  position: relative;
   background-color: var(--cb-bg);
   padding: theme("padding.3") theme("padding.4") theme("padding.3") 0;
   overflow-x: auto;
@@ -65,7 +65,7 @@
 }
 .cb code {
   flex-grow: 1;
-  padding-left: theme("padding.4");
+  padding: 0 theme("padding.4");
 }
 
 /* scrollbar */
@@ -111,6 +111,9 @@
 
 /* section expander */
 .cb-sh {
+  display: block;
+  position: sticky;
+  left: 0;
   cursor: pointer;
   padding-left: theme("padding.4");
   color: var(--cb-section-expander);
