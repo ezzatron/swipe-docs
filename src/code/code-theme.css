@@ -2,73 +2,76 @@
  * Based on a theme distributed by `starry-night`, which in turn is based on
  * what GitHub uses on their site.
  *
- * See <https://github.com/wooorm/starry-night> for more info.
+ * The original colors were replaced with approximate Tailwind CSS color
+ * matches.
+ *
+ * @see https://github.com/wooorm/starry-night
  */
 :root {
-  --cb-comment: #59636e;
-  --cb-constant: #0550ae;
-  --cb-constant-other-reference-link: #0a3069;
-  --cb-entity: #6639ba;
-  --cb-storage-modifier-import: #1f2328;
-  --cb-entity-tag: #0550ae;
-  --cb-keyword: #cf222e;
-  --cb-string: #0a3069;
-  --cb-variable: #953800;
-  --cb-bracket-unmatched: #82071e;
-  --cb-bracket-angle: #59636e;
-  --cb-invalid-illegal-text: #f6f8fa;
-  --cb-invalid-illegal-bg: #82071e;
-  --cb-carriage-return-text: #f6f8fa;
-  --cb-carriage-return-bg: #cf222e;
-  --cb-string-regexp: #116329;
-  --cb-markup-list: #3b2300;
-  --cb-markup-heading: #0550ae;
-  --cb-markup-italic: #1f2328;
-  --cb-markup-bold: #1f2328;
-  --cb-markup-deleted-text: #82071e;
-  --cb-markup-deleted-bg: #ffebe9;
-  --cb-markup-inserted-text: #116329;
-  --cb-markup-inserted-bg: #dafbe1;
-  --cb-markup-changed-text: #953800;
-  --cb-markup-changed-bg: #ffd8b5;
-  --cb-markup-ignored-text: #d1d9e0;
-  --cb-markup-ignored-bg: #0550ae;
-  --cb-meta-diff-range: #8250df;
-  --cb-gutter-mark: #818b98;
+  --cb-comment: theme("colors.gray.600");
+  --cb-constant: theme("colors.blue.800");
+  --cb-constant-other-reference-link: theme("colors.blue.900");
+  --cb-entity: theme("colors.purple.800");
+  --cb-storage-modifier-import: theme("colors.gray.800");
+  --cb-entity-tag: theme("colors.blue.800");
+  --cb-keyword: theme("colors.red.600");
+  --cb-string: theme("colors.blue.900");
+  --cb-variable: theme("colors.orange.800");
+  --cb-bracket-unmatched: theme("colors.red.900");
+  --cb-bracket-angle: theme("colors.gray.600");
+  --cb-invalid-illegal-text: theme("colors.gray.50");
+  --cb-invalid-illegal-bg: theme("colors.red.900");
+  --cb-carriage-return-text: theme("colors.gray.50");
+  --cb-carriage-return-bg: theme("colors.red.600");
+  --cb-string-regexp: theme("colors.green.800");
+  --cb-markup-list: theme("colors.yellow.950");
+  --cb-markup-heading: theme("colors.blue.800");
+  --cb-markup-italic: theme("colors.gray.800");
+  --cb-markup-bold: theme("colors.gray.800");
+  --cb-markup-deleted-text: theme("colors.red.900");
+  --cb-markup-deleted-bg: theme("colors.red.100");
+  --cb-markup-inserted-text: theme("colors.green.800");
+  --cb-markup-inserted-bg: theme("colors.green.100");
+  --cb-markup-changed-text: theme("colors.orange.800");
+  --cb-markup-changed-bg: theme("colors.orange.100");
+  --cb-markup-ignored-text: theme("colors.gray.300");
+  --cb-markup-ignored-bg: theme("colors.blue.800");
+  --cb-meta-diff-range: theme("colors.purple.500");
+  --cb-gutter-mark: theme("colors.gray.500");
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --cb-comment: #9198a1;
-    --cb-constant: #79c0ff;
-    --cb-constant-other-reference-link: #a5d6ff;
-    --cb-entity: #d2a8ff;
-    --cb-storage-modifier-import: #f0f6fc;
-    --cb-entity-tag: #7ee787;
-    --cb-keyword: #ff7b72;
-    --cb-string: #a5d6ff;
-    --cb-variable: #ffa657;
-    --cb-bracket-unmatched: #f85149;
-    --cb-bracket-angle: #9198a1;
-    --cb-invalid-illegal-text: #f0f6fc;
-    --cb-invalid-illegal-bg: #8e1519;
-    --cb-carriage-return-text: #f0f6fc;
-    --cb-carriage-return-bg: #b62324;
-    --cb-string-regexp: #7ee787;
-    --cb-markup-list: #f2cc60;
-    --cb-markup-heading: #1f6feb;
-    --cb-markup-italic: #f0f6fc;
-    --cb-markup-bold: #f0f6fc;
-    --cb-markup-deleted-text: #ffdcd7;
-    --cb-markup-deleted-bg: #67060c;
-    --cb-markup-inserted-text: #aff5b4;
-    --cb-markup-inserted-bg: #033a16;
-    --cb-markup-changed-text: #ffdfb6;
-    --cb-markup-changed-bg: #5a1e02;
-    --cb-markup-ignored-text: #f0f6fc;
-    --cb-markup-ignored-bg: #1158c7;
-    --cb-meta-diff-range: #d2a8ff;
-    --cb-gutter-mark: #3d444d;
+    --cb-comment: theme("colors.gray.400");
+    --cb-constant: theme("colors.blue.400");
+    --cb-constant-other-reference-link: theme("colors.blue.200");
+    --cb-entity: theme("colors.purple.300");
+    --cb-storage-modifier-import: theme("colors.gray.50");
+    --cb-entity-tag: theme("colors.green.300");
+    --cb-keyword: theme("colors.red.400");
+    --cb-string: theme("colors.blue.200");
+    --cb-variable: theme("colors.orange.400");
+    --cb-bracket-unmatched: theme("colors.red.500");
+    --cb-bracket-angle: theme("colors.gray.400");
+    --cb-invalid-illegal-text: theme("colors.gray.50");
+    --cb-invalid-illegal-bg: theme("colors.red.800");
+    --cb-carriage-return-text: theme("colors.gray.50");
+    --cb-carriage-return-bg: theme("colors.red.700");
+    --cb-string-regexp: theme("colors.green.300");
+    --cb-markup-list: theme("colors.yellow.300");
+    --cb-markup-heading: theme("colors.blue.600");
+    --cb-markup-italic: theme("colors.gray.50");
+    --cb-markup-bold: theme("colors.gray.50");
+    --cb-markup-deleted-text: theme("colors.red.100");
+    --cb-markup-deleted-bg: theme("colors.red.900");
+    --cb-markup-inserted-text: theme("colors.green.300");
+    --cb-markup-inserted-bg: theme("colors.green.900");
+    --cb-markup-changed-text: theme("colors.orange.200");
+    --cb-markup-changed-bg: theme("colors.orange.900");
+    --cb-markup-ignored-text: theme("colors.gray.50");
+    --cb-markup-ignored-bg: theme("colors.blue.700");
+    --cb-meta-diff-range: theme("colors.purple.300");
+    --cb-gutter-mark: theme("colors.gray.700");
   }
 }
 
