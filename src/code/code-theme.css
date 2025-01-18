@@ -8,7 +8,7 @@
  * @see https://github.com/wooorm/starry-night
  */
 :root {
-  --cb-comment: theme("colors.gray.600");
+  --cb-comment: theme("colors.gray.500");
   --cb-constant: theme("colors.blue.800");
   --cb-constant-other-reference-link: theme("colors.blue.900");
   --cb-entity: theme("colors.purple.800");
@@ -42,8 +42,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --cb-comment: theme("colors.gray.400");
-    --cb-constant: theme("colors.blue.400");
+    --cb-comment: theme("colors.gray.500");
+    --cb-constant: theme("colors.blue.300");
     --cb-constant-other-reference-link: theme("colors.blue.200");
     --cb-entity: theme("colors.purple.300");
     --cb-storage-modifier-import: theme("colors.gray.50");
