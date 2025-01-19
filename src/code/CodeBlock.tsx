@@ -1,4 +1,3 @@
-import { all, createStarryNight } from "@wooorm/starry-night";
 import clsx from "clsx";
 import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
@@ -7,12 +6,12 @@ import slugify from "react-slugify";
 import { jsx, jsxs } from "react/jsx-runtime";
 import styles from "./CodeBlock.module.css";
 import CopyButton from "./CopyButton";
+import { createHighlighter } from "./highlighter";
 import LanguageIcon from "./LanguageIcon";
 import PermalinkButton from "./PermalinkButton";
 import { isCommandLine } from "./scope";
 import { transform } from "./transform";
 
-const createHighlighter = cache(() => createStarryNight(all));
 const createSlugify = cache(() => {
   const slugCounts: Record<string, number> = {};
 
