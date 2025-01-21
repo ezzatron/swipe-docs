@@ -34,7 +34,6 @@ type Props = {
   lineNumbers?: boolean;
   section?: string;
   noSectionContext?: boolean;
-  noAnnotations?: boolean;
 };
 
 export default function CodeBlock({
@@ -47,7 +46,6 @@ export default function CodeBlock({
   lineNumbers = false,
   section,
   noSectionContext = false,
-  noAnnotations = false,
 }: Props) {
   if (title == null) {
     if (filename) {
@@ -64,10 +62,9 @@ export default function CodeBlock({
   const preId = `${id}-pre`;
   const transformed = transform(tree, {
     id: preId,
-    lineNumbers,
+    showLineNumbers: lineNumbers,
     section,
     noSectionContext,
-    noAnnotations,
   });
   const highlighted = toJsxRuntime(transformed, { Fragment, jsx, jsxs });
 

@@ -52,6 +52,7 @@
   position: relative;
 }
 .cb-ln {
+  display: none;
   position: sticky;
   left: 0;
   flex-shrink: 0;
@@ -62,6 +63,9 @@
   width: calc(theme("padding.4") + var(--cb-w) + theme("padding.6"));
   color: var(--cb-line-number);
   text-align: right;
+}
+.cb-ln-s .cb-ln {
+  display: block;
 }
 .cb code {
   flex-grow: 1;

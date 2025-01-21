@@ -1,6 +1,6 @@
+import { createHighlighter } from "@code-loader/highlighter";
 import { Children, type JSX, type ReactElement } from "react";
 import CodeBlock from "../code/CodeBlock";
-import { createHighlighter } from "../code/loader/highlighter";
 
 const LANGUAGE_PATTERN = /^language-(.+)$/;
 

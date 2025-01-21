@@ -1,5 +1,6 @@
 import { all, createStarryNight } from "@wooorm/starry-night";
 import type { Root } from "hast";
+import { transform } from "./transform.js";
 
 export type Highlighter = Awaited<ReturnType<typeof createStarryNight>> & {
   flagToScope: (flag: string | undefined) => string | undefined;
@@ -21,11 +22,13 @@ export function createHighlighter(): Promise<Highlighter> {
         return flag && highlighter.flagToScope(flag);
       },
 
-      // Add support for undefined scopes
+      // Add support for undefined scopes, do server-side transformation
       highlight(value, scope) {
-        if (scope != null) return highlighter.highlight(value, scope);
-
-        return { type: "root", children: [{ type: "text", value }] };
+        return transform(
+          scope == null
+            ? { type: "root", children: [{ type: "text", value }] }
+            : highlighter.highlight(value, scope),
+        );
       },
     }));
   }
