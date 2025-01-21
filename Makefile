@@ -12,6 +12,17 @@ CHANGELOG_TAG_URL_PREFIX := https://github.com/ezzatron/swipe-docs/releases/tag/
 
 ################################################################################
 
+.PHONY: build
+build: artifacts/code-loader artifacts/link-dependencies.touch
+	$(JS_EXEC) next build
+
 .PHONY: run
-run: artifacts/link-dependencies.touch
+run: artifacts/code-loader artifacts/link-dependencies.touch
 	$(JS_EXEC) next dev
+
+################################################################################
+
+artifacts/code-loader: $(wildcard src/code/loader/*) artifacts/link-dependencies.touch
+	@rm -rf "$@"
+	$(JS_EXEC) tsc -p src/code/loader/tsconfig.json
+	@touch "$@"

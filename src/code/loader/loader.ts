@@ -1,16 +1,21 @@
-// @ts-check
+import type { Root } from "hast";
 import { callbackify } from "node:util";
+import type { LoaderDefinitionFunction } from "webpack";
 import { createHighlighter } from "./highlighter.js";
 
-/**
- * @this {import("webpack").LoaderContext<object>}
- */
-export default function codeLoader(source) {
+export type LoadedCode = {
+  tree: Root;
+  scope: string | undefined;
+  filename: string;
+  lineNumbers: true;
+};
+
+const codeLoader: LoaderDefinitionFunction = function codeLoader(source) {
   callbackify(async () => {
     const highlighter = await createHighlighter();
     const scope = highlighter.flagToScope(this.resourcePath);
 
-    const result = {
+    const result: LoadedCode = {
       tree: highlighter.highlight(source, scope),
       scope,
       filename: this.resourcePath,
@@ -19,4 +24,6 @@ export default function codeLoader(source) {
 
     return `export default ${JSON.stringify(result)};`;
   })(this.async());
-}
+};
+
+export default codeLoader;

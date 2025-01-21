@@ -1,10 +1,17 @@
-// @ts-check
 import { all, createStarryNight } from "@wooorm/starry-night";
+import type { Root } from "hast";
 
-/**
- * @returns {NonNullable<typeof globalThis.highlighter>}
- */
-export function createHighlighter() {
+export type Highlighter = Awaited<ReturnType<typeof createStarryNight>> & {
+  flagToScope: (flag: string | undefined) => string | undefined;
+  highlight: (value: string, scope: string | undefined) => Root;
+};
+
+declare global {
+  // eslint-disable-next-line no-var
+  var highlighter: Promise<Highlighter> | undefined;
+}
+
+export function createHighlighter(): Promise<Highlighter> {
   if (!globalThis.highlighter) {
     globalThis.highlighter = createStarryNight(all).then((highlighter) => ({
       ...highlighter,
@@ -18,10 +25,7 @@ export function createHighlighter() {
       highlight(value, scope) {
         if (scope != null) return highlighter.highlight(value, scope);
 
-        /** @type {import("hast").Root} */
-        const tree = { type: "root", children: [{ type: "text", value }] };
-
-        return tree;
+        return { type: "root", children: [{ type: "text", value }] };
       },
     }));
   }
