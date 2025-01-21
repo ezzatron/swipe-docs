@@ -17,7 +17,7 @@ export default async function Pre({ children, title }: Props) {
   const flag = match?.[1];
 
   const highlighter = await createHighlighter();
-  const scope = flag && highlighter.flagToScope(flag);
+  const scope = highlighter.flagToScope(flag);
   const tree = highlighter.highlight(source, scope);
 
   return <CodeBlock {...codeProps} tree={tree} scope={scope} title={title} />;
