@@ -5,7 +5,7 @@ import thisFile from "./message.mdx?code";
 import loremIpsumTs from "./example/lorem-ipsum.ts?code"; // [!section code-import-ts]
 import loremIpsumGo from "./example/lorem-ipsum.go?code"; // [!section code-import-go]
 
-import loremIpsumTsAnnotationsDisabled from "./example/lorem-ipsum.ts?noAnnotations&code";
+import loremIpsumTsWithAnnotations from "./example/lorem-ipsum.ts?annotations=retain&code";
 
 # Syntax highlighting examples
 
@@ -224,7 +224,7 @@ specific section. Sections are expandable to show more context.
     noSectionContext
     title="Code blocks"
   />
-  <CodeBlock {...loremIpsumTsAnnotationsDisabled} title="Section annotations" />
+  <CodeBlock {...loremIpsumTsWithAnnotations} title="Section annotations" />
 </details>
 
 ### From Markdown code blocks

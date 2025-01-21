@@ -1,5 +1,6 @@
 import { Children, type JSX, type ReactElement } from "react";
 import CodeBlock from "../code/CodeBlock";
+import type { Mode } from "../code/loader-src/transform";
 import { createHighlighter } from "../code/loader/highlighter";
 import { transform } from "../code/loader/transform";
 
@@ -9,14 +10,10 @@ type Props = JSX.IntrinsicElements["pre"] & {
   children: ReactElement<
     JSX.IntrinsicElements["code"] & { children: string; className: string }
   >;
-  noAnnotations?: boolean;
+  annotations?: Mode;
 };
 
-export default async function Pre({
-  children,
-  title,
-  noAnnotations = false,
-}: Props) {
+export default async function Pre({ children, title, annotations }: Props) {
   const { props } = Children.only(children);
   const { children: source, className, ...codeProps } = props;
   const match = className ? LANGUAGE_PATTERN.exec(className) : null;
@@ -25,7 +22,7 @@ export default async function Pre({
   const highlighter = await createHighlighter();
   const scope = highlighter.flagToScope(flag);
   const tree = transform(highlighter.highlight(source, scope), {
-    noAnnotations,
+    mode: annotations,
   });
 
   return <CodeBlock {...codeProps} tree={tree} scope={scope} title={title} />;

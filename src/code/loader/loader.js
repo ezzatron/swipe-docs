@@ -6,9 +6,11 @@ const codeLoader = function codeLoader(source) {
         const highlighter = await createHighlighter();
         const scope = highlighter.flagToScope(this.resourcePath);
         const params = new URLSearchParams(this.resourceQuery);
-        const noAnnotations = params.has("noAnnotations");
+        const annotations = (params.get("annotations") ?? undefined);
         const result = {
-            tree: transform(highlighter.highlight(source, scope), { noAnnotations }),
+            tree: transform(highlighter.highlight(source, scope), {
+                mode: annotations,
+            }),
             scope,
             filename: this.resourcePath,
             lineNumbers: true,

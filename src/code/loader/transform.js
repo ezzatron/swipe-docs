@@ -37,16 +37,13 @@ const WHITESPACE_CLASS_MAP = {
     "\t": TAB_CLASS,
 };
 const SECTION_DATA = "data-s";
-export function transform(tree, { noAnnotations = false } = {}) {
+export function transform(tree, { mode = "strip" } = {}) {
     const lines = splitLines(tree);
-    const [annotations, annotationComments] = parseAnnotations(lines, noAnnotations);
-    if (!noAnnotations)
-        addSections(lines, annotations);
-    cleanupLines(lines, annotationComments);
-    if (!noAnnotations)
-        trimSectionLines(lines);
-    if (!noAnnotations)
-        trimSectionLines(lines.toReversed());
+    const [annotations, annotationComments] = parseAnnotations(mode, lines);
+    addSections(mode, lines, annotations);
+    cleanupLines(mode, lines, annotationComments);
+    trimSectionLines(mode, lines);
+    trimSectionLines(mode, lines.toReversed());
     wrapWhitespace(lines);
     const pre = {
         type: "element",
@@ -101,10 +98,10 @@ function splitLines(tree) {
     }
     return lines;
 }
-function parseAnnotations(lines, noAnnotations) {
+function parseAnnotations(mode, lines) {
     const annotations = {};
     const comments = new Map();
-    if (noAnnotations)
+    if (mode === "ignore")
         return [annotations, comments];
     for (let i = 0; i < lines.length; ++i) {
         const line = lines[i];
@@ -130,7 +127,9 @@ function parseAnnotations(lines, noAnnotations) {
     }
     return [annotations, comments];
 }
-function addSections(lines, annotations) {
+function addSections(mode, lines, annotations) {
+    if (mode === "ignore")
+        return;
     const seenSections = new Map();
     const openSections = new Map();
     for (let i = 0; i < lines.length; ++i) {
@@ -174,50 +173,56 @@ function addSections(lines, annotations) {
         throw new Error(`Unclosed code sections: ${descriptions.join(", ")}`);
     }
 }
-function cleanupLines(lines, annotationComments) {
+function cleanupLines(mode, lines, annotationComments) {
     let isFollowingEmpty = false;
     for (let i = lines.length - 1; i >= 0; --i) {
-        // strip annotations
         const line = lines[i];
-        let wasCommentRemoved = false;
-        for (let j = line.children.length - 1; j >= 0; --j) {
-            const node = line.children[j];
-            if (node.type !== "element")
-                continue;
-            const [text] = node.children;
-            if (text?.type !== "text")
-                continue;
-            const comment = annotationComments.get(text);
-            if (!comment)
-                continue;
-            const [start, , end = ""] = comment;
-            const content = comment[1].replaceAll(ANNOTATION_PATTERN, " ").trim();
-            if (content) {
-                // comment still has content after stripping annotations
-                text.value = `${start}${content}${end}`;
-            }
-            else {
-                wasCommentRemoved = true;
-                const prevSibling = line.children[j - 1];
-                const prevText = prevSibling?.type === "element" ? prevSibling.children[0] : undefined;
-                const nextSibling = line.children[j + 1];
-                const nextText = nextSibling?.type === "element" ? nextSibling.children[0] : undefined;
-                const isJSX = prevText?.type === "text" &&
-                    prevText.value === "{" &&
-                    nextText?.type === "text" &&
-                    nextText.value === "}";
-                if (isJSX) {
-                    line.children.splice(j - 1, 3);
-                    j -= 2; // account for the two additional elements that were removed
+        // strip annotations
+        if (mode === "strip") {
+            let wasCommentRemoved = false;
+            for (let j = line.children.length - 1; j >= 0; --j) {
+                const node = line.children[j];
+                if (node.type !== "element")
+                    continue;
+                const [text] = node.children;
+                if (text?.type !== "text")
+                    continue;
+                const comment = annotationComments.get(text);
+                if (!comment)
+                    continue;
+                const [start, , end = ""] = comment;
+                const content = comment[1].replaceAll(ANNOTATION_PATTERN, " ").trim();
+                if (content) {
+                    // comment still has content after stripping annotations
+                    text.value = `${start}${content}${end}`;
                 }
                 else {
-                    line.children.splice(j, 1);
+                    wasCommentRemoved = true;
+                    const prevSibling = line.children[j - 1];
+                    const prevText = prevSibling?.type === "element"
+                        ? prevSibling.children[0]
+                        : undefined;
+                    const nextSibling = line.children[j + 1];
+                    const nextText = nextSibling?.type === "element"
+                        ? nextSibling.children[0]
+                        : undefined;
+                    const isJSX = prevText?.type === "text" &&
+                        prevText.value === "{" &&
+                        nextText?.type === "text" &&
+                        nextText.value === "}";
+                    if (isJSX) {
+                        line.children.splice(j - 1, 3);
+                        j -= 2; // account for the two additional elements that were removed
+                    }
+                    else {
+                        line.children.splice(j, 1);
+                    }
                 }
             }
-        }
-        if (wasCommentRemoved && isEmptyLine(line)) {
-            lines.splice(i, 1);
-            continue;
+            if (wasCommentRemoved && isEmptyLine(line)) {
+                lines.splice(i, 1);
+                continue;
+            }
         }
         // strip trailing whitespace
         for (let j = line.children.length - 1; j >= 0; --j) {
@@ -249,7 +254,9 @@ function cleanupLines(lines, annotationComments) {
         lines[i].children.push({ type: "text", value: "\n" });
     }
 }
-function trimSectionLines(lines) {
+function trimSectionLines(mode, lines) {
+    if (mode === "ignore")
+        return;
     const seenSections = new Set();
     for (let i = 0; i < lines.length; ++i) {
         const line = lines[i];
