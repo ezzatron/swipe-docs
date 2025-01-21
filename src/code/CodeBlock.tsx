@@ -6,7 +6,6 @@ import slugify from "react-slugify";
 import { jsx, jsxs } from "react/jsx-runtime";
 import styles from "./CodeBlock.module.css";
 import CopyButton from "./CopyButton";
-import { createHighlighter } from "./highlighter";
 import LanguageIcon from "./LanguageIcon";
 import PermalinkButton from "./PermalinkButton";
 import { isCommandLine } from "./scope";
@@ -26,8 +25,8 @@ const createSlugify = cache(() => {
 });
 
 type Props = {
-  source: string;
-  flag: string | undefined;
+  tree: Root;
+  scope: string | undefined;
   id?: string;
   title?: ReactNode;
   filename?: string;
@@ -38,9 +37,9 @@ type Props = {
   noAnnotations?: boolean;
 };
 
-export default async function CodeBlock({
-  source,
-  flag,
+export default function CodeBlock({
+  tree,
+  scope,
   id,
   title,
   filename,
@@ -60,19 +59,8 @@ export default async function CodeBlock({
   }
 
   if (!id) id = createSlugify()(title);
-
-  const highlighter = await createHighlighter();
-  const scope = flag
-    ? highlighter.flagToScope(flag)
-    : filename
-      ? highlighter.flagToScope(filename)
-      : undefined;
-
   if (title == null && isCommandLine(scope)) title = "Command Line";
 
-  const tree: Root = scope
-    ? highlighter.highlight(source, scope)
-    : { type: "root", children: [{ type: "text", value: source }] };
   const preId = `${id}-pre`;
   const transformed = transform(tree, {
     id: preId,

@@ -70,6 +70,8 @@ export function transform(
   tree: Root,
   { id, lineNumbers, section, noSectionContext, noAnnotations }: Options,
 ): Root {
+  tree = structuredClone(tree);
+
   const lines: Element[] = splitLines(tree);
   const [annotations, annotationComments] = parseAnnotations(
     lines,
