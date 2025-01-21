@@ -1,4 +1,5 @@
 CHANGELOG_TAG_URL_PREFIX := https://github.com/ezzatron/swipe-docs/releases/tag/
+CI_VERIFY_GENERATED_FILES := true
 GENERATED_FILES += $(wildcard src/code/loader/*) src/code/loader/loader.js
 
 -include .makefiles/Makefile
@@ -20,6 +21,10 @@ build: artifacts/link-dependencies.touch
 .PHONY: run
 run: artifacts/link-dependencies.touch
 	$(JS_EXEC) next dev
+
+# Verify generated files on precommit
+.PHONY: precommit
+precommit:: verify-generated
 
 ################################################################################
 
