@@ -2,12 +2,12 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "../../../artifacts/code-loader",
+    "declarationDir": "../loader",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "noEmit": false,
     "noEmitOnError": true,
-    "outDir": "../../../artifacts/code-loader",
+    "outDir": "../loader",
     "sourceMap": true
   },
   "include": ["./*.ts"]

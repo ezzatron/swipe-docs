@@ -1,4 +1,5 @@
 CHANGELOG_TAG_URL_PREFIX := https://github.com/ezzatron/swipe-docs/releases/tag/
+GENERATED_FILES += $(wildcard src/code/loader/*) src/code/loader/loader.js
 
 -include .makefiles/Makefile
 -include .makefiles/pkg/js/v1/Makefile
@@ -13,16 +14,16 @@ CHANGELOG_TAG_URL_PREFIX := https://github.com/ezzatron/swipe-docs/releases/tag/
 ################################################################################
 
 .PHONY: build
-build: artifacts/code-loader artifacts/link-dependencies.touch
+build: artifacts/link-dependencies.touch
 	$(JS_EXEC) next build
 
 .PHONY: run
-run: artifacts/code-loader artifacts/link-dependencies.touch
+run: artifacts/link-dependencies.touch
 	$(JS_EXEC) next dev
 
 ################################################################################
 
-artifacts/code-loader: $(wildcard src/code/loader/*) artifacts/link-dependencies.touch
+src/code/loader/%: $(wildcard src/code/loader-src/*) artifacts/link-dependencies.touch
 	@rm -rf "$@"
-	$(JS_EXEC) tsc -p src/code/loader/tsconfig.json
+	$(JS_EXEC) tsc -p src/code/loader-src/tsconfig.json
 	@touch "$@"

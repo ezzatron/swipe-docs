@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
         oneOf: [
           {
             resourceQuery: /\bcode$/,
-            use: require.resolve("./artifacts/code-loader/loader.js"),
+            use: require.resolve("./src/code/loader/loader.js"),
           },
           {
             resourceQuery: { not: [/\bcode$/] },

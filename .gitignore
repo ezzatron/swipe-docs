@@ -3,4 +3,4 @@
 /artifacts/
 /node_modules/
 /next-env.d.ts
-/tsconfig.tsbuildinfo
+*.tsbuildinfo

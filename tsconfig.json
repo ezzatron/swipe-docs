@@ -14,9 +14,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "paths": {
-      "@code-loader/*": ["./artifacts/code-loader/*"]
-    },
     "plugins": [
       {
         "name": "next"
