@@ -53,14 +53,24 @@ const WHITESPACE_CLASS_MAP: Record<string, string> = {
 
 const SECTION_DATA = "data-s";
 
-export function transform(tree: Root): Root {
-  const lines: Element[] = splitLines(tree);
-  const [annotations, annotationComments] = parseAnnotations(lines);
+export type Options = {
+  noAnnotations?: boolean;
+};
 
-  addSections(lines, annotations);
+export function transform(
+  tree: Root,
+  { noAnnotations = false }: Options = {},
+): Root {
+  const lines: Element[] = splitLines(tree);
+  const [annotations, annotationComments] = parseAnnotations(
+    lines,
+    noAnnotations,
+  );
+
+  if (!noAnnotations) addSections(lines, annotations);
   cleanupLines(lines, annotationComments);
-  trimSectionLines(lines);
-  trimSectionLines(lines.toReversed());
+  if (!noAnnotations) trimSectionLines(lines);
+  if (!noAnnotations) trimSectionLines(lines.toReversed());
   wrapWhitespace(lines);
 
   const pre: Element = {
@@ -134,6 +144,7 @@ type AnnotationComment = [start: string, content: string, end: string];
 
 function parseAnnotations(
   lines: Element[],
+  noAnnotations: boolean,
 ): [
   annotations: Record<number, Annotation[]>,
   comments: Map<Text, AnnotationComment>,
@@ -141,6 +152,8 @@ function parseAnnotations(
   const annotations: Record<number, Annotation[]> = {};
   const comments: Map<Text, [start: string, content: string, end: string]> =
     new Map();
+
+  if (noAnnotations) return [annotations, comments];
 
   for (let i = 0; i < lines.length; ++i) {
     const line = lines[i];

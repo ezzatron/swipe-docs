@@ -15,11 +15,11 @@ const nextConfig: NextConfig = {
       {
         oneOf: [
           {
-            resourceQuery: /code/,
+            resourceQuery: /\bcode$/,
             use: require.resolve("./artifacts/code-loader/loader.js"),
           },
           {
-            resourceQuery: { not: [/code/] },
+            resourceQuery: { not: [/\bcode$/] },
             rules: config.module.rules,
           },
         ],

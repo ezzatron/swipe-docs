@@ -2,6 +2,7 @@ import type { Root } from "hast";
 import { callbackify } from "node:util";
 import type { LoaderDefinitionFunction } from "webpack";
 import { createHighlighter } from "./highlighter.js";
+import { transform } from "./transform.js";
 
 export type LoadedCode = {
   tree: Root;
@@ -14,9 +15,11 @@ const codeLoader: LoaderDefinitionFunction = function codeLoader(source) {
   callbackify(async () => {
     const highlighter = await createHighlighter();
     const scope = highlighter.flagToScope(this.resourcePath);
+    const params = new URLSearchParams(this.resourceQuery);
+    const noAnnotations = params.has("noAnnotations");
 
     const result: LoadedCode = {
-      tree: highlighter.highlight(source, scope),
+      tree: transform(highlighter.highlight(source, scope), { noAnnotations }),
       scope,
       filename: this.resourcePath,
       lineNumbers: true,
