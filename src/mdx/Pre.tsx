@@ -16,7 +16,7 @@ type Props = JSX.IntrinsicElements["pre"] & {
 export default async function Pre({ children, title, annotations }: Props) {
   const { props } = Children.only(children);
   const { children: source, className, ...codeProps } = props;
-  const match = className ? LANGUAGE_PATTERN.exec(className) : null;
+  const match = className?.match(LANGUAGE_PATTERN);
   const flag = match?.[1];
 
   const highlighter = await createHighlighter();

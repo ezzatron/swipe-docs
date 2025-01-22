@@ -1,5 +1,9 @@
 :root {
   --cb-bg: theme("colors.gray.100");
+  --cb-key: theme("colors.blue.950");
+  --cb-key-bg: theme("colors.blue.200");
+  --cb-key-focused: white;
+  --cb-key-focused-bg: theme("colors.blue.400");
   --cb-line-number: theme("colors.gray.400");
   --cb-scrollbar: theme("colors.gray.300");
   --cb-section-expander-active: theme("colors.blue.500");
@@ -11,6 +15,10 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --cb-bg: theme("colors.gray.900");
+    --cb-key: theme("colors.blue.100");
+    --cb-key-bg: theme("colors.blue.900");
+    --cb-key-focused: white;
+    --cb-key-focused-bg: theme("colors.blue.700");
     --cb-line-number: theme("colors.gray.600");
     --cb-scrollbar: theme("colors.gray.700");
     --cb-section-expander-active: theme("colors.blue.500");
@@ -177,4 +185,17 @@
 .cb:has(.cb-sh-b :checked) .cb-sx-b,
 .cb:has(.cb-sh-a :checked) .cb-sx-a {
   display: flex;
+}
+
+/* api keys */
+.cb-k {
+  margin: -2px -4px;
+  border-radius: theme("borderRadius.DEFAULT");
+  background-color: var(--cb-key-bg);
+  padding: 2px 4px;
+  color: var(--cb-key);
+}
+.cb-k:hover {
+  background-color: var(--cb-key-focused-bg);
+  color: var(--cb-key-focused);
 }

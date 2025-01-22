@@ -30,3 +30,16 @@ export declare const ANNOTATION_PATTERN: RegExp;
  * - (?<=[ \t]) - positive lookbehind for space or tab
  */
 export declare const WHITESPACE_PATTERN: RegExp;
+/**
+ * Matches API keys.
+ *
+ * The pattern is:
+ * - \b - word boundary
+ * - sk_ - prefix
+ * - (?:test_)? - optional test prefix
+ * - [A-Fa-f0-9]{2} - hex key header
+ * - [!-~]+ - key payload (printable ASCII, excluding space)
+ * - [A-Fa-f0-9]{8} - hex checksum
+ * - \b - word boundary
+ */
+export declare const API_KEY_PATTERN: RegExp;

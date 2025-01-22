@@ -9,6 +9,7 @@ lorem.adipiscing((sed, elit) => {
 });
 
 console.log(amet); // normal comment
+console.log("My API key is sk_4eC39HqLyjWDarj8deadbeef 🤫");
 
 // [!section-start ipsum]
 function ipsum(dolor: number, sit: number) {

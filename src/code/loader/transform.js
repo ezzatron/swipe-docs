@@ -3,6 +3,7 @@ import { parseAnnotations } from "./parse-annotations.js";
 import { splitLines } from "./split-lines.js";
 import { addSections } from "./transform-add-sections.js";
 import { cleanupLines } from "./transform-cleanup-lines.js";
+import { redactKeys } from "./transform-redact-keys.js";
 import { trimSectionLines } from "./transform-trim-section-lines.js";
 import { wrapWhitespace } from "./transform-wrap-whitespace.js";
 export function transform(tree, { mode = "strip" } = {}) {
@@ -12,6 +13,7 @@ export function transform(tree, { mode = "strip" } = {}) {
     cleanupLines(mode, lines, annotationComments);
     trimSectionLines(mode, lines);
     trimSectionLines(mode, lines.toReversed());
+    redactKeys(lines);
     wrapWhitespace(lines);
     const pre = {
         type: "element",
