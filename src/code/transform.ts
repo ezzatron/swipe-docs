@@ -258,8 +258,7 @@ function createSectionExpander(className: string): Element {
         tagName: "input",
         properties: {
           type: "checkbox",
-          hidden: true,
-          ariaLabel: "Show more",
+          "aria-label": "Show more",
         },
         children: [],
       },
@@ -268,7 +267,6 @@ function createSectionExpander(className: string): Element {
         tagName: "div",
         properties: {
           class: SECTION_EXPANDER_SHOW_CLASS,
-          ariaLabel: "Show more",
           title: "Show more",
         },
         children: [],
@@ -278,7 +276,6 @@ function createSectionExpander(className: string): Element {
         tagName: "div",
         properties: {
           class: SECTION_EXPANDER_HIDE_CLASS,
-          ariaLabel: "Show less",
           title: "Show less",
         },
         children: [],

@@ -122,11 +122,18 @@
   padding-left: theme("padding.4");
   color: var(--cb-section-expander);
 }
-.cb-sh:is(:focus-visible, :hover) {
+.cb-sh:hover,
+.cb-sh:has(:focus-visible) {
   color: var(--cb-section-expander-focused);
 }
 .cb-sh:active {
   color: var(--cb-section-expander-active);
+}
+.cb-sh input {
+  position: absolute;
+  appearance: none;
+  width: 0;
+  height: 0;
 }
 .cb-sh-h,
 .cb-sh-s {
