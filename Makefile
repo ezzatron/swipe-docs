@@ -22,11 +22,11 @@ GENERATED_FILES += $(CODE_LOADER_DIST_FILES)
 ################################################################################
 
 .PHONY: build
-build: artifacts/link-dependencies.touch
+build: $(GENERATED_FILES) artifacts/link-dependencies.touch
 	$(JS_EXEC) next build
 
 .PHONY: run
-run: artifacts/link-dependencies.touch
+run: $(GENERATED_FILES) artifacts/link-dependencies.touch
 	$(JS_EXEC) next dev
 
 # Verify generated files on precommit
