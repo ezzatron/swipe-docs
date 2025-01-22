@@ -6,8 +6,11 @@ import {
   LINE_NUMBERS_SHOW_CLASS,
   SECTION_CONTENT_CLASS,
   SECTION_CONTENT_INDENT_CLASS,
+  SECTION_CONTEXT_AFTER_CLASS,
+  SECTION_CONTEXT_BEFORE_CLASS,
   SECTION_CONTEXT_CLASS,
-  SECTION_EXPANDED_CLASS,
+  SECTION_EXPANDER_AFTER_CLASS,
+  SECTION_EXPANDER_BEFORE_CLASS,
   SECTION_EXPANDER_CLASS,
   SECTION_EXPANDER_HIDE_CLASS,
   SECTION_EXPANDER_SHOW_CLASS,
@@ -99,40 +102,30 @@ export function transform(
 
   if (noSectionContext || !hasContext) return result;
 
-  const expandedId = `${id}-expanded`;
-  pre.children.push({
-    type: "element",
-    tagName: "input",
-    properties: {
-      type: "checkbox",
-      id: expandedId,
-      class: SECTION_EXPANDED_CLASS,
-      hidden: true,
-      ariaLabel: "Show more",
-    },
-    children: [],
-  });
-
   if (hasBefore) {
     pre.children.unshift(
       {
         type: "element",
         tagName: "div",
-        properties: { class: SECTION_CONTEXT_CLASS },
+        properties: {
+          class: `${SECTION_CONTEXT_CLASS} ${SECTION_CONTEXT_BEFORE_CLASS}`,
+        },
         children: [
           { ...lineNumberContainer, children: lineNumbersBefore },
           { ...code, children: linesBefore },
         ],
       },
-      createSectionExpander(expandedId),
+      createSectionExpander(SECTION_EXPANDER_BEFORE_CLASS),
     );
   }
 
   if (hasAfter) {
-    pre.children.push(createSectionExpander(expandedId), {
+    pre.children.push(createSectionExpander(SECTION_EXPANDER_AFTER_CLASS), {
       type: "element",
       tagName: "div",
-      properties: { class: SECTION_CONTEXT_CLASS },
+      properties: {
+        class: `${SECTION_CONTEXT_CLASS} ${SECTION_CONTEXT_AFTER_CLASS}`,
+      },
       children: [
         { ...lineNumberContainer, children: lineNumbersAfter },
         { ...code, children: linesAfter },
@@ -256,12 +249,22 @@ function wrapSectionIndent(lines: Element[]): void {
   }
 }
 
-function createSectionExpander(expandedId: string): Element {
+function createSectionExpander(className: string): Element {
   return {
     type: "element",
     tagName: "label",
-    properties: { for: expandedId, class: SECTION_EXPANDER_CLASS },
+    properties: { class: `${SECTION_EXPANDER_CLASS} ${className}` },
     children: [
+      {
+        type: "element",
+        tagName: "input",
+        properties: {
+          type: "checkbox",
+          hidden: true,
+          ariaLabel: "Show more",
+        },
+        children: [],
+      },
       {
         type: "element",
         tagName: "div",

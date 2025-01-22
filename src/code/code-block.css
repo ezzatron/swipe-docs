@@ -147,17 +147,21 @@
 .cb-sh-h {
   display: none;
 }
-.cb:has(.cb-se:checked) .cb-sh-h {
+.cb-sh:has(:checked) .cb-sh-h {
   display: flex;
 }
-.cb:has(.cb-se:checked) .cb-sh-s {
+.cb-sh:has(:checked) .cb-sh-s {
   display: none;
 }
-/* hide line numbers when the section is collapsed */
-.cb[data-s]:not(:has(.cb-se:checked)) .cb-ln {
+/* hide line numbers and indent when neither section context is expanded */
+.cb[data-s]:not(:has(.cb-sh :checked)) :is(.cb-ln, .cb-sc-i) {
   display: none;
 }
-/* hide the context and indent when the section is collapsed */
-.cb[data-s]:not(:has(.cb-se:checked)) :is(.cb-sx, .cb-sc-i) {
+/* hide section context until expanded */
+.cb-sx {
   display: none;
+}
+.cb:has(.cb-sh-b :checked) .cb-sx-b,
+.cb:has(.cb-sh-a :checked) .cb-sx-a {
+  display: flex;
 }
