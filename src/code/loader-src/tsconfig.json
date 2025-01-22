@@ -10,5 +10,12 @@
     "outDir": "../loader",
     "sourceMap": true
   },
-  "include": ["./*.ts"]
+  "include": [
+    "./*.ts",
+    "transform-add-sections.ts",
+    "transform-cleanup-lines.ts",
+    "transform-trim-section-lines.ts",
+    "split-lines.ts",
+    "transform-wrap-whitespace.ts"
+  ]
 }

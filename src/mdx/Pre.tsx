@@ -1,7 +1,7 @@
 import { Children, type JSX, type ReactElement } from "react";
 import CodeBlock from "../code/CodeBlock";
-import type { Mode } from "../code/loader-src/transform";
 import { createHighlighter } from "../code/loader/highlighter";
+import type { Mode } from "../code/loader/mode";
 import { transform } from "../code/loader/transform";
 
 const LANGUAGE_PATTERN = /^language-(.+)$/;

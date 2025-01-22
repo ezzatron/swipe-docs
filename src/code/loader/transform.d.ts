@@ -1,5 +1,5 @@
 import type { Root } from "hast";
-export type Mode = "strip" | "retain" | "ignore";
+import type { Mode } from "./mode.js";
 export type Options = {
     mode?: Mode;
 };

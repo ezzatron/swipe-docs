@@ -2,7 +2,8 @@ import type { Root } from "hast";
 import { callbackify } from "node:util";
 import type { LoaderDefinitionFunction } from "webpack";
 import { createHighlighter } from "./highlighter.js";
-import { transform, type Mode } from "./transform.js";
+import { type Mode } from "./mode.js";
+import { transform } from "./transform.js";
 
 export type LoadedCode = {
   tree: Root;
