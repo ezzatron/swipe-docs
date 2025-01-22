@@ -207,6 +207,10 @@
   position: absolute;
   top: calc(100% + theme("padding.2"));
   left: 0;
+  opacity: 0;
+  transition:
+    opacity theme("transitionDelay.200"),
+    display theme("transitionDelay.200") allow-discrete;
   border-radius: theme("borderRadius.DEFAULT");
   background-color: var(--cb-key-bg);
   padding: theme("padding.3") theme("padding.4");
@@ -217,4 +221,10 @@
 }
 .cb-k:hover .cb-k-p {
   display: block;
+  opacity: 1;
+}
+@starting-style {
+  .cb-k:hover .cb-k-p {
+    opacity: 0;
+  }
 }
