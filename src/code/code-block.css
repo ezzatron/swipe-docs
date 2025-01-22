@@ -145,6 +145,12 @@
 :is(.cb-sh-h, .cb-sh-s)::before {
   content: "(\0000B7\0000B7\0000B7)"; /* three middle dots in parentheses */
 }
+:is(.cb-sh:hover, .cb-sh:has(:focus-visible)) .cb-sh-h::before {
+  content: "(Show less)";
+}
+:is(.cb-sh:hover, .cb-sh:has(:focus-visible)) .cb-sh-s::before {
+  content: "(Show more)";
+}
 :is(.cb-sh-h, .cb-sh-s)::after {
   flex-grow: 1;
   border-top: 1px solid currentColor;

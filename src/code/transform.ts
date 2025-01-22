@@ -267,7 +267,6 @@ function createSectionExpander(className: string): Element {
         tagName: "div",
         properties: {
           class: SECTION_EXPANDER_SHOW_CLASS,
-          title: "Show more",
         },
         children: [],
       },
@@ -276,7 +275,6 @@ function createSectionExpander(className: string): Element {
         tagName: "div",
         properties: {
           class: SECTION_EXPANDER_HIDE_CLASS,
-          title: "Show less",
         },
         children: [],
       },
