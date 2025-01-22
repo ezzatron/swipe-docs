@@ -11,15 +11,15 @@ export default function CopyButton({ from }: Props) {
   const [state, setState] = useState<"IDLE" | "COPIED" | "FAILED">("IDLE");
 
   const handleClick = useCallback(async () => {
-    const pre = document.getElementById(from);
+    const container = document.getElementById(from);
 
-    if (!pre) {
+    if (!container) {
       setState("FAILED");
 
       return;
     }
 
-    const lines = pre.getElementsByClassName(
+    const lines = container.getElementsByClassName(
       "cb-l",
     ) as HTMLCollectionOf<HTMLDivElement>;
 

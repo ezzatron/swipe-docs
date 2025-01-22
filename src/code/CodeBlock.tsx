@@ -59,9 +59,7 @@ export default function CodeBlock({
   if (!id) id = createSlugify()(title);
   if (title == null && isCommandLine(scope)) title = "Command Line";
 
-  const preId = `${id}-pre`;
   const transformed = transform(tree, {
-    id: preId,
     showLineNumbers: lineNumbers,
     section,
     noSectionContext,
@@ -86,7 +84,7 @@ export default function CodeBlock({
 
         <div className="flex items-center gap-3 sm:mt-0.5">
           <PermalinkButton anchor={id} />
-          <CopyButton from={preId} />
+          <CopyButton from={id} />
         </div>
       </div>
 

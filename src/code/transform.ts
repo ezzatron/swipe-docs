@@ -21,7 +21,6 @@ import {
 const SECTION_DATA = "data-s";
 
 type Options = {
-  id: string;
   showLineNumbers: boolean;
   section?: string;
   noSectionContext: boolean;
@@ -29,7 +28,7 @@ type Options = {
 
 export function transform(
   tree: Root,
-  { id, showLineNumbers, section, noSectionContext }: Options,
+  { showLineNumbers, section, noSectionContext }: Options,
 ): Root {
   const [pre] = structuredClone(tree).children;
   if (pre?.type !== "element" || pre.properties.class !== CODE_BLOCK_CLASS) {
@@ -79,7 +78,6 @@ export function transform(
   Object.assign(pre, {
     properties: {
       ...pre.properties,
-      id,
       class: clsx(pre.properties.class, {
         [LINE_NUMBERS_SHOW_CLASS]: showLineNumbers,
       }),
