@@ -1,4 +1,15 @@
-import { ANNOTATION_PATTERN, COMMENT_PATTERN } from "./pattern.js";
+import { ANNOTATION_PATTERN } from "./pattern.js";
+/**
+ * Matches comments.
+ *
+ * The pattern is:
+ * - (\s*(?:\/\/|\/\*|<!--|#|--|%%?|;;?|"|')) - comment start
+ * - \s+ - whitespace
+ * - (.*?) - comment content (non-greedy)
+ * - \s* - optional whitespace
+ * - ((?:\*\/|-->)\s*)? - optional comment end
+ */
+const COMMENT_PATTERN = /^(\s*(?:\/\/|\/\*|<!--|#|--|%%?|;;?|"|')\s+)(.*?)\s*((?:\*\/|-->)\s*)?$/;
 export function parseAnnotations(mode, lines) {
     const annotations = {};
     const comments = new Map();

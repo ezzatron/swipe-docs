@@ -1,7 +1,16 @@
 import { type Element, type ElementContent, type Text } from "hast";
 import { visit } from "unist-util-visit";
 import { SPACE_CLASS, TAB_CLASS } from "./class.js";
-import { WHITESPACE_PATTERN } from "./pattern.js";
+
+/**
+ * Splits on whitespace and retains the delimiters.
+ *
+ * The pattern is:
+ * - (?=[ \t]) - positive lookahead for space or tab
+ * - | - or
+ * - (?<=[ \t]) - positive lookbehind for space or tab
+ */
+const WHITESPACE_PATTERN = /(?=[ \t])|(?<=[ \t])/g;
 
 const WHITESPACE_CLASS_MAP: Record<string, string> = {
   " ": SPACE_CLASS,
