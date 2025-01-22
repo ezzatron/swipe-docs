@@ -36,5 +36,5 @@ precommit:: verify-generated
 ################################################################################
 
 $(CODE_LOADER_DIST_FILES): src/code/loader-src/tsconfig.json $(CODE_LOADER_TS_FILES) artifacts/link-dependencies.touch
-	@rm -rf src/code/loader
-	$(JS_EXEC) tsc -p src/code/loader-src/tsconfig.json
+	@rm -rf "$(@D)"
+	$(JS_EXEC) tsc -p "$<"
