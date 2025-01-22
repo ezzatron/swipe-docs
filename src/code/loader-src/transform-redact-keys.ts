@@ -43,8 +43,9 @@ export function redactKeys(lines: Element[]): void {
       const replacement: ElementContent[] = [];
       let i = 0;
 
-      for (; i < keyCount; i++) {
-        replacement.push({ type: "text", value: nonKeys[i] });
+      for (; i < keyCount; ++i) {
+        if (nonKeys[i]) replacement.push({ type: "text", value: nonKeys[i] });
+
         replacement.push({
           type: "element",
           tagName: "span",
@@ -53,7 +54,7 @@ export function redactKeys(lines: Element[]): void {
         });
       }
 
-      replacement.push({ type: "text", value: nonKeys[i] });
+      if (nonKeys[i]) replacement.push({ type: "text", value: nonKeys[i] });
 
       parent.children.splice(index, 1, ...replacement);
     },

@@ -31,8 +31,9 @@ export function redactKeys(lines) {
         nonKeys.push(node.value.slice(lastIndex));
         const replacement = [];
         let i = 0;
-        for (; i < keyCount; i++) {
-            replacement.push({ type: "text", value: nonKeys[i] });
+        for (; i < keyCount; ++i) {
+            if (nonKeys[i])
+                replacement.push({ type: "text", value: nonKeys[i] });
             replacement.push({
                 type: "element",
                 tagName: "span",
@@ -40,7 +41,8 @@ export function redactKeys(lines) {
                 children: [{ type: "text", value: TEST_KEY }],
             });
         }
-        replacement.push({ type: "text", value: nonKeys[i] });
+        if (nonKeys[i])
+            replacement.push({ type: "text", value: nonKeys[i] });
         parent.children.splice(index, 1, ...replacement);
     }, true);
 }
