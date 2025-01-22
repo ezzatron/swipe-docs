@@ -189,6 +189,8 @@
 
 /* api keys */
 .cb-k {
+  position: relative;
+  cursor: pointer;
   margin: -2px -4px;
   border-radius: theme("borderRadius.DEFAULT");
   background-color: var(--cb-key-bg);
@@ -198,4 +200,21 @@
 .cb-k:hover {
   background-color: var(--cb-key-focused-bg);
   color: var(--cb-key-focused);
+}
+/* api key popup */
+.cb-k-p {
+  display: none;
+  position: absolute;
+  top: calc(100% + theme("padding.2"));
+  left: 0;
+  border-radius: theme("borderRadius.DEFAULT");
+  background-color: var(--cb-key-bg);
+  padding: theme("padding.3") theme("padding.4");
+  color: var(--cb-key);
+  font-size: theme("fontSize.base");
+  font-family: theme("fontFamily.sans");
+  white-space: wrap;
+}
+.cb-k:hover .cb-k-p {
+  display: block;
 }

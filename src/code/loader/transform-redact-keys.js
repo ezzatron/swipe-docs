@@ -1,4 +1,5 @@
 import { visit } from "unist-util-visit";
+import { KEY_CLASS, KEY_POPUP_CLASS } from "./class.js";
 /**
  * Matches API keys.
  *
@@ -37,8 +38,23 @@ export function redactKeys(lines) {
             replacement.push({
                 type: "element",
                 tagName: "span",
-                properties: { class: "cb-k" },
-                children: [{ type: "text", value: TEST_KEY }],
+                properties: { class: KEY_CLASS },
+                children: [
+                    {
+                        type: "element",
+                        tagName: "span",
+                        properties: { class: KEY_POPUP_CLASS },
+                        children: [
+                            {
+                                type: "text",
+                                value: "This is a public sample test mode API key. " +
+                                    "Don't submit any personally identifiable information " +
+                                    "in requests made with this key.",
+                            },
+                        ],
+                    },
+                    { type: "text", value: TEST_KEY },
+                ],
             });
         }
         if (nonKeys[i])

@@ -16,3 +16,5 @@ export declare const SECTION_EXPANDER_HIDE_CLASS = "cb-sh-h";
 export declare const SECTION_EXPANDER_SHOW_CLASS = "cb-sh-s";
 export declare const SPACE_CLASS = "cb-s";
 export declare const TAB_CLASS = "cb-t";
+export declare const KEY_CLASS = "cb-k";
+export declare const KEY_POPUP_CLASS = "cb-k-p";
