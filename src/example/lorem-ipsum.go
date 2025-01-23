@@ -16,7 +16,7 @@ func (i Ipsum) Amet() string {
 }
 
 func lorem(a, b int) int {
-	fmt.Println("My API key is sk_4eC39HqLyjWDarj8deadbeef 🤫")
+	fmt.Println("API key: sk_test_006fdtrt32aTIPl7OaDEADC0DE")
 
 	return a + b
 }

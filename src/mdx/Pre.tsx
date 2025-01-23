@@ -1,5 +1,5 @@
 import { Children, type JSX, type ReactElement } from "react";
-import CodeBlock from "../code/CodeBlock";
+import CodeBlock from "../code/components/CodeBlock";
 import { createHighlighter } from "../code/loader/highlighter";
 import type { Mode } from "../code/loader/mode";
 import { transform } from "../code/loader/transform";

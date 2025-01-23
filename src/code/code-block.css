@@ -1,9 +1,5 @@
 :root {
   --cb-bg: theme("colors.gray.100");
-  --cb-key: theme("colors.blue.950");
-  --cb-key-bg: theme("colors.blue.200");
-  --cb-key-focused: white;
-  --cb-key-focused-bg: theme("colors.blue.400");
   --cb-line-number: theme("colors.gray.400");
   --cb-scrollbar: theme("colors.gray.300");
   --cb-section-expander-active: theme("colors.blue.500");
@@ -15,10 +11,6 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --cb-bg: theme("colors.gray.900");
-    --cb-key: theme("colors.blue.100");
-    --cb-key-bg: theme("colors.blue.900");
-    --cb-key-focused: white;
-    --cb-key-focused-bg: theme("colors.blue.700");
     --cb-line-number: theme("colors.gray.600");
     --cb-scrollbar: theme("colors.gray.700");
     --cb-section-expander-active: theme("colors.blue.500");
@@ -185,53 +177,4 @@
 .cb:has(.cb-sh-b :checked) .cb-sx-b,
 .cb:has(.cb-sh-a :checked) .cb-sx-a {
   display: flex;
-}
-
-/* api keys */
-.cb-k {
-  position: relative;
-  cursor: pointer;
-  margin: -2px -4px;
-  border-radius: theme("borderRadius.DEFAULT");
-  background-color: var(--cb-key-bg);
-  padding: 2px 4px;
-  color: var(--cb-key);
-}
-.cb-k:hover {
-  background-color: var(--cb-key-focused-bg);
-  color: var(--cb-key-focused);
-}
-/* api key popup */
-.cb-k-p {
-  position: absolute;
-  top: calc(100% + theme("padding.2"));
-  left: 0;
-  visibility: hidden;
-  opacity: 0;
-  transition-behavior: allow-discrete;
-  transition-duration: theme("transitionDelay.200");
-  transition-property: opacity, visibility;
-  border-radius: theme("borderRadius.DEFAULT");
-  background-color: var(--cb-key-bg);
-  padding: theme("padding.3") theme("padding.4");
-  color: var(--cb-key);
-  font-size: theme("fontSize.base");
-  font-family: theme("fontFamily.sans");
-  white-space: wrap;
-}
-.cb-k:hover .cb-k-p {
-  visibility: visible;
-  opacity: 1;
-}
-@starting-style {
-  .cb-k:hover .cb-k-p {
-    opacity: 0;
-  }
-}
-.cb-k-p::before {
-  display: block;
-  position: absolute;
-  inset: 0;
-  top: calc(-1 * theme("padding.3"));
-  content: "";
 }

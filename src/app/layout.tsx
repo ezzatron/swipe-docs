@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
-import RenderWhitespaceOnSelection from "../code/RenderWhitespaceOnSelection";
+import RenderWhitespaceOnSelection from "../code/components/RenderWhitespaceOnSelection";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

@@ -25,4 +25,3 @@ export const SPACE_CLASS = `${CODE_BLOCK_CLASS}-s`;
 export const TAB_CLASS = `${CODE_BLOCK_CLASS}-t`;
 
 export const KEY_CLASS = `${CODE_BLOCK_CLASS}-k`;
-export const KEY_POPUP_CLASS = `${KEY_CLASS}-p`;

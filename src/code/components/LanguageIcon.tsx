@@ -1,5 +1,5 @@
 import { FileTextIcon, SquareTerminalIcon } from "lucide-react";
-import { isCommandLine } from "./scope";
+import { isCommandLine } from "../scope";
 
 type Props = {
   scope: string | undefined;

@@ -4,12 +4,14 @@ import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { cache, Fragment, type ReactNode } from "react";
 import slugify from "react-slugify";
 import { jsx, jsxs } from "react/jsx-runtime";
+import { KEY_CLASS } from "../loader/class";
+import { isCommandLine } from "../scope";
+import { transform } from "../transform";
+import APIKey from "./APIKey";
 import styles from "./CodeBlock.module.css";
 import CopyButton from "./CopyButton";
 import LanguageIcon from "./LanguageIcon";
 import PermalinkButton from "./PermalinkButton";
-import { isCommandLine } from "./scope";
-import { transform } from "./transform";
 
 const createSlugify = cache(() => {
   const slugCounts: Record<string, number> = {};
@@ -64,7 +66,21 @@ export default function CodeBlock({
     section,
     noSectionContext,
   });
-  const highlighted = toJsxRuntime(transformed, { Fragment, jsx, jsxs });
+  const highlighted = toJsxRuntime(transformed, {
+    Fragment,
+    jsx,
+    jsxs,
+    components: {
+      span: (props) => {
+        switch (props.className) {
+          case KEY_CLASS:
+            return <APIKey />;
+        }
+
+        return <span {...props} />;
+      },
+    },
+  });
 
   return (
     <div id={id} className="my-6 overflow-clip rounded font-mono text-sm">

@@ -1,6 +1,6 @@
 import { type Element, type ElementContent } from "hast";
 import { visit } from "unist-util-visit";
-import { KEY_CLASS, KEY_POPUP_CLASS } from "./class.js";
+import { KEY_CLASS } from "./class.js";
 
 /**
  * Matches API keys.
@@ -8,15 +8,13 @@ import { KEY_CLASS, KEY_POPUP_CLASS } from "./class.js";
  * The pattern is:
  * - \b - word boundary
  * - sk_ - prefix
- * - (?:test_)? - optional test prefix
+ * - (test_)? - optional test prefix
  * - [A-Fa-f0-9]{2} - hex key header
  * - [!-~]+ - key payload (printable ASCII, excluding space)
  * - [A-Fa-f0-9]{8} - hex checksum
  * - \b - word boundary
  */
-const API_KEY_PATTERN = /\bsk_(?:test_)?[A-Fa-f0-9]{2}[!-~]+[A-Fa-f0-9]{8}\b/g;
-
-const TEST_KEY = "sk_test_006fdtrt32aTIPl7OaDEADC0DE";
+const API_KEY_PATTERN = /\bsk_(test_)?[A-Fa-f0-9]{2}[!-~]+[A-Fa-f0-9]{8}\b/g;
 
 export function redactKeys(lines: Element[]): void {
   visit(
@@ -33,6 +31,8 @@ export function redactKeys(lines: Element[]): void {
       let lastIndex = 0;
 
       while (match) {
+        if (!match[1]) throw new Error("Non-test API key are forbidden");
+
         ++keyCount;
         nonKeys.push(node.value.slice(lastIndex, match.index));
         lastIndex = API_KEY_PATTERN.lastIndex;
@@ -51,23 +51,7 @@ export function redactKeys(lines: Element[]): void {
           type: "element",
           tagName: "span",
           properties: { class: KEY_CLASS },
-          children: [
-            {
-              type: "element",
-              tagName: "span",
-              properties: { class: KEY_POPUP_CLASS },
-              children: [
-                {
-                  type: "text",
-                  value:
-                    "This is a public sample test mode API key. " +
-                    "Don't submit any personally identifiable information " +
-                    "in requests made with this key.",
-                },
-              ],
-            },
-            { type: "text", value: TEST_KEY },
-          ],
+          children: [],
         });
       }
 
