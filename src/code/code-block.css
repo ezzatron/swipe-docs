@@ -228,3 +228,10 @@
     opacity: 0;
   }
 }
+.cb-k-p::before {
+  display: block;
+  position: absolute;
+  inset: 0;
+  top: calc(-1 * theme("padding.3"));
+  content: "";
+}
