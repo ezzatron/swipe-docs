@@ -203,14 +203,14 @@
 }
 /* api key popup */
 .cb-k-p {
-  display: none;
   position: absolute;
   top: calc(100% + theme("padding.2"));
   left: 0;
+  visibility: hidden;
   opacity: 0;
-  transition:
-    opacity theme("transitionDelay.200"),
-    display theme("transitionDelay.200") allow-discrete;
+  transition-behavior: allow-discrete;
+  transition-duration: theme("transitionDelay.200");
+  transition-property: opacity, visibility;
   border-radius: theme("borderRadius.DEFAULT");
   background-color: var(--cb-key-bg);
   padding: theme("padding.3") theme("padding.4");
@@ -220,7 +220,7 @@
   white-space: wrap;
 }
 .cb-k:hover .cb-k-p {
-  display: block;
+  visibility: visible;
   opacity: 1;
 }
 @starting-style {
