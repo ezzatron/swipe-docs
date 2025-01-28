@@ -1,6 +1,6 @@
 import { type Element, type ElementContent } from "hast";
 import { visit } from "unist-util-visit";
-import { KEY_CLASS } from "./class.js";
+import { API_KEY_CLASS } from "./class.js";
 
 /**
  * Matches API keys.
@@ -50,7 +50,7 @@ export function redactKeys(lines: Element[]): void {
         replacement.push({
           type: "element",
           tagName: "span",
-          properties: { class: KEY_CLASS },
+          properties: { class: API_KEY_CLASS },
           children: [],
         });
       }

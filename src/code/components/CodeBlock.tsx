@@ -4,7 +4,7 @@ import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { cache, Fragment, type ReactNode } from "react";
 import slugify from "react-slugify";
 import { jsx, jsxs } from "react/jsx-runtime";
-import { KEY_CLASS } from "../loader/class";
+import { API_KEY_CLASS } from "../loader/class";
 import { isCommandLine } from "../scope";
 import { transform } from "../transform";
 import APIKey from "./APIKey";
@@ -73,7 +73,7 @@ export default function CodeBlock({
     components: {
       span: (props) => {
         switch (props.className) {
-          case KEY_CLASS:
+          case API_KEY_CLASS:
             return <APIKey />;
         }
 

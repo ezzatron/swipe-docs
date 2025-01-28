@@ -16,5 +16,5 @@ export const SECTION_EXPANDER_HIDE_CLASS = `${SECTION_EXPANDER_CLASS}-h`;
 export const SECTION_EXPANDER_SHOW_CLASS = `${SECTION_EXPANDER_CLASS}-s`;
 export const SPACE_CLASS = `${CODE_BLOCK_CLASS}-s`;
 export const TAB_CLASS = `${CODE_BLOCK_CLASS}-t`;
-export const KEY_CLASS = `${CODE_BLOCK_CLASS}-k`;
+export const API_KEY_CLASS = `${CODE_BLOCK_CLASS}-ak`;
 //# sourceMappingURL=class.js.map
