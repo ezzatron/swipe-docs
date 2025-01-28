@@ -1,3 +1,5 @@
+console.log("API key: sk_test_006fdtrt32aTIPl7OaDEADC0DE");
+
 const dolor = 1;
 const sit = 2;
 const lorem = ipsum(dolor, sit);
