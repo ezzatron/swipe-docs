@@ -31,7 +31,7 @@ export function redactKeys(lines: Element[]): void {
       let lastIndex = 0;
 
       while (match) {
-        if (!match[1]) throw new Error("Non-test API key are forbidden");
+        if (!match[1]) throw new Error("Non-test API keys are forbidden");
 
         ++keyCount;
         nonKeys.push(node.value.slice(lastIndex, match.index));

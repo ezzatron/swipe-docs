@@ -24,7 +24,7 @@ export function redactKeys(lines) {
         let lastIndex = 0;
         while (match) {
             if (!match[1])
-                throw new Error("Non-test API key are forbidden");
+                throw new Error("Non-test API keys are forbidden");
             ++keyCount;
             nonKeys.push(node.value.slice(lastIndex, match.index));
             lastIndex = API_KEY_PATTERN.lastIndex;
