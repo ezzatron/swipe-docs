@@ -15,7 +15,7 @@ export default function RootLayout({ children }: Props) {
     <html
       lang="en"
       className={clsx(
-        "prose mx-auto max-w-4xl bg-zinc-50 px-4 py-24 dark:prose-invert dark:bg-zinc-950",
+        "prose dark:prose-invert mx-auto max-w-4xl bg-zinc-50 px-4 py-24 dark:bg-zinc-950",
         inter,
       )}
     >

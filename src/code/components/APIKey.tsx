@@ -36,7 +36,7 @@ export default function APIKey() {
         <Popover.Content
           side="top"
           sideOffset={4}
-          className="mx-7 max-w-xs overflow-clip rounded-sm bg-gray-50 p-4 text-sm shadow-2xl ring-1 ring-gray-200 dark:bg-gray-950 dark:shadow-none dark:ring-gray-800"
+          className="mx-7 max-w-xs overflow-clip rounded-sm bg-gray-50 p-4 text-sm ring-1 shadow-2xl ring-gray-200 dark:bg-gray-950 dark:shadow-none dark:ring-gray-800"
         >
           <div className="mb-6">
             <p className="mt-0">
@@ -142,7 +142,7 @@ function APIKeyCopyButton({
     <APIKeyButton
       onClick={handleClick}
       icon={icon}
-      className="ring-1 ring-inset ring-gray-200 hover:bg-gray-200 active:bg-gray-300 dark:ring-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-900"
+      className="ring-1 ring-gray-200 ring-inset hover:bg-gray-200 active:bg-gray-300 dark:ring-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-900"
     >
       Copy
     </APIKeyButton>

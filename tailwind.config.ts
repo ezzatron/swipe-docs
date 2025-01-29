@@ -1,6 +1,5 @@
 import typography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
-import type { PluginUtils } from "tailwindcss/types/config";
 
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
@@ -12,17 +11,17 @@ export default {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      typography: ({ theme }: PluginUtils) => ({
+      typography: {
         DEFAULT: {
           css: {
-            "--tw-prose-code-bg": theme("colors.gray.100"),
+            "--tw-prose-code-bg": "var(--color-gray-100)",
             code: {
               backgroundColor: "var(--tw-prose-code-bg)",
-              borderRadius: theme("borderRadius.DEFAULT"),
+              borderRadius: "var(--radius-sm)",
               color: null,
               fontWeight: null,
-              paddingBlock: ".2em",
-              paddingInline: ".4em",
+              paddingBlock: "0.2em",
+              paddingInline: "0.4em",
               tabSize: "2",
             },
             "code::before": {
@@ -35,10 +34,10 @@ export default {
         },
         invert: {
           css: {
-            "--tw-prose-code-bg": theme("colors.gray.700"),
+            "--tw-prose-code-bg": "var(--color-gray-700)",
           },
         },
-      }),
+      },
     },
   },
 } satisfies Config;
