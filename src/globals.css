@@ -2,6 +2,23 @@
 @plugin "@tailwindcss/typography";
 @config "../tailwind.config.ts";
 
+@utility mt-* {
+  margin-top: 0;
+  margin-block-start: calc(var(--spacing) * --value(number));
+}
+@utility mb-* {
+  margin-bottom: 0;
+  margin-block-end: calc(var(--spacing) * --value(number));
+}
+@utility pt-* {
+  padding-top: 0;
+  padding-block-start: calc(var(--spacing) * --value(number));
+}
+@utility pb-* {
+  padding-bottom: 0;
+  padding-block-end: calc(var(--spacing) * --value(number));
+}
+
 @import "./code/code-theme.css" layer(components);
 @import "./code/code-block.css" layer(components);
 
