@@ -1,16 +1,9 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@config "../tailwind.config.ts";
 
 @import "./code/code-theme.css" layer(components);
 @import "./code/code-block.css" layer(components);
-
-@config '../tailwind.config.ts';
-
-@utility text-truncate {
-  min-width: 0;
-  overflow-x: clip;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
 html {
   scroll-padding-top: calc(var(--spacing) * 5);
