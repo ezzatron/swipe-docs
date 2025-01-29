@@ -1,17 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@import "./code/code-theme.css";
-@import "./code/code-block.css";
+@import './code/code-theme.css' layer(utilities);
+@import './code/code-block.css' layer(utilities);
 
-@layer utilities {
-  .text-truncate {
-    min-width: 0;
-    overflow-x: clip;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+@config '../tailwind.config.ts';
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
   }
+}
+
+@utility text-truncate {
+  min-width: 0;
+  overflow-x: clip;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 html {

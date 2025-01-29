@@ -26,7 +26,7 @@ export default function APIKey() {
         <button
           ref={ref}
           disabled={isDisabled}
-          className="-mx-1 rounded bg-blue-200 px-1 text-blue-950 enabled:hover:bg-blue-400 enabled:hover:text-white enabled:active:bg-blue-500 dark:bg-blue-900 dark:text-blue-100 enabled:dark:hover:bg-blue-700 enabled:dark:active:bg-blue-600"
+          className="-mx-1 rounded-sm bg-blue-200 px-1 text-blue-950 enabled:hover:bg-blue-400 enabled:hover:text-white enabled:active:bg-blue-500 dark:bg-blue-900 dark:text-blue-100 dark:enabled:hover:bg-blue-700 dark:enabled:active:bg-blue-600"
         >
           sk_test_006fdtrt32aTIPl7OaDEADC0DE
         </button>
@@ -36,7 +36,7 @@ export default function APIKey() {
         <Popover.Content
           side="top"
           sideOffset={4}
-          className="mx-7 max-w-xs overflow-clip rounded bg-gray-50 p-4 text-sm shadow-2xl ring-1 ring-gray-200 dark:bg-gray-950 dark:shadow-none dark:ring-gray-800"
+          className="mx-7 max-w-xs overflow-clip rounded-sm bg-gray-50 p-4 text-sm shadow-2xl ring-1 ring-gray-200 dark:bg-gray-950 dark:shadow-none dark:ring-gray-800"
         >
           <div className="mb-6">
             <p className="mt-0">
@@ -90,7 +90,7 @@ function APIKeyButton({
     <button
       {...props}
       className={clsx(
-        "inline-flex grow basis-1/2 items-center justify-center gap-2 rounded-md px-2.5 py-1.5 font-semibold shadow-sm",
+        "inline-flex grow basis-1/2 items-center justify-center gap-2 rounded-md px-2.5 py-1.5 font-semibold shadow-xs",
         className,
       )}
     >
