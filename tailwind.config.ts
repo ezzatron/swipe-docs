@@ -6,7 +6,7 @@ export default {
       typography: {
         DEFAULT: {
           css: {
-            "--tw-prose-code-bg": "var(--color-gray-100)",
+            "--tw-prose-code-bg": "var(--color-gray-200)",
             code: {
               backgroundColor: "var(--tw-prose-code-bg)",
               borderRadius: "var(--radius-sm)",

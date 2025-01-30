@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { cache, Fragment, type ReactNode } from "react";
@@ -8,7 +7,6 @@ import { API_KEY_CLASS } from "../loader/class";
 import { isCommandLine } from "../scope";
 import { transform } from "../transform";
 import APIKey from "./APIKey";
-import styles from "./CodeBlock.module.css";
 import CopyButton from "./CopyButton";
 import LanguageIcon from "./LanguageIcon";
 import PermalinkButton from "./PermalinkButton";
@@ -89,12 +87,7 @@ export default function CodeBlock({
           <LanguageIcon scope={scope} />
         </div>
 
-        <div
-          className={clsx(
-            styles.title,
-            "mr-2 min-h-5 grow border-r border-gray-300 pr-4 dark:border-gray-700",
-          )}
-        >
+        <div className="cb-title not-prose mr-2 min-h-5 grow border-r border-gray-300 pr-4 dark:border-gray-700">
           {title}
         </div>
 
