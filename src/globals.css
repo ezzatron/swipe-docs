@@ -1,27 +1,16 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-@config "../tailwind.config.ts";
-
-@utility mt-* {
-  margin-top: 0;
-  margin-block-start: calc(var(--spacing) * --value(number));
-}
-@utility mb-* {
-  margin-bottom: 0;
-  margin-block-end: calc(var(--spacing) * --value(number));
-}
-@utility pt-* {
-  padding-top: 0;
-  padding-block-start: calc(var(--spacing) * --value(number));
-}
-@utility pb-* {
-  padding-bottom: 0;
-  padding-block-end: calc(var(--spacing) * --value(number));
-}
-
+@import "./tailwind.css";
 @import "./code/code-theme.css" layer(components);
 @import "./code/code-block.css" layer(components);
 
-html {
-  scroll-padding-top: calc(var(--spacing) * 5);
+@layer base {
+  html {
+    scroll-padding-top: calc(var(--spacing) * 5);
+  }
+
+  *:focus {
+    outline: none;
+  }
+  *:focus-visible {
+    @apply focus-outline;
+  }
 }

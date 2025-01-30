@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@config "../tailwind.config.ts";
+
+@utility mt-* {
+  margin-top: 0;
+  margin-block-start: calc(var(--spacing) * --value(number));
+}
+@utility mb-* {
+  margin-bottom: 0;
+  margin-block-end: calc(var(--spacing) * --value(number));
+}
+@utility pt-* {
+  padding-top: 0;
+  padding-block-start: calc(var(--spacing) * --value(number));
+}
+@utility pb-* {
+  padding-bottom: 0;
+  padding-block-end: calc(var(--spacing) * --value(number));
+}
+
+@utility focus-outline {
+  outline-color: var(--color-blue-800);
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: 2px;
+
+  @variant dark {
+    outline-color: var(--color-blue-400);
+  }
+}

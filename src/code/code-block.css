@@ -125,6 +125,13 @@
   padding-left: calc(var(--spacing) * 4);
   color: var(--cb-section-expander);
 }
+.cb-sh *:focus,
+.cb-sh *:focus-visible {
+  outline: none;
+}
+.cb-sh:has(:focus-visible) :is(.cb-sh-h, .cb-sh-s)::before {
+  @apply focus-outline;
+}
 .cb-sh:hover,
 .cb-sh:has(:focus-visible) {
   color: var(--cb-section-expander-focused);
@@ -146,6 +153,7 @@
   height: calc(var(--spacing) * 7);
 }
 :is(.cb-sh-h, .cb-sh-s)::before {
+  border-radius: var(--radius-xs);
   content: "(\0000B7\0000B7\0000B7)"; /* three middle dots in parentheses */
 }
 :is(.cb-sh:hover, .cb-sh:has(:focus-visible)) .cb-sh-h::before {

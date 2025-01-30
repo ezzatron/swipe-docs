@@ -52,7 +52,7 @@ export default function CopyButton({ from }: Props) {
       aria-label="Copy code"
       title="Copy code"
       onClick={handleClick}
-      className="hover:text-gray-950 focus-visible:text-gray-950 active:text-blue-500 dark:hover:text-gray-200 dark:focus-visible:text-gray-200 dark:active:text-blue-400"
+      className="rounded-xs hover:text-gray-950 active:text-blue-500 dark:hover:text-gray-200 dark:active:text-blue-400"
       hidden={isHidden}
     >
       {state === "IDLE" ? <CopyIcon size={16} /> : undefined}

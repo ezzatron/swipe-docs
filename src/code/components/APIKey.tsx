@@ -53,7 +53,7 @@ export default function APIKey() {
 
           <div className="flex gap-3">
             <Popover.Close asChild>
-              <APIKeyButton className="bg-blue-600 text-white hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 active:bg-blue-700">
+              <APIKeyButton className="bg-blue-600 text-white hover:bg-blue-500 active:bg-blue-700">
                 OK
               </APIKeyButton>
             </Popover.Close>

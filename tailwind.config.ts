@@ -22,6 +22,9 @@ export default {
             "code::after": {
               content: '""',
             },
+            summary: {
+              borderRadius: "var(--radius-xs)",
+            },
           },
         },
         invert: {
