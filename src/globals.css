@@ -7,6 +7,10 @@
     scroll-padding-top: calc(var(--spacing) * 5);
   }
 
+  a[href] {
+    border-radius: var(--radius-xs);
+  }
+
   *:focus {
     outline: none;
   }
