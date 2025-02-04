@@ -33,7 +33,39 @@ const nextConfig: NextConfig = {
 const withMDX = createMDX({
   options: {
     jsx: true,
-    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings, rehypeMdxCodeProps],
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          headingProperties: {
+            className: "group relative",
+          },
+          properties: {
+            ariaHidden: true,
+            tabIndex: -1,
+            class: "absolute top-[50%] -left-6 translate-y-[-50%] pe-2",
+          },
+          content: {
+            type: "element",
+            tagName: "svg",
+            properties: {
+              viewBox: "0 0 24 24",
+              class: "size-4 text-transparent group-hover:text-inherit",
+            },
+            children: [
+              {
+                type: "element",
+                tagName: "use",
+                properties: { href: "#link-icon-tpl" },
+                children: [],
+              },
+            ],
+          },
+        },
+      ],
+      rehypeMdxCodeProps,
+    ],
   },
 });
 
