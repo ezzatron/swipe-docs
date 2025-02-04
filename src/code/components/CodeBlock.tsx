@@ -87,7 +87,7 @@ export default function CodeBlock({
           <LanguageIcon scope={scope} />
         </div>
 
-        <div className="cb-title not-prose mr-2 min-h-5 grow border-r border-gray-300 pr-4 dark:border-gray-700">
+        <div className="cb-title not-prose me-2 min-h-5 grow border-r border-gray-300 pe-4 dark:border-gray-700">
           {title}
         </div>
 
