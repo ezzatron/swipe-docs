@@ -1,0 +1,64 @@
+"use client";
+
+import type { Root } from "hast";
+import { useEffect, useState } from "react";
+import CodeBlockPreTransformed from "../code/components/CodeBlockPreTransformed";
+import { generateTree } from "./generate";
+
+type Props = {
+  initialName: string;
+  initialTree: Root;
+};
+
+export default function Form({ initialName, initialTree }: Props) {
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [name, setName] = useState(initialName);
+  const [tree, setTree] = useState(initialTree);
+
+  useEffect(() => {
+    setIsDisabled(false);
+  }, []);
+
+  const submit = async (data: FormData) => {
+    try {
+      const name = data.get("name") as string;
+      setName(name);
+      setTree(await generateTree(name));
+    } catch {
+      // do nothing
+    }
+  };
+
+  return (
+    <div className="flex items-start gap-6">
+      <form action={submit}>
+        <fieldset disabled={isDisabled} className="flex flex-col gap-4">
+          <label className="flex flex-col gap-2 text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+            Name
+            <input
+              name="name"
+              defaultValue={name}
+              onFocus={(event) => {
+                queueMicrotask(() => {
+                  event.target.select();
+                });
+              }}
+              onChange={(event) => {
+                event.target.form?.requestSubmit();
+              }}
+              placeholder="Who to greet"
+              className="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 disabled:cursor-not-allowed dark:text-gray-100 dark:outline-gray-700 dark:focus:outline-blue-400"
+            />
+          </label>
+        </fieldset>
+      </form>
+
+      <CodeBlockPreTransformed
+        scope="source.ts"
+        tree={tree}
+        title="Greeting code"
+        className="not-prose min-w-0 grow"
+      />
+    </div>
+  );
+}

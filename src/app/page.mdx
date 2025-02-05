@@ -1,4 +1,5 @@
 import CodeBlock from "../code/components/CodeBlock";
+import Example from "../dynamic-code/Example";
 
 import thisFile from "./page.mdx?code";
 
@@ -8,6 +9,13 @@ import loremIpsumGo from "../example/lorem-ipsum.go?code"; // [!section code-imp
 import loremIpsumTsWithAnnotations from "../example/lorem-ipsum.ts?annotations=retain&code";
 
 # Syntax highlighting examples
+
+## Dynamically generated code
+
+You can highlight code that is generated dynamically. For example, you can take
+an input and highlight code that changes based on the input.
+
+<Example />
 
 ## From imported files
 

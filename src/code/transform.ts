@@ -21,14 +21,14 @@ import {
 const SECTION_DATA = "data-s";
 
 type Options = {
-  showLineNumbers: boolean;
+  showLineNumbers?: boolean;
   section?: string;
-  noSectionContext: boolean;
+  noSectionContext?: boolean;
 };
 
 export function transform(
   tree: Root,
-  { showLineNumbers, section, noSectionContext }: Options,
+  { showLineNumbers = true, section, noSectionContext = false }: Options = {},
 ): Root {
   const [pre] = structuredClone(tree).children;
   if (pre?.type !== "element" || pre.properties.class !== CODE_BLOCK_CLASS) {
