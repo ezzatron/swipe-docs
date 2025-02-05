@@ -1,5 +1,4 @@
 /.makefiles/
-/.next/
 /artifacts/
 /node_modules/
 /next-env.d.ts

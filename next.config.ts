@@ -1,3 +1,4 @@
+import bundleAnalyzer from "@next/bundle-analyzer";
 import createMDX from "@next/mdx";
 import type { Element } from "hast";
 import { toString } from "hast-util-to-string";
@@ -10,8 +11,8 @@ import rehypeSlug from "rehype-slug";
 const require = createRequire(import.meta.url);
 
 const nextConfig: NextConfig = {
+  distDir: "artifacts/next/dist",
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
-  serverExternalPackages: ["@wooorm/starry-night"],
   webpack: (config) => {
     config.module.rules = [
       {
@@ -79,4 +80,10 @@ const withMDX = createMDX({
   },
 });
 
-export default withMDX(nextConfig);
+export default withBundleAnalyzer(withMDX(nextConfig));
+
+function withBundleAnalyzer(config: NextConfig): NextConfig {
+  return process.env.ANALYZE === "true"
+    ? bundleAnalyzer({ openAnalyzer: false })(config)
+    : config;
+}
