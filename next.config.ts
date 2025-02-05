@@ -1,4 +1,6 @@
 import createMDX from "@next/mdx";
+import type { Element } from "hast";
+import { toString } from "hast-util-to-string";
 import type { NextConfig } from "next";
 import { createRequire } from "node:module";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -38,20 +40,28 @@ const withMDX = createMDX({
       [
         rehypeAutolinkHeadings,
         {
-          headingProperties: {
-            className: "group relative",
+          behavior: "after",
+          group: {
+            type: "element",
+            tagName: "div",
+            properties: {
+              className: "heading-group group relative",
+            },
+            children: [],
           },
-          properties: {
-            ariaHidden: true,
-            tabIndex: -1,
-            class: "absolute top-[50%] -left-6 translate-y-[-50%] pe-2",
-          },
+          properties: (heading: Element) => ({
+            ariaLabel: `Permalink: ${toString(heading)}`,
+            class:
+              "absolute top-[50%] -left-6 grid size-6 translate-y-[-50%] place-items-center",
+          }),
           content: {
             type: "element",
             tagName: "svg",
             properties: {
+              ariaHidden: true,
               viewBox: "0 0 24 24",
-              class: "size-4 text-transparent group-hover:text-inherit",
+              class:
+                "size-4 text-transparent group-hover:text-inherit group-has-focus-visible:text-inherit",
             },
             children: [
               {

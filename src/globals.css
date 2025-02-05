@@ -18,3 +18,17 @@
     @apply focus-outline;
   }
 }
+
+@layer utilities {
+  /* Re-implement Tailwind Typography heading spacing for MDX heading groups */
+  .prose
+    :is(.heading-group:has(h2, h3, h4, h5, h6) + *):not(
+      :is([class~="not-prose"], [class~="not-prose"] *)
+    ),
+  .prose
+    :is(.heading-group:has(h2, h3, h4, h5, h6) + .heading-group > *):not(
+      :is([class~="not-prose"], [class~="not-prose"] *)
+    ) {
+    margin-top: 0;
+  }
+}
