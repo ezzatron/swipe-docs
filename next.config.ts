@@ -13,6 +13,10 @@ const require = createRequire(import.meta.url);
 const nextConfig: NextConfig = {
   distDir: "artifacts/next/dist",
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+  serverExternalPackages: ["@wooorm/starry-night"],
+  outputFileTracingIncludes: {
+    "**": ["./node_modules/vscode-oniguruma/**"],
+  },
   webpack: (config) => {
     config.module.rules = [
       {
