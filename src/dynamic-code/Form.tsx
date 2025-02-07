@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import clsx from "clsx";
+import { useActionState, useId, useState } from "react";
 import CodeBlockPreTransformed from "../code/components/CodeBlockPreTransformed";
 import { generateAction } from "./generate";
 import type { State } from "./state";
@@ -18,38 +19,89 @@ export default function Form({ initialState }: Props) {
   return (
     <div className="flex items-start gap-6">
       <form action={action}>
-        <fieldset className="flex flex-col gap-4">
-          <label className="flex flex-col gap-2 text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-            Name
-            <input
-              name="name"
-              defaultValue={state.input.name}
-              onFocus={(event) => {
-                queueMicrotask(() => {
-                  event.target.select();
-                });
-              }}
-              onChange={(event) => {
-                event.target.form?.requestSubmit();
-              }}
-              placeholder="Who to greet"
-              className="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 dark:text-gray-100 dark:outline-gray-700 dark:focus:outline-blue-400"
-            />
-          </label>
+        <h3 className="mt-0 mb-5">Next.js ⚡️ MDX</h3>
 
-          <button className="inline-flex grow basis-1/2 items-center justify-center gap-2 rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 active:bg-blue-700">
-            Generate
-          </button>
-        </fieldset>
+        <div className="flex flex-col gap-3">
+          <Checkbox
+            name="bundleAnalyzer"
+            label="Analyze bundle"
+            state={state}
+          />
+          <Checkbox
+            name="customDistDir"
+            label="Custom dist dir"
+            state={state}
+          />
+          <Checkbox
+            name="autoLinkHeadings"
+            label="Heading links"
+            state={state}
+          />
+          <Checkbox
+            name="syntaxHighlighting"
+            label="Syntax highlighting"
+            state={state}
+          />
+          <Checkbox name="webpackLoader" label="Webpack loader" state={state} />
+        </div>
       </form>
 
       <CodeBlockPreTransformed
         scope="source.ts"
         tree={state.output.tree}
-        title="Greeting code"
+        title="next.config.ts"
         className="not-prose min-w-0 grow"
         updating={isPending}
       />
+    </div>
+  );
+}
+
+function Checkbox({
+  name,
+  label,
+  state,
+}: {
+  name: string;
+  label: string;
+  state: State;
+}) {
+  const labelId = useId();
+  const [checked, setChecked] = useState(
+    state.input[name as keyof State["input"]],
+  );
+
+  return (
+    <div className="flex items-center gap-3">
+      <input type="hidden" name={name} value={checked ? "on" : ""} />
+
+      <button
+        role="switch"
+        onClick={() => {
+          setChecked((c) => !c);
+        }}
+        aria-checked={checked}
+        aria-labelledby={labelId}
+        className={clsx(
+          "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out",
+          checked ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-800",
+        )}
+      >
+        <span
+          aria-hidden="true"
+          className={clsx(
+            "pointer-events-none inline-block size-5 translate-x-0 transform rounded-full bg-white ring-0 shadow transition duration-200 ease-in-out dark:bg-gray-200",
+            { "translate-x-5": checked },
+          )}
+        ></span>
+      </button>
+
+      <label
+        id={labelId}
+        className="flex items-center gap-2 text-sm/6 font-medium whitespace-nowrap text-gray-900 dark:text-gray-100"
+      >
+        {label}
+      </label>
     </div>
   );
 }

@@ -1,22 +1,41 @@
+{{#if bundleAnalyzer}}
 import bundleAnalyzer from "@next/bundle-analyzer";
+{{/if}}
 import createMDX from "@next/mdx";
+{{#if autoLinkHeadings}}
 import type { Element } from "hast";
 import { toString } from "hast-util-to-string";
+{{/if}}
 import type { NextConfig } from "next";
+{{#if webpackLoader}}
 import { createRequire } from "node:module";
+{{/if}}
+{{#if autoLinkHeadings}}
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+{{/if}}
+{{#if syntaxHighlighting}}
 import rehypeMdxCodeProps from "rehype-mdx-code-props";
+{{/if}}
+{{#if autoLinkHeadings}}
 import rehypeSlug from "rehype-slug";
+{{/if}}
 
+{{#if webpackLoader}}
 const require = createRequire(import.meta.url);
 
+{{/if}}
 const nextConfig: NextConfig = {
+{{#if customDistDir}}
   distDir: "artifacts/next/dist",
+{{/if}}
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+{{#if syntaxHighlighting}}
   serverExternalPackages: ["@wooorm/starry-night"],
   outputFileTracingIncludes: {
     "**": ["./node_modules/vscode-oniguruma/**"],
   },
+{{/if}}
+{{#if webpackLoader}}
   webpack: (config) => {
     config.module.rules = [
       {
@@ -27,10 +46,7 @@ const nextConfig: NextConfig = {
           },
           {
             resourceQuery: { not: [/\bcode$/] },
-            rules: [
-              ...config.module.rules,
-              { test: /\.hbr$/, loader: "handlebars-loader" },
-            ],
+            rules: config.module.rules,
           },
         ],
       },
@@ -38,12 +54,15 @@ const nextConfig: NextConfig = {
 
     return config;
   },
+{{/if}}
 };
 
 const withMDX = createMDX({
   options: {
     jsx: true,
+{{#if rehypePlugins}}
     rehypePlugins: [
+{{#if autoLinkHeadings}}
       rehypeSlug,
       [
         rehypeAutolinkHeadings,
@@ -82,11 +101,16 @@ const withMDX = createMDX({
           },
         },
       ],
+{{/if}}
+{{#if syntaxHighlighting}}
       rehypeMdxCodeProps,
+{{/if}}
     ],
+{{/if}}
   },
 });
 
+{{#if bundleAnalyzer}}
 export default withBundleAnalyzer(withMDX(nextConfig));
 
 function withBundleAnalyzer(config: NextConfig): NextConfig {
@@ -94,3 +118,6 @@ function withBundleAnalyzer(config: NextConfig): NextConfig {
     ? bundleAnalyzer({ openAnalyzer: false })(config)
     : config;
 }
+{{else}}
+export default withMDX(nextConfig);
+{{/if}}

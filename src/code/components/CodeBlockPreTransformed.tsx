@@ -99,7 +99,7 @@ export default function CodeBlockPreTransformed({
 
       <div
         className={clsx("not-prose", {
-          "**:text-[var(--cb-comment)]": updating,
+          "**:text-[var(--cb-line-number)]": updating,
         })}
       >
         {highlighted}
