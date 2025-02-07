@@ -33,6 +33,7 @@ export type Props = {
   filenameContext?: number;
   className?: string;
   noMargin?: boolean;
+  updating?: boolean;
 };
 
 export default function CodeBlockPreTransformed({
@@ -43,6 +44,7 @@ export default function CodeBlockPreTransformed({
   filename,
   filenameContext = 1,
   className,
+  updating,
 }: Props) {
   if (title == null) {
     if (filename) {
@@ -95,7 +97,13 @@ export default function CodeBlockPreTransformed({
         </div>
       </div>
 
-      <div className="not-prose">{highlighted}</div>
+      <div
+        className={clsx("not-prose", {
+          "**:text-[var(--cb-comment)]": updating,
+        })}
+      >
+        {highlighted}
+      </div>
     </div>
   );
 }

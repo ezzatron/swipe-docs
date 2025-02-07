@@ -1,7 +1,7 @@
 "use client";
 
 import type { Root } from "hast";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import CodeBlockPreTransformed from "../code/components/CodeBlockPreTransformed";
 import { generateTree } from "./generate";
 
@@ -11,6 +11,7 @@ type Props = {
 };
 
 export default function Form({ initialName, initialTree }: Props) {
+  const [isPending, startTransition] = useTransition();
   const [isDisabled, setIsDisabled] = useState(true);
   const [name, setName] = useState(initialName);
   const [tree, setTree] = useState(initialTree);
@@ -20,13 +21,15 @@ export default function Form({ initialName, initialTree }: Props) {
   }, []);
 
   const submit = async (data: FormData) => {
-    try {
-      const name = data.get("name") as string;
-      setName(name);
-      setTree(await generateTree(name));
-    } catch {
-      // do nothing
-    }
+    startTransition(async () => {
+      try {
+        const name = data.get("name") as string;
+        setName(name);
+        setTree(await generateTree(name));
+      } catch {
+        // do nothing
+      }
+    });
   };
 
   return (
@@ -58,6 +61,7 @@ export default function Form({ initialName, initialTree }: Props) {
         tree={tree}
         title="Greeting code"
         className="not-prose min-w-0 grow"
+        updating={isPending}
       />
     </div>
   );
