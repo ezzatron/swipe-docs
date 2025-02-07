@@ -53,6 +53,10 @@ export default function Form({ initialName, initialTree }: Props) {
               className="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 disabled:cursor-not-allowed dark:text-gray-100 dark:outline-gray-700 dark:focus:outline-blue-400"
             />
           </label>
+
+          <button className="inline-flex grow basis-1/2 items-center justify-center gap-2 rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 active:bg-blue-700">
+            Generate
+          </button>
         </fieldset>
       </form>
 
