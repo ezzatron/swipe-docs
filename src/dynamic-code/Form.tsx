@@ -12,12 +12,12 @@ type Props = {
 
 export default function Form({ initialName, initialTree }: Props) {
   const [isPending, startTransition] = useTransition();
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isClientReady, setIsClientReady] = useState(false);
   const [name, setName] = useState(initialName);
   const [tree, setTree] = useState(initialTree);
 
   useEffect(() => {
-    setIsDisabled(false);
+    setIsClientReady(true);
   }, []);
 
   const submit = async (data: FormData) => {
@@ -35,7 +35,7 @@ export default function Form({ initialName, initialTree }: Props) {
   return (
     <div className="flex items-start gap-6">
       <form action={submit}>
-        <fieldset disabled={isDisabled} className="flex flex-col gap-4">
+        <fieldset disabled={!isClientReady} className="flex flex-col gap-4">
           <label className="flex flex-col gap-2 text-sm/6 font-medium text-gray-900 dark:text-gray-100">
             Name
             <input
