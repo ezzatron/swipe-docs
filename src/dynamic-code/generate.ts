@@ -1,20 +1,35 @@
 "use server";
 
-import type { Root } from "hast";
 import { createHighlighter } from "../code/loader/highlighter";
 import { transform as staticTransform } from "../code/loader/transform";
 import { transform as dynamicTransform } from "../code/transform";
+import type { Input, Output, State } from "./state";
 
-export async function generateTree(name: string): Promise<Root> {
-  const highlighter = await createHighlighter();
+export async function generateAction(
+  _state: State,
+  data: FormData,
+): Promise<State> {
+  const name = data.get("name");
+  if (typeof name !== "string") throw new Error("Invalid name");
 
-  return dynamicTransform(
-    staticTransform(highlighter.highlight(generateSource(name), "source.ts")),
-    { showLineNumbers: false },
-  );
+  const input = { name };
+
+  return { input, output: await generateOutput(input) };
 }
 
-function generateSource(name: string): string {
+export async function generateOutput(input: Input): Promise<Output> {
+  const highlighter = await createHighlighter();
+
+  const scope = "source.ts";
+  const tree = await dynamicTransform(
+    staticTransform(highlighter.highlight(generateSource(input), scope)),
+    { showLineNumbers: false },
+  );
+
+  return { scope, tree };
+}
+
+function generateSource({ name }: Input): string {
   if (name.includes('"')) {
     return `console.log("Very sneaky! That's not going to work ;)");\n`;
   }

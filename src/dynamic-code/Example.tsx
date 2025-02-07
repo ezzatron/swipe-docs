@@ -1,13 +1,10 @@
 import Form from "./Form";
-import { generateTree } from "./generate";
+import { generateOutput } from "./generate";
+import type { Input } from "./state";
 
 export default async function Example() {
-  const initialName = "World";
+  const input: Input = { name: "World" };
+  const output = await generateOutput(input);
 
-  return (
-    <Form
-      initialName={initialName}
-      initialTree={await generateTree(initialName)}
-    />
-  );
+  return <Form initialState={{ input, output }} />;
 }
