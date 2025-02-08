@@ -16,11 +16,13 @@ export default function Form({ initialState }: Props) {
   );
 
   return (
-    <div className="flex items-start gap-6">
+    <div className="not-prose flex items-start gap-6">
       <form action={action}>
-        <h3 className="mt-0 mb-5">Next.js ⚡️ MDX</h3>
+        <h3 className="mb-7 text-xl font-semibold text-[var(--tw-prose-headings)]">
+          Next.js ⚡️ MDX
+        </h3>
 
-        <div className="flex flex-col gap-3">
+        <div className="mb-6 flex flex-col gap-3">
           <Checkbox
             name="bundleAnalyzer"
             label="Analyze bundle"
@@ -43,6 +45,10 @@ export default function Form({ initialState }: Props) {
           />
           <Checkbox name="webpackLoader" label="Webpack loader" state={state} />
         </div>
+
+        <button className="w-full rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 active:bg-blue-700">
+          Generate
+        </button>
       </form>
 
       <CodeBlockPreTransformed
