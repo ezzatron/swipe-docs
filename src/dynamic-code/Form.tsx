@@ -1,10 +1,9 @@
 "use client";
 
-import clsx from "clsx";
-import { useActionState, useId, useState } from "react";
+import { useActionState } from "react";
 import CodeBlockPreTransformed from "../code/components/CodeBlockPreTransformed";
 import { generateAction } from "./generate";
-import type { State } from "./state";
+import type { Input, State } from "./state";
 
 type Props = {
   initialState: State;
@@ -62,46 +61,34 @@ function Checkbox({
   label,
   state,
 }: {
-  name: string;
+  name: keyof Input;
   label: string;
   state: State;
 }) {
-  const labelId = useId();
-  const [checked, setChecked] = useState(
-    state.input[name as keyof State["input"]],
-  );
-
   return (
-    <div className="flex items-center gap-3">
-      <input type="hidden" name={name} value={checked ? "on" : ""} />
-
-      <button
-        role="switch"
-        onClick={() => {
-          setChecked((c) => !c);
+    <label className="group relative">
+      <input
+        type="checkbox"
+        name={name}
+        defaultChecked={state.input[name]}
+        onChange={(event) => {
+          event.target.form?.requestSubmit();
         }}
-        aria-checked={checked}
-        aria-labelledby={labelId}
-        className={clsx(
-          "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out",
-          checked ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-800",
-        )}
-      >
-        <span
-          aria-hidden="true"
-          className={clsx(
-            "pointer-events-none inline-block size-5 translate-x-0 transform rounded-full bg-white ring-0 shadow transition duration-200 ease-in-out dark:bg-gray-200",
-            { "translate-x-5": checked },
-          )}
-        ></span>
-      </button>
+        className="absolute size-0 focus-visible:outline-0"
+      />
 
-      <label
-        id={labelId}
-        className="flex items-center gap-2 text-sm/6 font-medium whitespace-nowrap text-gray-900 dark:text-gray-100"
-      >
-        {label}
-      </label>
-    </div>
+      <div className="flex items-center gap-3">
+        <div
+          aria-hidden="true"
+          className="group-has-focus-visible:focus-outline relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-gray-200 transition-colors duration-200 ease-in-out group-has-checked:bg-blue-600 dark:bg-gray-800"
+        >
+          <span className="pointer-events-none inline-block size-5 translate-x-0 transform rounded-full bg-white ring-0 shadow transition duration-200 ease-in-out group-has-checked:translate-x-5 dark:bg-gray-200" />
+        </div>
+
+        <span className="flex items-center gap-2 text-sm/6 font-medium whitespace-nowrap text-gray-900 dark:text-gray-100">
+          {label}
+        </span>
+      </div>
+    </label>
   );
 }
