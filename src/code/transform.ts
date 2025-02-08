@@ -2,6 +2,7 @@ import clsx from "clsx";
 import type { Element, Root } from "hast";
 import {
   CODE_BLOCK_CLASS,
+  CODE_BLOCK_WRAPPER_CLASS,
   LINE_NUMBERS_CLASS,
   LINE_NUMBERS_SHOW_CLASS,
   SECTION_CONTENT_CLASS,
@@ -34,7 +35,14 @@ export function transform(
   if (pre?.type !== "element" || pre.properties.class !== CODE_BLOCK_CLASS) {
     throw new Error("Unexpected tree");
   }
-  const [content] = pre.children;
+  const [wrapper] = pre.children;
+  if (
+    wrapper?.type !== "element" ||
+    wrapper.properties.class !== CODE_BLOCK_WRAPPER_CLASS
+  ) {
+    throw new Error("Unexpected tree");
+  }
+  const [content] = wrapper.children;
   if (
     content?.type !== "element" ||
     content.properties.class !== SECTION_CONTENT_CLASS
@@ -75,33 +83,31 @@ export function transform(
 
   if (section) wrapSectionIndent(sectionLines);
 
-  Object.assign(pre, {
-    properties: {
-      ...pre.properties,
-      class: clsx(pre.properties.class, {
-        [LINE_NUMBERS_SHOW_CLASS]: showLineNumbers,
-      }),
-      "data-s": section,
+  pre.properties = {
+    ...pre.properties,
+    class: clsx(pre.properties.class, {
+      [LINE_NUMBERS_SHOW_CLASS]: showLineNumbers,
+    }),
+    "data-s": section,
+  };
+  wrapper.children = [
+    {
+      type: "element",
+      tagName: "div",
+      properties: { class: SECTION_CONTENT_CLASS },
+      children: [
+        { ...lineNumberContainer, children: sectionLineNumbers },
+        { ...code, children: sectionLines },
+      ],
     },
-    children: [
-      {
-        type: "element",
-        tagName: "div",
-        properties: { class: SECTION_CONTENT_CLASS },
-        children: [
-          { ...lineNumberContainer, children: sectionLineNumbers },
-          { ...code, children: sectionLines },
-        ],
-      },
-    ],
-  });
+  ];
 
   const result: Root = { type: "root", children: [pre] };
 
   if (noSectionContext || !hasContext) return result;
 
   if (hasBefore) {
-    pre.children.unshift(
+    wrapper.children.unshift(
       {
         type: "element",
         tagName: "div",
@@ -118,7 +124,7 @@ export function transform(
   }
 
   if (hasAfter) {
-    pre.children.push(createSectionExpander(SECTION_EXPANDER_AFTER_CLASS), {
+    wrapper.children.push(createSectionExpander(SECTION_EXPANDER_AFTER_CLASS), {
       type: "element",
       tagName: "div",
       properties: {

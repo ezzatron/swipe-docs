@@ -1,4 +1,5 @@
 export const CODE_BLOCK_CLASS = "cb";
+export const CODE_BLOCK_WRAPPER_CLASS = `${CODE_BLOCK_CLASS}-w`;
 
 export const LINE_CLASS = `${CODE_BLOCK_CLASS}-l`;
 export const LINE_NUMBER_CLASS = `${CODE_BLOCK_CLASS}-n`;

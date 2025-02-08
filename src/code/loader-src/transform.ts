@@ -1,6 +1,7 @@
 import type { Element, Root } from "hast";
 import {
   CODE_BLOCK_CLASS,
+  CODE_BLOCK_WRAPPER_CLASS,
   LINE_NUMBER_CLASS,
   LINE_NUMBERS_CLASS,
   SECTION_CONTENT_CLASS,
@@ -36,14 +37,21 @@ export function transform(tree: Root, { mode = "strip" }: Options = {}): Root {
       {
         type: "element",
         tagName: "div",
-        properties: { class: SECTION_CONTENT_CLASS },
+        properties: { class: CODE_BLOCK_WRAPPER_CLASS },
         children: [
-          createLineNumbers(1, lines.length, lines.length),
           {
             type: "element",
-            tagName: "code",
-            properties: {},
-            children: lines,
+            tagName: "div",
+            properties: { class: SECTION_CONTENT_CLASS },
+            children: [
+              createLineNumbers(1, lines.length, lines.length),
+              {
+                type: "element",
+                tagName: "code",
+                properties: {},
+                children: lines,
+              },
+            ],
           },
         ],
       },
