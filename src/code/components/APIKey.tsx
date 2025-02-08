@@ -14,10 +14,10 @@ import {
 
 export default function APIKey() {
   const ref = useRef<HTMLButtonElement>(null);
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isClientReady, setIsClientReady] = useState(false);
 
   useEffect(() => {
-    setIsDisabled(false);
+    setIsClientReady(true);
   }, []);
 
   return (
@@ -25,7 +25,7 @@ export default function APIKey() {
       <Popover.Trigger asChild>
         <button
           ref={ref}
-          disabled={isDisabled}
+          disabled={!isClientReady}
           className="-mx-[0.2em] rounded-sm bg-blue-200 px-[0.2em] text-blue-950 enabled:hover:bg-blue-400 enabled:hover:text-white enabled:active:bg-blue-500 dark:bg-blue-900 dark:text-blue-100 dark:enabled:hover:bg-blue-700 dark:enabled:active:bg-blue-600"
         >
           sk_test_006fdtrt32aTIPl7OaDEADC0DE
