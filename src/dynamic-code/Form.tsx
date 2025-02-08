@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import CodeBlockPreTransformed from "../code/components/CodeBlockPreTransformed";
 import { generateAction } from "./generate";
 import type { Input, State } from "./state";
@@ -10,10 +10,15 @@ type Props = {
 };
 
 export default function Form({ initialState }: Props) {
+  const [isClientReady, setIsClientReady] = useState(false);
   const [state, action, isPending] = useActionState(
     generateAction,
     initialState,
   );
+
+  useEffect(() => {
+    setIsClientReady(true);
+  }, []);
 
   return (
     <div className="not-prose flex items-start gap-6">
@@ -46,9 +51,11 @@ export default function Form({ initialState }: Props) {
           <Checkbox name="webpackLoader" label="Webpack loader" state={state} />
         </div>
 
-        <button className="w-full rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 active:bg-blue-700">
-          Generate
-        </button>
+        {!isClientReady && (
+          <button className="w-full rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 active:bg-blue-700">
+            Generate
+          </button>
+        )}
       </form>
 
       <CodeBlockPreTransformed
