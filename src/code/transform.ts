@@ -6,6 +6,7 @@ import {
   LINE_NUMBERS_SHOW_CLASS,
   SECTION_CONTENT_CLASS,
   SECTION_CONTENT_INDENT_CLASS,
+  SECTION_CONTEXT_CLASS,
   SPACE_CLASS,
   TAB_CLASS,
 } from "./loader/class";
@@ -22,18 +23,24 @@ export function transform(
   tree: Root,
   { showLineNumbers = false, section, noSectionContext = false }: Options = {},
 ): Root {
-  const [pre] = structuredClone(tree).children;
+  tree = structuredClone(tree);
+
+  const [pre] = tree.children;
   if (pre?.type !== "element" || pre.properties.class !== CODE_BLOCK_CLASS) {
     throw new Error("Unexpected tree");
   }
-  const [content] = pre.children;
-  if (
-    content?.type !== "element" ||
-    content.properties.class !== SECTION_CONTENT_CLASS
-  ) {
-    throw new Error("Unexpected tree");
-  }
-  const [lineNumberContainer, code] = content.children;
+
+  pre.properties = {
+    ...pre.properties,
+    class: clsx(pre.properties.class, {
+      [LINE_NUMBERS_SHOW_CLASS]: showLineNumbers,
+    }),
+    "data-s": section,
+  };
+
+  if (!section) return tree;
+
+  const [lineNumberContainer, code] = pre.children;
   if (
     lineNumberContainer?.type !== "element" ||
     lineNumberContainer.properties.class !== LINE_NUMBERS_CLASS ||
@@ -61,64 +68,51 @@ export function transform(
     lineNumbersAfter,
     linesAfter,
   ] = splitSection(lineNumbers, lines, section);
-  const hasBefore = linesBefore.length > 0;
-  const hasAfter = linesAfter.length > 0;
-  const hasContext = hasBefore || hasAfter;
 
-  if (section) wrapSectionIndent(sectionLines);
-
-  pre.properties = {
-    ...pre.properties,
-    class: clsx(pre.properties.class, {
-      [LINE_NUMBERS_SHOW_CLASS]: showLineNumbers,
-    }),
-    "data-s": section,
-  };
-  pre.children = [
-    {
-      type: "element",
-      tagName: "div",
-      properties: { class: SECTION_CONTENT_CLASS },
-      children: [
-        { ...lineNumberContainer, children: sectionLineNumbers },
-        { ...code, children: sectionLines },
-      ],
-    },
-  ];
-
-  const result: Root = { type: "root", children: [pre] };
-
-  if (noSectionContext || !hasContext) return result;
-
-  if (hasBefore) {
-    pre.children.unshift({
-      type: "element",
-      tagName: "div",
-      properties: {
-        class: SECTION_CONTENT_CLASS,
-      },
-      children: [
-        { ...lineNumberContainer, children: lineNumbersBefore },
-        { ...code, children: linesBefore },
-      ],
-    });
+  for (const lineNumber of sectionLineNumbers) {
+    lineNumber.properties.class = clsx(
+      lineNumber.properties.class,
+      SECTION_CONTENT_CLASS,
+    );
+  }
+  for (const line of sectionLines) {
+    line.properties.class = clsx(line.properties.class, SECTION_CONTENT_CLASS);
   }
 
-  if (hasAfter) {
-    pre.children.push({
-      type: "element",
-      tagName: "div",
-      properties: {
-        class: SECTION_CONTENT_CLASS,
-      },
-      children: [
-        { ...lineNumberContainer, children: lineNumbersAfter },
-        { ...code, children: linesAfter },
-      ],
-    });
+  wrapSectionIndent(sectionLines);
+
+  if (noSectionContext) {
+    lineNumberContainer.children = sectionLineNumbers;
+    code.children = sectionLines;
+  } else {
+    for (const lineNumber of lineNumbersBefore) {
+      lineNumber.properties.class = clsx(
+        lineNumber.properties.class,
+        SECTION_CONTEXT_CLASS,
+      );
+    }
+    for (const line of linesBefore) {
+      line.properties.class = clsx(
+        line.properties.class,
+        SECTION_CONTEXT_CLASS,
+      );
+    }
+
+    for (const lineNumber of lineNumbersAfter) {
+      lineNumber.properties.class = clsx(
+        lineNumber.properties.class,
+        SECTION_CONTEXT_CLASS,
+      );
+    }
+    for (const line of linesAfter) {
+      line.properties.class = clsx(
+        line.properties.class,
+        SECTION_CONTEXT_CLASS,
+      );
+    }
   }
 
-  return result;
+  return tree;
 }
 
 function splitSection(

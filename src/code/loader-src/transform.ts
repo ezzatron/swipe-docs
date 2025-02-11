@@ -3,7 +3,6 @@ import {
   CODE_BLOCK_CLASS,
   LINE_NUMBER_CLASS,
   LINE_NUMBERS_CLASS,
-  SECTION_CONTENT_CLASS,
 } from "./class.js";
 import type { Mode } from "./mode.js";
 import { parseAnnotations } from "./parse-annotations.js";
@@ -33,19 +32,12 @@ export function transform(tree: Root, { mode = "strip" }: Options = {}): Root {
     tagName: "pre",
     properties: { class: CODE_BLOCK_CLASS },
     children: [
+      createLineNumbers(1, lines.length, lines.length),
       {
         type: "element",
-        tagName: "div",
-        properties: { class: SECTION_CONTENT_CLASS },
-        children: [
-          createLineNumbers(1, lines.length, lines.length),
-          {
-            type: "element",
-            tagName: "code",
-            properties: {},
-            children: lines,
-          },
-        ],
+        tagName: "code",
+        properties: {},
+        children: lines,
       },
     ],
   };

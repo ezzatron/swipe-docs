@@ -5,6 +5,7 @@ export declare const LINE_NUMBERS_CLASS = "cb-ln";
 export declare const LINE_NUMBERS_SHOW_CLASS = "cb-ln-s";
 export declare const SECTION_CONTENT_CLASS = "cb-sc";
 export declare const SECTION_CONTENT_INDENT_CLASS = "cb-sc-i";
+export declare const SECTION_CONTEXT_CLASS = "cb-sx";
 export declare const SPACE_CLASS = "cb-s";
 export declare const TAB_CLASS = "cb-t";
 export declare const API_KEY_CLASS = "cb-ak";

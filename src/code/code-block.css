@@ -41,6 +41,7 @@
 }
 
 .cb {
+  display: flex;
   position: relative;
   background-color: var(--cb-bg);
   padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4)
@@ -67,10 +68,6 @@
 }
 
 /* line numbers and code */
-.cb-sc {
-  display: flex;
-  position: relative;
-}
 .cb-ln {
   display: none;
   position: sticky;
