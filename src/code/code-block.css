@@ -60,13 +60,6 @@
   user-select: text;
 }
 
-/* make all wrapper children have the same width inside the scroll */
-.cb-w {
-  display: inline-block;
-  width: 100%;
-  min-width: fit-content;
-}
-
 /* selection color */
 .cb::selection,
 .cb *::selection {

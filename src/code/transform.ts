@@ -2,7 +2,6 @@ import clsx from "clsx";
 import type { Element, Root } from "hast";
 import {
   CODE_BLOCK_CLASS,
-  CODE_BLOCK_WRAPPER_CLASS,
   LINE_NUMBERS_CLASS,
   LINE_NUMBERS_SHOW_CLASS,
   SECTION_CONTENT_CLASS,
@@ -35,14 +34,7 @@ export function transform(
   if (pre?.type !== "element" || pre.properties.class !== CODE_BLOCK_CLASS) {
     throw new Error("Unexpected tree");
   }
-  const [wrapper] = pre.children;
-  if (
-    wrapper?.type !== "element" ||
-    wrapper.properties.class !== CODE_BLOCK_WRAPPER_CLASS
-  ) {
-    throw new Error("Unexpected tree");
-  }
-  const [content] = wrapper.children;
+  const [content] = pre.children;
   if (
     content?.type !== "element" ||
     content.properties.class !== SECTION_CONTENT_CLASS
@@ -90,7 +82,7 @@ export function transform(
     }),
     "data-s": section,
   };
-  wrapper.children = [
+  pre.children = [
     {
       type: "element",
       tagName: "div",
@@ -107,7 +99,7 @@ export function transform(
   if (noSectionContext || !hasContext) return result;
 
   if (hasBefore) {
-    wrapper.children.unshift(
+    pre.children.unshift(
       {
         type: "element",
         tagName: "div",
@@ -124,7 +116,7 @@ export function transform(
   }
 
   if (hasAfter) {
-    wrapper.children.push(createSectionExpander(SECTION_EXPANDER_AFTER_CLASS), {
+    pre.children.push(createSectionExpander(SECTION_EXPANDER_AFTER_CLASS), {
       type: "element",
       tagName: "div",
       properties: {

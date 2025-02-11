@@ -1,4 +1,4 @@
-import { CODE_BLOCK_CLASS, CODE_BLOCK_WRAPPER_CLASS, LINE_NUMBER_CLASS, LINE_NUMBERS_CLASS, SECTION_CONTENT_CLASS, } from "./class.js";
+import { CODE_BLOCK_CLASS, LINE_NUMBER_CLASS, LINE_NUMBERS_CLASS, SECTION_CONTENT_CLASS, } from "./class.js";
 import { parseAnnotations } from "./parse-annotations.js";
 import { splitLines } from "./split-lines.js";
 import { addSections } from "./transform-add-sections.js";
@@ -23,21 +23,14 @@ export function transform(tree, { mode = "strip" } = {}) {
             {
                 type: "element",
                 tagName: "div",
-                properties: { class: CODE_BLOCK_WRAPPER_CLASS },
+                properties: { class: SECTION_CONTENT_CLASS },
                 children: [
+                    createLineNumbers(1, lines.length, lines.length),
                     {
                         type: "element",
-                        tagName: "div",
-                        properties: { class: SECTION_CONTENT_CLASS },
-                        children: [
-                            createLineNumbers(1, lines.length, lines.length),
-                            {
-                                type: "element",
-                                tagName: "code",
-                                properties: {},
-                                children: lines,
-                            },
-                        ],
+                        tagName: "code",
+                        properties: {},
+                        children: lines,
                     },
                 ],
             },
