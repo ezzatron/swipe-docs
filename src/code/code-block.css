@@ -128,3 +128,8 @@
 :is(.cb-s, .cb-t).selected::before {
   color: var(--cb-whitespace);
 }
+
+/* hide line numbers, context lines, and indent when there's a section */
+.cb[data-s] :is(.cb-ln, .cb-sx, .cb-sc-i) {
+  display: none;
+}
