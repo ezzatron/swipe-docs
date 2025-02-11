@@ -30,6 +30,7 @@ export async function generateOutput(input: Input): Promise<Output> {
     staticTransform(
       highlighter.highlight(template({ ...input, rehypePlugins }), scope),
     ),
+    { showLineNumbers: true },
   );
 
   return { scope, tree };

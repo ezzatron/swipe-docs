@@ -29,7 +29,7 @@ type Options = {
 
 export function transform(
   tree: Root,
-  { showLineNumbers = true, section, noSectionContext = false }: Options = {},
+  { showLineNumbers = false, section, noSectionContext = false }: Options = {},
 ): Root {
   const [pre] = structuredClone(tree).children;
   if (pre?.type !== "element" || pre.properties.class !== CODE_BLOCK_CLASS) {
