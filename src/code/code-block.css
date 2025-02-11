@@ -2,9 +2,6 @@
   --cb-bg: var(--color-gray-100);
   --cb-line-number: var(--color-gray-400);
   --cb-scrollbar: var(--color-gray-300);
-  --cb-section-expander-active: var(--color-blue-500);
-  --cb-section-expander-focused: var(--color-gray-500);
-  --cb-section-expander: var(--color-gray-300);
   --cb-selection: rgb(from var(--color-blue-400) r g b / 25%);
   --cb-title-code-bg: var(--color-gray-100);
   --cb-whitespace: var(--color-gray-400);
@@ -14,9 +11,6 @@
     --cb-bg: var(--color-gray-900);
     --cb-line-number: var(--color-gray-600);
     --cb-scrollbar: var(--color-gray-700);
-    --cb-section-expander-active: var(--color-blue-500);
-    --cb-section-expander-focused: var(--color-gray-500);
-    --cb-section-expander: var(--color-gray-700);
     --cb-selection: rgb(from var(--color-blue-500) r g b / 25%);
     --cb-title-code-bg: var(--color-gray-700);
     --cb-whitespace: var(--color-gray-600);
