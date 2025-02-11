@@ -6,9 +6,6 @@ import {
   LINE_NUMBERS_SHOW_CLASS,
   SECTION_CONTENT_CLASS,
   SECTION_CONTENT_INDENT_CLASS,
-  SECTION_CONTEXT_AFTER_CLASS,
-  SECTION_CONTEXT_BEFORE_CLASS,
-  SECTION_CONTEXT_CLASS,
   SPACE_CLASS,
   TAB_CLASS,
 } from "./loader/class";
@@ -98,7 +95,7 @@ export function transform(
       type: "element",
       tagName: "div",
       properties: {
-        class: `${SECTION_CONTEXT_CLASS} ${SECTION_CONTEXT_BEFORE_CLASS}`,
+        class: SECTION_CONTENT_CLASS,
       },
       children: [
         { ...lineNumberContainer, children: lineNumbersBefore },
@@ -112,7 +109,7 @@ export function transform(
       type: "element",
       tagName: "div",
       properties: {
-        class: `${SECTION_CONTEXT_CLASS} ${SECTION_CONTEXT_AFTER_CLASS}`,
+        class: SECTION_CONTENT_CLASS,
       },
       children: [
         { ...lineNumberContainer, children: lineNumbersAfter },

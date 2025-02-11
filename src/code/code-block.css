@@ -67,7 +67,7 @@
 }
 
 /* line numbers and code */
-:is(.cb-sc, .cb-sx) {
+.cb-sc {
   display: flex;
   position: relative;
 }
