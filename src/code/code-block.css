@@ -1,5 +1,6 @@
 :root {
   --cb-bg: var(--color-gray-100);
+  --cb-context-bg: var(--color-blue-100);
   --cb-line-number: var(--color-gray-400);
   --cb-scrollbar: var(--color-gray-300);
   --cb-selection: rgb(from var(--color-blue-400) r g b / 25%);
@@ -9,6 +10,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --cb-bg: var(--color-gray-900);
+    --cb-context-bg: var(--color-gray-950);
     --cb-line-number: var(--color-gray-600);
     --cb-scrollbar: var(--color-gray-700);
     --cb-selection: rgb(from var(--color-blue-500) r g b / 25%);
@@ -38,8 +40,7 @@
   display: flex;
   position: relative;
   background-color: var(--cb-bg);
-  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4)
-    calc(var(--spacing) * 3) 0;
+  padding: calc(var(--spacing) * 3) 0;
   overflow-x: auto;
   overflow-y: clip;
   tab-size: 2;
@@ -69,17 +70,22 @@
   flex-shrink: 0;
   margin-right: calc(-1 * calc(var(--spacing) * 4));
   background-color: var(--cb-bg);
-  padding-right: calc(var(--spacing) * 6);
-  padding-left: calc(var(--spacing) * 4);
   color: var(--cb-line-number);
   text-align: right;
 }
 .cb-ln-s .cb-ln {
   display: block;
 }
+.cb-n {
+  padding-right: calc(var(--spacing) * 6);
+  padding-left: calc(var(--spacing) * 4);
+}
 .cb code {
   flex-grow: 1;
-  padding: 0 calc(var(--spacing) * 4);
+}
+.cb-l {
+  padding-right: calc(var(--spacing) * 4);
+  padding-left: calc(var(--spacing) * 4);
 }
 
 /* scrollbar */
@@ -130,4 +136,12 @@
 /* show them when expanded */
 .cb-frame:has(.cb-se :checked) :is(.cb-ln, .cb-sx, .cb-sc-i) {
   display: revert;
+}
+/* dim the context line numbers and lines when expanded */
+.cb-frame:has(.cb-se :checked) .cb[data-s],
+.cb-frame:has(.cb-se :checked) .cb[data-s] .cb-ln {
+  background-color: var(--cb-context-bg);
+}
+.cb-frame:has(.cb-se :checked) .cb[data-s] .cb-sc {
+  background-color: var(--cb-bg);
 }
