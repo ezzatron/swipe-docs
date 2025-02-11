@@ -5,11 +5,13 @@ import { cache, Fragment, type ReactNode } from "react";
 import slugify from "react-slugify";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { API_KEY_CLASS } from "../loader/class";
+import { SECTION_DATA } from "../loader/data";
 import { isCommandLine } from "../scope";
 import APIKey from "./APIKey";
 import CopyButton from "./CopyButton";
 import LanguageIcon from "./LanguageIcon";
 import PermalinkButton from "./PermalinkButton";
+import SectionExpander from "./SectionExpander";
 
 const createSlugify = cache(() => {
   const slugCounts: Record<string, number> = {};
@@ -63,6 +65,17 @@ export default function CodeBlockPreTransformed({
     jsx,
     jsxs,
     components: {
+      pre: (props) => {
+        const hasSection = props[SECTION_DATA] != null;
+
+        return (
+          <>
+            <pre {...props} />
+            {hasSection && <SectionExpander />}
+          </>
+        );
+      },
+
       span: (props) => {
         switch (props.className) {
           case API_KEY_CLASS:

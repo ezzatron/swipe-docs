@@ -10,8 +10,7 @@ import {
   SPACE_CLASS,
   TAB_CLASS,
 } from "./loader/class";
-
-const SECTION_DATA = "data-s";
+import { SECTION_DATA } from "./loader/data";
 
 type Options = {
   showLineNumbers?: boolean;
@@ -30,13 +29,9 @@ export function transform(
     throw new Error("Unexpected tree");
   }
 
-  pre.properties = {
-    ...pre.properties,
-    class: clsx(pre.properties.class, {
-      [LINE_NUMBERS_SHOW_CLASS]: showLineNumbers,
-    }),
-    "data-s": section,
-  };
+  pre.properties.class = clsx(pre.properties.class, {
+    [LINE_NUMBERS_SHOW_CLASS]: showLineNumbers,
+  });
 
   if (!section) return tree;
 
@@ -68,6 +63,11 @@ export function transform(
     lineNumbersAfter,
     linesAfter,
   ] = splitSection(lineNumbers, lines, section);
+  const hasContext = lineNumbersBefore.length + lineNumbersAfter.length > 0;
+
+  if (!hasContext) return tree;
+
+  pre.properties[SECTION_DATA] = section;
 
   for (const lineNumber of sectionLineNumbers) {
     lineNumber.properties.class = clsx(

@@ -127,3 +127,7 @@
 .cb[data-s] :is(.cb-ln, .cb-sx, .cb-sc-i) {
   display: none;
 }
+/* show them when expanded */
+.cb-frame:has(.cb-se :checked) :is(.cb-ln, .cb-sx, .cb-sc-i) {
+  display: revert;
+}
