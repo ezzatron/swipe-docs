@@ -9,11 +9,6 @@ import {
   SECTION_CONTEXT_AFTER_CLASS,
   SECTION_CONTEXT_BEFORE_CLASS,
   SECTION_CONTEXT_CLASS,
-  SECTION_EXPANDER_AFTER_CLASS,
-  SECTION_EXPANDER_BEFORE_CLASS,
-  SECTION_EXPANDER_CLASS,
-  SECTION_EXPANDER_HIDE_CLASS,
-  SECTION_EXPANDER_SHOW_CLASS,
   SPACE_CLASS,
   TAB_CLASS,
 } from "./loader/class";
@@ -99,24 +94,21 @@ export function transform(
   if (noSectionContext || !hasContext) return result;
 
   if (hasBefore) {
-    pre.children.unshift(
-      {
-        type: "element",
-        tagName: "div",
-        properties: {
-          class: `${SECTION_CONTEXT_CLASS} ${SECTION_CONTEXT_BEFORE_CLASS}`,
-        },
-        children: [
-          { ...lineNumberContainer, children: lineNumbersBefore },
-          { ...code, children: linesBefore },
-        ],
+    pre.children.unshift({
+      type: "element",
+      tagName: "div",
+      properties: {
+        class: `${SECTION_CONTEXT_CLASS} ${SECTION_CONTEXT_BEFORE_CLASS}`,
       },
-      createSectionExpander(SECTION_EXPANDER_BEFORE_CLASS),
-    );
+      children: [
+        { ...lineNumberContainer, children: lineNumbersBefore },
+        { ...code, children: linesBefore },
+      ],
+    });
   }
 
   if (hasAfter) {
-    pre.children.push(createSectionExpander(SECTION_EXPANDER_AFTER_CLASS), {
+    pre.children.push({
       type: "element",
       tagName: "div",
       properties: {
@@ -243,39 +235,4 @@ function wrapSectionIndent(lines: Element[]): void {
       });
     }
   }
-}
-
-function createSectionExpander(className: string): Element {
-  return {
-    type: "element",
-    tagName: "label",
-    properties: { class: `${SECTION_EXPANDER_CLASS} ${className}` },
-    children: [
-      {
-        type: "element",
-        tagName: "input",
-        properties: {
-          type: "checkbox",
-          "aria-label": "Show more",
-        },
-        children: [],
-      },
-      {
-        type: "element",
-        tagName: "div",
-        properties: {
-          class: SECTION_EXPANDER_SHOW_CLASS,
-        },
-        children: [],
-      },
-      {
-        type: "element",
-        tagName: "div",
-        properties: {
-          class: SECTION_EXPANDER_HIDE_CLASS,
-        },
-        children: [],
-      },
-    ],
-  };
 }
