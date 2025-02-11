@@ -77,9 +77,6 @@
   background-color: var(--cb-bg);
   padding-right: calc(var(--spacing) * 6);
   padding-left: calc(var(--spacing) * 4);
-  width: calc(
-    calc(var(--spacing) * 4) + var(--cb-w) + calc(var(--spacing) * 6)
-  );
   color: var(--cb-line-number);
   text-align: right;
 }

@@ -32,7 +32,7 @@ export function transform(tree: Root, { mode = "strip" }: Options = {}): Root {
     tagName: "pre",
     properties: { class: CODE_BLOCK_CLASS },
     children: [
-      createLineNumbers(1, lines.length, lines.length),
+      createLineNumbers(lines.length),
       {
         type: "element",
         tagName: "code",
@@ -45,16 +45,11 @@ export function transform(tree: Root, { mode = "strip" }: Options = {}): Root {
   return { type: "root", children: [pre] };
 }
 
-function createLineNumbers(
-  start: number,
-  count: number,
-  totalLines: number,
-): Element {
-  const width = `${String(totalLines).length}ch`;
+function createLineNumbers(count: number): Element {
   const numbers: Element = {
     type: "element",
     tagName: "div",
-    properties: { class: LINE_NUMBERS_CLASS, style: `--cb-w: ${width}` },
+    properties: { class: LINE_NUMBERS_CLASS },
     children: [],
   };
 
@@ -63,7 +58,7 @@ function createLineNumbers(
       type: "element",
       tagName: "div",
       properties: { class: LINE_NUMBER_CLASS },
-      children: [{ type: "text", value: String(start + i) }],
+      children: [{ type: "text", value: String(i + 1) }],
     });
   }
 

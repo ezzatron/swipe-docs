@@ -20,7 +20,7 @@ export function transform(tree, { mode = "strip" } = {}) {
         tagName: "pre",
         properties: { class: CODE_BLOCK_CLASS },
         children: [
-            createLineNumbers(1, lines.length, lines.length),
+            createLineNumbers(lines.length),
             {
                 type: "element",
                 tagName: "code",
@@ -31,12 +31,11 @@ export function transform(tree, { mode = "strip" } = {}) {
     };
     return { type: "root", children: [pre] };
 }
-function createLineNumbers(start, count, totalLines) {
-    const width = `${String(totalLines).length}ch`;
+function createLineNumbers(count) {
     const numbers = {
         type: "element",
         tagName: "div",
-        properties: { class: LINE_NUMBERS_CLASS, style: `--cb-w: ${width}` },
+        properties: { class: LINE_NUMBERS_CLASS },
         children: [],
     };
     for (let i = 0; i < count; ++i) {
@@ -44,7 +43,7 @@ function createLineNumbers(start, count, totalLines) {
             type: "element",
             tagName: "div",
             properties: { class: LINE_NUMBER_CLASS },
-            children: [{ type: "text", value: String(start + i) }],
+            children: [{ type: "text", value: String(i + 1) }],
         });
     }
     return numbers;
