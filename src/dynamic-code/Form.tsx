@@ -108,7 +108,7 @@ function Checkbox({
             event.target.form?.requestSubmit();
           }}
           aria-describedby={descriptionId}
-          className="absolute size-0 focus-visible:outline-0"
+          className="absolute size-0 appearance-none focus-visible:outline-0"
         />
 
         <div className="flex items-center gap-3">
