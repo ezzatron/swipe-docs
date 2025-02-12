@@ -67,7 +67,7 @@ export function transform(
 
   if (!hasContext) return tree;
 
-  pre.properties[SECTION_DATA] = section;
+  if (!noSectionContext) pre.properties[SECTION_DATA] = section;
 
   for (const lineNumber of sectionLineNumbers) {
     lineNumber.properties.class = clsx(
