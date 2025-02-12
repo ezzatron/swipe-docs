@@ -143,24 +143,12 @@ lines' background color */
   color: var(--cb-whitespace);
 }
 
-/* add vertical padding and borders to the section content */
+/* add vertical padding to the section content */
 .cb-sx + .cb-sc {
   padding-top: calc(var(--spacing) * 3);
 }
-.cb-sx + .cb-sc {
-  transition: border-top-color 200ms;
-  border-top-width: 1px;
-  border-top-style: dashed;
-  border-top-color: transparent;
-}
-.cb-frame:has(.cb-se :checked) .cb-sx + .cb-sc {
-  border-top-color: var(--cb-context-border);
-}
 .cb-sc:has(+ .cb-sx) {
   padding-bottom: calc(var(--spacing) * 3);
-}
-.cb-frame:has(.cb-se :checked) .cb-sc:has(+ .cb-sx) {
-  border-bottom: 1px dashed var(--cb-context-border);
 }
 /* add vertical padding to the section context */
 .cb-sc + .cb-sx {
