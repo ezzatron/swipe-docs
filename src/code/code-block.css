@@ -143,22 +143,32 @@ lines' background color */
   color: var(--cb-whitespace);
 }
 
-/* correct vertical padding when section is collapsed */
-.cb-frame:not(:has(.cb-se :checked)) .cb[data-s] {
-  padding: calc(var(--spacing) * 3) 0;
+/* add vertical padding and borders to the section content */
+.cb-sx + .cb-sc {
+  padding-top: calc(var(--spacing) * 3);
 }
-.cb-frame:not(:has(.cb-se :checked)) .cb[data-s] :is(.cb-n, .cb-l):first-child {
-  padding-top: 0;
+.cb-frame:has(.cb-se :checked) .cb-sx + .cb-sc {
+  border-top: 1px dashed var(--cb-context-border);
 }
-.cb-frame:not(:has(.cb-se :checked)) .cb[data-s] :is(.cb-n, .cb-l):last-child {
-  padding-bottom: 0;
+.cb-sc:has(+ .cb-sx) {
+  padding-bottom: calc(var(--spacing) * 3);
 }
-/* hide line numbers, context lines, and indent when there's a section */
-.cb[data-s] :is(.cb-ln, .cb-sx, .cb-sc-i) {
+.cb-frame:has(.cb-se :checked) .cb-sc:has(+ .cb-sx) {
+  border-bottom: 1px dashed var(--cb-context-border);
+}
+/* add vertical padding to the section context */
+.cb-sc + .cb-sx {
+  padding-top: calc(var(--spacing) * 3);
+}
+.cb-sx:has(+ .cb-sc) {
+  padding-bottom: calc(var(--spacing) * 3);
+}
+/* hide context lines and indent when there's a section */
+.cb[data-s] :is(.cb-sx, .cb-sc-i) {
   display: none;
 }
 /* show them when expanded */
-.cb-frame:has(.cb-se :checked) :is(.cb-ln, .cb-sx, .cb-sc-i) {
+.cb-frame:has(.cb-se :checked) :is(.cb-sx, .cb-sc-i) {
   display: revert;
 }
 /* dim the context line numbers and lines when expanded */
@@ -167,11 +177,4 @@ lines' background color */
 }
 .cb-frame:has(.cb-se :checked) .cb[data-s] .cb-sc {
   background-color: var(--cb-bg);
-}
-/* dashed border around the content when expanded */
-.cb-sx:has(+ .cb-sc) {
-  border-bottom: 1px dashed var(--cb-context-border);
-}
-.cb-sc + .cb-sx {
-  border-top: 1px dashed var(--cb-context-border);
 }
