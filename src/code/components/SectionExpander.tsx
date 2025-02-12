@@ -1,10 +1,19 @@
+"use client";
+
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { useIsExpanded } from "../context";
 
 export default function SectionExpander() {
+  const [isExpanded, setIsExpanded] = useIsExpanded();
+
   return (
     <label className="cb-se group has-focus-visible:focus-outline relative block cursor-pointer justify-center rounded-b-sm border-t-1 border-dashed border-[var(--cb-context-border)] bg-[var(--cb-bg)] py-1 text-sm has-focus-visible:-outline-offset-2">
       <input
         type="checkbox"
+        checked={isExpanded}
+        onChange={() => {
+          setIsExpanded((e) => !e);
+        }}
         className="absolute size-0 appearance-none focus-visible:outline-0"
       />
 

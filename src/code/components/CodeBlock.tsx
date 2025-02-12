@@ -1,9 +1,9 @@
 import { transform } from "../transform";
-import CodeBlockPreTransformed, {
-  type Props as BaseProps,
-} from "./CodeBlockPreTransformed";
+import { type Props as BaseProps } from "./CodeBlockContent";
+import CodeBlockPreTransformed from "./CodeBlockPreTransformed";
 
-type Props = BaseProps & {
+type Props = Omit<BaseProps, "id"> & {
+  id?: string;
   lineNumbers?: boolean;
   section?: string;
   noSectionContext?: boolean;

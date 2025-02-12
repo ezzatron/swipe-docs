@@ -2,12 +2,10 @@
 
 import { CheckIcon, CopyIcon, XIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { useId } from "../context";
 
-type Props = {
-  from: string;
-};
-
-export default function CopyButton({ from }: Props) {
+export default function CopyButton() {
+  const from = useId();
   const [isHidden, setIsHidden] = useState(true);
 
   useEffect(() => {
@@ -55,12 +53,20 @@ export default function CopyButton({ from }: Props) {
       className="cursor-pointer rounded-xs hover:text-gray-950 active:text-blue-500 dark:hover:text-gray-200 dark:active:text-blue-400"
       hidden={isHidden}
     >
-      {state === "IDLE" ? <CopyIcon size={16} /> : undefined}
+      {state === "IDLE" ? <CopyIcon aria-hidden size={16} /> : undefined}
       {state === "COPIED" ? (
-        <CheckIcon size={16} className="text-green-500 dark:text-green-400" />
+        <CheckIcon
+          aria-hidden
+          size={16}
+          className="text-green-500 dark:text-green-400"
+        />
       ) : undefined}
       {state === "FAILED" ? (
-        <XIcon size={16} className="text-red-500 dark:text-red-400" />
+        <XIcon
+          aria-hidden
+          size={16}
+          className="text-red-500 dark:text-red-400"
+        />
       ) : undefined}
     </button>
   );

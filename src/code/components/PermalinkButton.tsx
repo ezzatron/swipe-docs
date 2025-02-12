@@ -12,7 +12,7 @@ export default function PermalinkButton({ anchor }: Props) {
       title="Link to code"
       className="rounded-xs text-inherit hover:text-gray-950 active:text-blue-500 dark:hover:text-gray-200 dark:active:text-blue-400"
     >
-      <LinkIcon size={16} />
+      <LinkIcon aria-hidden size={16} />
     </a>
   );
 }
