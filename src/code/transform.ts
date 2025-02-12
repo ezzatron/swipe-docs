@@ -79,12 +79,14 @@ export function transform(
     line.properties.class = clsx(line.properties.class, SECTION_CONTENT_CLASS);
   }
 
-  wrapSectionIndent(sectionLines);
+  const indentWidth = wrapSectionIndent(sectionLines);
 
   if (noSectionContext) {
     lineNumberContainer.children = sectionLineNumbers;
     code.children = sectionLines;
   } else {
+    pre.properties.style = `--cb-iw: ${indentWidth}ch`;
+
     for (const lineNumber of lineNumbersBefore) {
       lineNumber.properties.class = clsx(
         lineNumber.properties.class,
@@ -170,7 +172,7 @@ function splitSection(
   ];
 }
 
-function wrapSectionIndent(lines: Element[]): void {
+function wrapSectionIndent(lines: Element[]): number {
   const indents: [string, Element[], Element][] = [];
 
   for (let i = 0; i < lines.length; ++i) {
@@ -210,7 +212,7 @@ function wrapSectionIndent(lines: Element[]): void {
   for (const [lineIndent] of indents) {
     if (!lineIndent.startsWith(indent)) {
       // Indent is inconsistent
-      return;
+      return 0;
     }
   }
 
@@ -230,8 +232,9 @@ function wrapSectionIndent(lines: Element[]): void {
       children: indentElements,
       properties: {
         class: SECTION_CONTENT_INDENT_CLASS,
-        style: `width:${indentWidth}ch`,
       },
     });
   }
+
+  return indentWidth;
 }

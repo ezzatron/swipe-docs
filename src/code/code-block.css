@@ -82,6 +82,7 @@ lines' background color */
   position: sticky;
   left: 0;
   flex-shrink: 0;
+  z-index: 2;
   margin-right: calc(-1 * calc(var(--spacing) * 4));
   background-color: var(--cb-bg);
   color: var(--cb-line-number);
@@ -96,6 +97,7 @@ lines' background color */
 }
 .cb code {
   flex-grow: 1;
+  z-index: 1;
 }
 .cb-l {
   padding-right: calc(var(--spacing) * 4);
@@ -167,14 +169,20 @@ lines' background color */
 }
 /* hide and show section indent as appropriate */
 .cb-sc-i {
-  display: inline-block;
+  visibility: hidden;
 }
-.cb-frame:not(:has(.cb-se :checked)) .cb-sc-i {
-  width: 0 !important;
+.cb-frame:has(.cb-se :checked) .cb-sc-i {
+  visibility: visible;
+}
+.cb-l.cb-sc {
+  transform: translateX(calc(-1 * var(--cb-iw)));
+}
+.cb-frame:has(.cb-se :checked) .cb-l.cb-sc {
+  transform: translateX(0);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .cb-sc-i {
-    transition: width 200ms ease;
+  .cb-l.cb-sc {
+    transition: transform 200ms ease;
   }
 }
 /* dim the context line numbers and lines when expanded */
