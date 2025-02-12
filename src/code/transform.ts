@@ -196,7 +196,6 @@ function wrapSectionIndent(lines: Element[]): void {
   let minIndentCharCount = Infinity;
   let indent = "";
   let indentElements: Element[] = [];
-  let hasConsistentIndent = true;
 
   for (const [lineIndent, lineIndentElements] of indents) {
     const indentCharCount = lineIndent.length;
@@ -210,20 +209,29 @@ function wrapSectionIndent(lines: Element[]): void {
 
   for (const [lineIndent] of indents) {
     if (!lineIndent.startsWith(indent)) {
-      hasConsistentIndent = false;
-
-      break;
+      // Indent is inconsistent
+      return;
     }
   }
 
-  if (hasConsistentIndent) {
-    for (const [, , line] of indents) {
-      line.children.splice(0, indentElements.length, {
-        type: "element",
-        tagName: "span",
-        children: indentElements,
-        properties: { class: SECTION_CONTENT_INDENT_CLASS },
-      });
+  let indentWidth = 0;
+  for (const char of indent) {
+    if (char === " ") {
+      ++indentWidth;
+    } else if (char === "\t") {
+      indentWidth += 2;
     }
+  }
+
+  for (const [, , line] of indents) {
+    line.children.splice(0, indentElements.length, {
+      type: "element",
+      tagName: "span",
+      children: indentElements,
+      properties: {
+        class: SECTION_CONTENT_INDENT_CLASS,
+        style: `width:${indentWidth}ch`,
+      },
+    });
   }
 }

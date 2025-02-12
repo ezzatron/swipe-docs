@@ -147,8 +147,14 @@ lines' background color */
 .cb-sx + .cb-sc {
   padding-top: calc(var(--spacing) * 3);
 }
+.cb-sx + .cb-sc {
+  transition: border-top-color 200ms;
+  border-top-width: 1px;
+  border-top-style: dashed;
+  border-top-color: transparent;
+}
 .cb-frame:has(.cb-se :checked) .cb-sx + .cb-sc {
-  border-top: 1px dashed var(--cb-context-border);
+  border-top-color: var(--cb-context-border);
 }
 .cb-sc:has(+ .cb-sx) {
   padding-bottom: calc(var(--spacing) * 3);
@@ -163,13 +169,26 @@ lines' background color */
 .cb-sx:has(+ .cb-sc) {
   padding-bottom: calc(var(--spacing) * 3);
 }
-/* hide context lines and indent when there's a section */
-.cb[data-s] :is(.cb-sx, .cb-sc-i) {
+/* hide context lines when there's a section */
+.cb[data-s] .cb-sx {
   display: none;
 }
 /* show them when expanded */
-.cb-frame:has(.cb-se :checked) :is(.cb-sx, .cb-sc-i) {
+.cb-frame:has(.cb-se :checked) .cb-sx {
   display: revert;
+}
+/* hide and show section indent as appropriate */
+.cb-sc-i {
+  display: inline-block;
+  transition: width 200ms;
+}
+.cb-frame:not(:has(.cb-se :checked)) .cb-sc-i {
+  width: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cb-sc-i {
+    transition-duration: 0s;
+  }
 }
 /* dim the context line numbers and lines when expanded */
 .cb-frame:has(.cb-se :checked) .cb[data-s] .cb-sx {
