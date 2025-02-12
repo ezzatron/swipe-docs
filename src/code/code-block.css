@@ -168,14 +168,13 @@ lines' background color */
 /* hide and show section indent as appropriate */
 .cb-sc-i {
   display: inline-block;
-  transition: width 200ms ease;
 }
 .cb-frame:not(:has(.cb-se :checked)) .cb-sc-i {
   width: 0 !important;
 }
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: no-preference) {
   .cb-sc-i {
-    transition-duration: 0s;
+    transition: width 200ms ease;
   }
 }
 /* dim the context line numbers and lines when expanded */
