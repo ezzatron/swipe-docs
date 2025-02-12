@@ -10,7 +10,11 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --cb-bg: var(--color-gray-900);
-    --cb-context-bg: var(--color-gray-950);
+    --cb-context-bg: color-mix(
+      in oklch,
+      var(--cb-bg),
+      var(--color-blue-950) 50%
+    );
     --cb-line-number: var(--color-gray-600);
     --cb-scrollbar: var(--color-gray-700);
     --cb-selection: rgb(from var(--color-blue-500) r g b / 25%);
