@@ -176,12 +176,19 @@ lines' background color */
 }
 .cb-l.cb-sc {
   transform: translateX(calc(-1 * var(--cb-iw)));
+  margin-right: calc(-1 * var(--cb-iw));
 }
 .cb-frame:has(.cb-se :checked) .cb-l.cb-sc {
   transform: translateX(0);
+  margin-right: 0;
 }
 @media (prefers-reduced-motion: no-preference) {
   .cb-l.cb-sc {
+    transition:
+      transform 200ms ease,
+      margin-right 200ms step-end;
+  }
+  .cb-frame:has(.cb-se :checked) .cb-l.cb-sc {
     transition: transform 200ms ease;
   }
 }
