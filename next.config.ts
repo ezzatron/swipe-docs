@@ -1,3 +1,4 @@
+import { withContentCollections } from "@content-collections/next";
 import bundleAnalyzer from "@next/bundle-analyzer";
 import createMDX from "@next/mdx";
 import type { Element } from "hast";
@@ -7,6 +8,8 @@ import { createRequire } from "node:module";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypeSlug from "rehype-slug";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
 const require = createRequire(import.meta.url);
 
@@ -84,10 +87,11 @@ const withMDX = createMDX({
       ],
       rehypeMdxCodeProps,
     ],
+    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
   },
 });
 
-export default withBundleAnalyzer(withMDX(nextConfig));
+export default withBundleAnalyzer(withContentCollections(withMDX(nextConfig)));
 
 function withBundleAnalyzer(config: NextConfig): NextConfig {
   return process.env.ANALYZE === "true"

@@ -9,6 +9,9 @@ CODE_LOADER_DIST_FILES += $(patsubst src/code/loader-src/%.ts,src/code/loader/%.
 
 GENERATED_FILES += $(CODE_LOADER_DIST_FILES)
 
+JS_ESLINT_REQ += artifacts/content-collections.touch
+JS_TSC_REQ += artifacts/content-collections.touch
+
 -include .makefiles/Makefile
 -include .makefiles/pkg/js/v1/Makefile
 -include .makefiles/pkg/js/v1/with-npm.mk
@@ -38,3 +41,8 @@ precommit:: verify-generated
 $(CODE_LOADER_DIST_FILES): src/code/loader-src/tsconfig.json $(CODE_LOADER_TS_FILES) artifacts/link-dependencies.touch
 	@rm -rf "$(@D)"
 	$(JS_EXEC) tsc -p "$<"
+
+artifacts/content-collections.touch: artifacts/link-dependencies.touch $(JS_SOURCE_FILES)
+	@mkdir -p $(@D)
+	$(JS_EXEC) content-collections build
+	@touch $@
