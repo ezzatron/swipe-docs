@@ -1,28 +1,29 @@
 import { notFound } from "next/navigation";
-import { useMemo } from "react";
 import LinkList from "../../../components/LinkList";
 import LinkListItem from "../../../components/LinkListItem";
 import { sdkSpecificGuides } from "../../../guides";
+
+// 404 if the name is not in our static list
+export const dynamicParams = false;
 
 type Params = {
   slug: string;
 };
 
+// These names are allowed (and pre-generated)
 export function generateStaticParams(): Params[] {
   return sdkSpecificGuides().map(({ slug }) => ({ slug }));
 }
 
 type Props = {
-  params: Params;
+  params: Promise<Params>;
 };
 
-export default function SDKSpecificGuideIndex({ params: { slug } }: Props) {
-  const guide = useMemo(
-    () => sdkSpecificGuides().find((g) => g.slug === slug),
-    [slug],
-  );
+export default async function SDKSpecificGuideIndex({ params }: Props) {
+  const { slug } = await params;
+  const guide = sdkSpecificGuides().find((g) => g.slug === slug);
 
-  if (!guide) return notFound();
+  if (!guide) notFound();
 
   const { title, summary, forSDK } = guide;
 
