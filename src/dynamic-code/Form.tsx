@@ -116,7 +116,7 @@ function Checkbox({
             aria-hidden="true"
             className="group-has-focus-visible:focus-outline relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-gray-200 transition-colors duration-200 ease-in-out group-has-checked:bg-blue-600 dark:bg-gray-800"
           >
-            <span className="pointer-events-none inline-block size-5 translate-x-0 transform rounded-full bg-white ring-0 shadow transition duration-200 ease-in-out group-has-checked:translate-x-5 dark:bg-gray-200" />
+            <span className="pointer-events-none inline-block size-5 translate-x-0 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out group-has-checked:translate-x-5 dark:bg-gray-200" />
           </div>
 
           <span className="flex items-center gap-2 text-sm/6 font-medium whitespace-nowrap text-gray-900 dark:text-gray-100">
