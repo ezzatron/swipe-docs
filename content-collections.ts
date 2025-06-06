@@ -1,5 +1,4 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
-import type { z } from "zod";
 
 const docs = defineCollection({
   name: "docs",
@@ -24,4 +23,4 @@ export default defineConfig({
   collections: [docs],
 });
 
-export type SDKName = NonNullable<z.infer<typeof docs.schema.sdk>>["name"];
+export type SDKName = "iOS" | "Web";
