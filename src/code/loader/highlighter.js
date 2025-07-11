@@ -1,4 +1,5 @@
-import { all, createStarryNight } from "@wooorm/starry-night";
+import { createStarryNight } from "@wooorm/starry-night";
+import all from "./lang/all.js";
 export function createHighlighter() {
     if (!globalThis.highlighter) {
         globalThis.highlighter = createStarryNight(all).then((highlighter) => ({

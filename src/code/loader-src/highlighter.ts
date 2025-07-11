@@ -1,5 +1,6 @@
-import { all, createStarryNight } from "@wooorm/starry-night";
+import { createStarryNight } from "@wooorm/starry-night";
 import type { Root } from "hast";
+import all from "./lang/all.js";
 
 export type Highlighter = Awaited<ReturnType<typeof createStarryNight>> & {
   flagToScope: (flag: string | undefined) => string | undefined;

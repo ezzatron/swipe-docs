@@ -3,7 +3,9 @@ import Example from "../dynamic-code/Example";
 
 import thisFile from "./page.mdx?code";
 
+import loremIpsumJsx from "../example/lorem-ipsum.jsx?code"; // [!section code-import-jsx]
 import loremIpsumTs from "../example/lorem-ipsum.ts?code"; // [!section code-import-ts]
+import loremIpsumTsx from "../example/lorem-ipsum.tsx?code"; // [!section code-import-tsx]
 import loremIpsumGo from "../example/lorem-ipsum.go?code"; // [!section code-import-go]
 
 import loremIpsumTsWithAnnotations from "../example/lorem-ipsum.ts?annotations=retain&code";
@@ -284,5 +286,57 @@ hello.txt
     noSectionContext
     lineNumbers={false}
     title="Code blocks"
+  />
+</details>
+
+### JSX
+
+{/* [!section-start cb-jsx] */}
+
+<CodeBlock {...loremIpsumJsx} />
+
+{/* [!section-end cb-jsx] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-jsx"
+    noSectionContext
+    lineNumbers={false}
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-jsx"
+    noSectionContext
+    lineNumbers={false}
+    title="Code block"
+  />
+</details>
+
+### TSX
+
+{/* [!section-start cb-tsx] */}
+
+<CodeBlock {...loremIpsumTsx} />
+
+{/* [!section-end cb-tsx] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-tsx"
+    noSectionContext
+    lineNumbers={false}
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-tsx"
+    noSectionContext
+    lineNumbers={false}
+    title="Code block"
   />
 </details>
