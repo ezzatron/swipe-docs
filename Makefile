@@ -1,14 +1,6 @@
 CHANGELOG_TAG_URL_PREFIX := https://github.com/ezzatron/swipe-docs/releases/tag/
 CI_VERIFY_GENERATED_FILES := true
 
-CODE_LOADER_TS_FILES := $(wildcard src/code/loader-src/*.ts)
-
-CODE_LOADER_DIST_FILES += $(patsubst src/code/loader-src/%.ts,src/code/loader/%.js,$(CODE_LOADER_TS_FILES))
-CODE_LOADER_DIST_FILES += $(patsubst src/code/loader-src/%.ts,src/code/loader/%.js.map,$(CODE_LOADER_TS_FILES))
-CODE_LOADER_DIST_FILES += $(patsubst src/code/loader-src/%.ts,src/code/loader/%.d.ts,$(CODE_LOADER_TS_FILES))
-
-GENERATED_FILES += $(CODE_LOADER_DIST_FILES)
-
 JS_ESLINT_REQ += artifacts/content-collections.touch
 JS_TSC_REQ += artifacts/content-collections.touch
 
@@ -37,10 +29,6 @@ run: $(GENERATED_FILES) artifacts/link-dependencies.touch
 precommit:: verify-generated
 
 ################################################################################
-
-$(CODE_LOADER_DIST_FILES): src/code/loader-src/tsconfig.json $(CODE_LOADER_TS_FILES) artifacts/link-dependencies.touch
-	@rm -rf "$(@D)"
-	$(JS_EXEC) tsc -p "$<"
 
 artifacts/content-collections.touch: artifacts/link-dependencies.touch $(JS_SOURCE_FILES)
 	@mkdir -p $(@D)

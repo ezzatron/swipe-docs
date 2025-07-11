@@ -11,13 +11,7 @@ const compat = new FlatCompat({
 /** @type {import("eslint").Linter.Config[]} */
 const config = [
   {
-    ignores: [
-      ".content-collections",
-      ".github",
-      ".makefiles",
-      "artifacts",
-      "src/code/loader",
-    ],
+    ignores: [".content-collections", ".github", ".makefiles", "artifacts"],
   },
   ...compat.config({
     extends: [

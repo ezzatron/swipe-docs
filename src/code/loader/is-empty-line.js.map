@@ -1,1 +1,0 @@
-{"version":3,"file":"is-empty-line.js","sourceRoot":"","sources":["../loader-src/is-empty-line.ts"],"names":[],"mappings":"AAEA,MAAM,UAAU,WAAW,CAAC,IAAa;IACvC,KAAK,MAAM,IAAI,IAAI,IAAI,CAAC,QAAQ,EAAE,CAAC;QACjC,IAAI,IAAI,CAAC,IAAI,KAAK,MAAM,IAAI,IAAI,CAAC,KAAK,CAAC,IAAI,EAAE;YAAE,OAAO,KAAK,CAAC;IAC9D,CAAC;IAED,OAAO,IAAI,CAAC;AACd,CAAC"}

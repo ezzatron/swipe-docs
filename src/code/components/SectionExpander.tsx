@@ -13,7 +13,7 @@ export default function SectionExpander() {
     (fn: () => void) => {
       const line = document
         .getElementById(id)
-        ?.querySelector(".cb-l.cb-sc") as HTMLElement | null;
+        ?.querySelector(".imp-l.imp-sc") as HTMLElement | null;
 
       const before = line?.getBoundingClientRect().top ?? 0;
       fn();
@@ -66,7 +66,7 @@ export default function SectionExpander() {
   }, [maintainScroll, isExpanded]);
 
   return (
-    <label className="cb-se group has-focus-visible:focus-outline relative block cursor-pointer justify-center rounded-b-sm border-t-1 border-dashed border-[var(--cb-context-border)] bg-[var(--cb-bg)] py-1 text-sm has-focus-visible:-outline-offset-2">
+    <label className="imp-se group has-focus-visible:focus-outline relative block cursor-pointer justify-center rounded-b-sm border-t-1 border-dashed border-[var(--imp-context-border)] bg-[var(--imp-bg)] py-1 text-sm has-focus-visible:-outline-offset-2">
       <input
         ref={checkboxRef}
         type="checkbox"

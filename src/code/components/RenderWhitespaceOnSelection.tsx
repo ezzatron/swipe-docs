@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export default function RenderWhitespaceOnSelection() {
   useEffect(() => {
     const handleSelection = () => {
-      const whitespace = document.querySelectorAll(".cb-s, .cb-t");
+      const whitespace = document.querySelectorAll(".imp-s, .imp-t");
 
       const selection = document.getSelection() ?? undefined;
       const range =

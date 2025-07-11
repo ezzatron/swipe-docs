@@ -1,7 +1,8 @@
 "use server";
 
-import { createHighlighter } from "../code/loader/highlighter";
-import { transform as staticTransform } from "../code/loader/transform";
+import { createCoreTransform, createHighlighter } from "impasto";
+import all from "impasto/lang/all";
+import { API_KEY_PATTERN } from "../code/api-key";
 import { transform as dynamicTransform } from "../code/transform";
 import template from "./next.config.ts.hbr";
 import type { Input, Output, State } from "./state";
@@ -22,16 +23,18 @@ export async function generateAction(
 }
 
 export async function generateOutput(input: Input): Promise<Output> {
-  const highlighter = await createHighlighter();
-
   const scope = "source.ts";
   const rehypePlugins = input.autoLinkHeadings || input.syntaxHighlighting;
-  const tree = dynamicTransform(
-    staticTransform(
-      highlighter.highlight(template({ ...input, rehypePlugins }), scope),
-    ),
-    { showLineNumbers: true },
-  );
+  const source = template({ ...input, rehypePlugins });
+
+  const highlighter = await createHighlighter(all);
+  const baseTree = highlighter.highlight(source, scope);
+  const coreTransform = createCoreTransform({
+    redact: { "api-key": { search: [API_KEY_PATTERN] } },
+  });
+  coreTransform(baseTree);
+
+  const tree = dynamicTransform(baseTree, { showLineNumbers: true });
 
   return { scope, tree };
 }

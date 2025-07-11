@@ -1,9 +1,9 @@
 declare module "*?code" {
-  const code: import("./loader/loader.js").LoadedCode;
+  const code: import("impasto/loader").LoadedCode;
   export default code;
 }
 
 declare module "*&code" {
-  const code: import("./loader/loader.js").LoadedCode;
+  const code: import("impasto/loader").LoadedCode;
   export default code;
 }

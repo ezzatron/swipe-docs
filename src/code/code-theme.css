@@ -8,98 +8,98 @@
  * @see https://github.com/wooorm/starry-night
  */
 :root {
-  --cb-comment: var(--color-gray-500);
-  --cb-constant: var(--color-blue-800);
-  --cb-constant-other-reference-link: var(--color-blue-900);
-  --cb-entity: var(--color-purple-800);
-  --cb-storage-modifier-import: var(--color-gray-800);
-  --cb-entity-tag: var(--color-blue-800);
-  --cb-keyword: var(--color-red-600);
-  --cb-string: var(--color-blue-900);
-  --cb-variable: var(--color-orange-800);
-  --cb-bracket-unmatched: var(--color-red-900);
-  --cb-bracket-angle: var(--color-gray-600);
-  --cb-invalid-illegal-text: var(--color-gray-50);
-  --cb-invalid-illegal-bg: var(--color-red-900);
-  --cb-carriage-return-text: var(--color-gray-50);
-  --cb-carriage-return-bg: var(--color-red-600);
-  --cb-string-regexp: var(--color-green-800);
-  --cb-markup-list: var(--color-yellow-950);
-  --cb-markup-heading: var(--color-blue-800);
-  --cb-markup-italic: var(--color-gray-800);
-  --cb-markup-bold: var(--color-gray-800);
-  --cb-markup-deleted-text: var(--color-red-900);
-  --cb-markup-deleted-bg: var(--color-red-100);
-  --cb-markup-inserted-text: var(--color-green-800);
-  --cb-markup-inserted-bg: var(--color-green-100);
-  --cb-markup-changed-text: var(--color-orange-800);
-  --cb-markup-changed-bg: var(--color-orange-100);
-  --cb-markup-ignored-text: var(--color-gray-300);
-  --cb-markup-ignored-bg: var(--color-blue-800);
-  --cb-meta-diff-range: var(--color-purple-500);
-  --cb-gutter-mark: var(--color-gray-500);
+  --imp-comment: var(--color-gray-500);
+  --imp-constant: var(--color-blue-800);
+  --imp-constant-other-reference-link: var(--color-blue-900);
+  --imp-entity: var(--color-purple-800);
+  --imp-storage-modifier-import: var(--color-gray-800);
+  --imp-entity-tag: var(--color-blue-800);
+  --imp-keyword: var(--color-red-600);
+  --imp-string: var(--color-blue-900);
+  --imp-variable: var(--color-orange-800);
+  --imp-bracket-unmatched: var(--color-red-900);
+  --imp-bracket-angle: var(--color-gray-600);
+  --imp-invalid-illegal-text: var(--color-gray-50);
+  --imp-invalid-illegal-bg: var(--color-red-900);
+  --imp-carriage-return-text: var(--color-gray-50);
+  --imp-carriage-return-bg: var(--color-red-600);
+  --imp-string-regexp: var(--color-green-800);
+  --imp-markup-list: var(--color-yellow-950);
+  --imp-markup-heading: var(--color-blue-800);
+  --imp-markup-italic: var(--color-gray-800);
+  --imp-markup-bold: var(--color-gray-800);
+  --imp-markup-deleted-text: var(--color-red-900);
+  --imp-markup-deleted-bg: var(--color-red-100);
+  --imp-markup-inserted-text: var(--color-green-800);
+  --imp-markup-inserted-bg: var(--color-green-100);
+  --imp-markup-changed-text: var(--color-orange-800);
+  --imp-markup-changed-bg: var(--color-orange-100);
+  --imp-markup-ignored-text: var(--color-gray-300);
+  --imp-markup-ignored-bg: var(--color-blue-800);
+  --imp-meta-diff-range: var(--color-purple-500);
+  --imp-gutter-mark: var(--color-gray-500);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --cb-comment: var(--color-gray-500);
-    --cb-constant: var(--color-blue-300);
-    --cb-constant-other-reference-link: var(--color-blue-200);
-    --cb-entity: var(--color-purple-300);
-    --cb-storage-modifier-import: var(--color-gray-50);
-    --cb-entity-tag: var(--color-green-300);
-    --cb-keyword: var(--color-red-400);
-    --cb-string: var(--color-blue-200);
-    --cb-variable: var(--color-orange-400);
-    --cb-bracket-unmatched: var(--color-red-500);
-    --cb-bracket-angle: var(--color-gray-400);
-    --cb-invalid-illegal-text: var(--color-gray-50);
-    --cb-invalid-illegal-bg: var(--color-red-800);
-    --cb-carriage-return-text: var(--color-gray-50);
-    --cb-carriage-return-bg: var(--color-red-700);
-    --cb-string-regexp: var(--color-green-300);
-    --cb-markup-list: var(--color-yellow-300);
-    --cb-markup-heading: var(--color-blue-600);
-    --cb-markup-italic: var(--color-gray-50);
-    --cb-markup-bold: var(--color-gray-50);
-    --cb-markup-deleted-text: var(--color-red-100);
-    --cb-markup-deleted-bg: var(--color-red-900);
-    --cb-markup-inserted-text: var(--color-green-300);
-    --cb-markup-inserted-bg: var(--color-green-900);
-    --cb-markup-changed-text: var(--color-orange-200);
-    --cb-markup-changed-bg: var(--color-orange-900);
-    --cb-markup-ignored-text: var(--color-gray-50);
-    --cb-markup-ignored-bg: var(--color-blue-700);
-    --cb-meta-diff-range: var(--color-purple-300);
-    --cb-gutter-mark: var(--color-gray-700);
+    --imp-comment: var(--color-gray-500);
+    --imp-constant: var(--color-blue-300);
+    --imp-constant-other-reference-link: var(--color-blue-200);
+    --imp-entity: var(--color-purple-300);
+    --imp-storage-modifier-import: var(--color-gray-50);
+    --imp-entity-tag: var(--color-green-300);
+    --imp-keyword: var(--color-red-400);
+    --imp-string: var(--color-blue-200);
+    --imp-variable: var(--color-orange-400);
+    --imp-bracket-unmatched: var(--color-red-500);
+    --imp-bracket-angle: var(--color-gray-400);
+    --imp-invalid-illegal-text: var(--color-gray-50);
+    --imp-invalid-illegal-bg: var(--color-red-800);
+    --imp-carriage-return-text: var(--color-gray-50);
+    --imp-carriage-return-bg: var(--color-red-700);
+    --imp-string-regexp: var(--color-green-300);
+    --imp-markup-list: var(--color-yellow-300);
+    --imp-markup-heading: var(--color-blue-600);
+    --imp-markup-italic: var(--color-gray-50);
+    --imp-markup-bold: var(--color-gray-50);
+    --imp-markup-deleted-text: var(--color-red-100);
+    --imp-markup-deleted-bg: var(--color-red-900);
+    --imp-markup-inserted-text: var(--color-green-300);
+    --imp-markup-inserted-bg: var(--color-green-900);
+    --imp-markup-changed-text: var(--color-orange-200);
+    --imp-markup-changed-bg: var(--color-orange-900);
+    --imp-markup-ignored-text: var(--color-gray-50);
+    --imp-markup-ignored-bg: var(--color-blue-700);
+    --imp-meta-diff-range: var(--color-purple-300);
+    --imp-gutter-mark: var(--color-gray-700);
   }
 }
 
 .pl-c {
-  color: var(--cb-comment);
+  color: var(--imp-comment);
 }
 
 .pl-c1,
 .pl-s .pl-v {
-  color: var(--cb-constant);
+  color: var(--imp-constant);
 }
 
 .pl-e,
 .pl-en {
-  color: var(--cb-entity);
+  color: var(--imp-entity);
 }
 
 .pl-smi,
 .pl-s .pl-s1 {
-  color: var(--cb-storage-modifier-import);
+  color: var(--imp-storage-modifier-import);
 }
 
 .pl-ent {
-  color: var(--cb-entity-tag);
+  color: var(--imp-entity-tag);
 }
 
 .pl-k {
-  color: var(--cb-keyword);
+  color: var(--imp-keyword);
 }
 
 .pl-s,
@@ -109,88 +109,88 @@
 .pl-sr .pl-cce,
 .pl-sr .pl-sre,
 .pl-sr .pl-sra {
-  color: var(--cb-string);
+  color: var(--imp-string);
 }
 
 .pl-v,
 .pl-smw {
-  color: var(--cb-variable);
+  color: var(--imp-variable);
 }
 
 .pl-bu {
-  color: var(--cb-bracket-unmatched);
+  color: var(--imp-bracket-unmatched);
 }
 
 .pl-ii {
-  background-color: var(--cb-invalid-illegal-bg);
-  color: var(--cb-invalid-illegal-text);
+  background-color: var(--imp-invalid-illegal-bg);
+  color: var(--imp-invalid-illegal-text);
 }
 
 .pl-c2 {
-  background-color: var(--cb-carriage-return-bg);
-  color: var(--cb-carriage-return-text);
+  background-color: var(--imp-carriage-return-bg);
+  color: var(--imp-carriage-return-text);
 }
 
 .pl-sr .pl-cce {
-  color: var(--cb-string-regexp);
+  color: var(--imp-string-regexp);
   font-weight: bold;
 }
 
 .pl-ml {
-  color: var(--cb-markup-list);
+  color: var(--imp-markup-list);
 }
 
 .pl-mh,
 .pl-mh .pl-en,
 .pl-ms {
-  color: var(--cb-markup-heading);
+  color: var(--imp-markup-heading);
   font-weight: bold;
 }
 
 .pl-mi {
-  color: var(--cb-markup-italic);
+  color: var(--imp-markup-italic);
   font-style: italic;
 }
 
 .pl-mb {
-  color: var(--cb-markup-bold);
+  color: var(--imp-markup-bold);
   font-weight: bold;
 }
 
 .pl-md {
-  background-color: var(--cb-markup-deleted-bg);
-  color: var(--cb-markup-deleted-text);
+  background-color: var(--imp-markup-deleted-bg);
+  color: var(--imp-markup-deleted-text);
 }
 
 .pl-mi1 {
-  background-color: var(--cb-markup-inserted-bg);
-  color: var(--cb-markup-inserted-text);
+  background-color: var(--imp-markup-inserted-bg);
+  color: var(--imp-markup-inserted-text);
 }
 
 .pl-mc {
-  background-color: var(--cb-markup-changed-bg);
-  color: var(--cb-markup-changed-text);
+  background-color: var(--imp-markup-changed-bg);
+  color: var(--imp-markup-changed-text);
 }
 
 .pl-mi2 {
-  background-color: var(--cb-markup-ignored-bg);
-  color: var(--cb-markup-ignored-text);
+  background-color: var(--imp-markup-ignored-bg);
+  color: var(--imp-markup-ignored-text);
 }
 
 .pl-mdr {
-  color: var(--cb-meta-diff-range);
+  color: var(--imp-meta-diff-range);
   font-weight: bold;
 }
 
 .pl-ba {
-  color: var(--cb-bracket-angle);
+  color: var(--imp-bracket-angle);
 }
 
 .pl-sg {
-  color: var(--cb-gutter-mark);
+  color: var(--imp-gutter-mark);
 }
 
 .pl-corl {
-  color: var(--cb-constant-other-reference-link);
+  color: var(--imp-constant-other-reference-link);
   text-decoration: underline;
 }

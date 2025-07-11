@@ -3,15 +3,14 @@ import bundleAnalyzer from "@next/bundle-analyzer";
 import createMDX from "@next/mdx";
 import type { Element } from "hast";
 import { toString } from "hast-util-to-string";
+import all from "impasto/lang/all";
 import type { NextConfig } from "next";
-import { createRequire } from "node:module";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
-
-const require = createRequire(import.meta.url);
+import { API_KEY_PATTERN } from "./src/code/api-key";
 
 const nextConfig: NextConfig = {
   distDir: "artifacts/next/dist",
@@ -26,7 +25,17 @@ const nextConfig: NextConfig = {
         oneOf: [
           {
             resourceQuery: /\bcode$/,
-            use: require.resolve("./src/code/loader/loader.js"),
+            use: {
+              loader: "impasto/loader",
+              options: {
+                grammars: all,
+                redact: {
+                  "api-key": {
+                    search: [API_KEY_PATTERN.source],
+                  },
+                },
+              },
+            },
           },
           {
             resourceQuery: { not: [/\bcode$/] },
@@ -62,7 +71,7 @@ const withMDX = createMDX({
           },
           properties: (heading: Element) => ({
             ariaLabel: `Permalink: ${toString(heading)}`,
-            class:
+            className:
               "absolute top-[50%] -left-6 grid size-6 translate-y-[-50%] place-items-center",
           }),
           content: {
@@ -71,7 +80,7 @@ const withMDX = createMDX({
             properties: {
               ariaHidden: true,
               viewBox: "0 0 24 24",
-              class:
+              className:
                 "size-4 text-transparent group-hover:text-inherit group-has-focus-visible:text-inherit",
             },
             children: [

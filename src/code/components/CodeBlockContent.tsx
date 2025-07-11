@@ -1,10 +1,9 @@
 import clsx from "clsx";
 import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
+import { dataAttribute } from "impasto";
 import { Fragment, type ReactNode } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
-import { API_KEY_CLASS } from "../loader/class";
-import { SECTION_DATA } from "../loader/data";
 import { isCommandLine } from "../scope";
 import APIKey from "./APIKey";
 import CopyButton from "./CopyButton";
@@ -49,7 +48,7 @@ export default function CodeBlockContent({
   const firstChild = tree.children[0];
   const hasSection =
     firstChild.type === "element" &&
-    firstChild.properties[SECTION_DATA] != null;
+    firstChild.properties[dataAttribute.sectionName] != null;
 
   const highlighted = toJsxRuntime(tree, {
     Fragment,
@@ -57,11 +56,7 @@ export default function CodeBlockContent({
     jsxs,
     components: {
       span: (props) => {
-        switch (props.className) {
-          case API_KEY_CLASS:
-            return <APIKey />;
-        }
-
+        if (props[dataAttribute.redactionType] === "api-key") return <APIKey />;
         return <span {...props} />;
       },
     },
@@ -72,7 +67,7 @@ export default function CodeBlockContent({
       id={id}
       className={clsx(
         className,
-        "cb-frame overflow-clip rounded-sm font-mono text-sm",
+        "imp-frame overflow-clip rounded-sm font-mono text-sm",
       )}
     >
       <div className="flex gap-2 bg-gray-200 px-4 py-3 text-gray-600 sm:items-start dark:bg-gray-800 dark:text-gray-400">
@@ -80,7 +75,7 @@ export default function CodeBlockContent({
           <LanguageIcon scope={scope} />
         </div>
 
-        <div className="cb-title not-prose me-2 min-h-5 grow border-r border-gray-300 pe-4 dark:border-gray-700">
+        <div className="imp-title not-prose me-2 min-h-5 grow border-r border-gray-300 pe-4 dark:border-gray-700">
           {title}
         </div>
 
@@ -93,7 +88,7 @@ export default function CodeBlockContent({
 
       <div
         className={clsx("not-prose", {
-          "**:text-[var(--cb-line-number)]": updating,
+          "**:text-[var(--imp-line-number)]": updating,
         })}
       >
         {highlighted}

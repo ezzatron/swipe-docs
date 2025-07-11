@@ -24,7 +24,7 @@ export default function CopyButton() {
     }
 
     const lines = container.getElementsByClassName(
-      "cb-l",
+      "imp-l",
     ) as HTMLCollectionOf<HTMLDivElement>;
 
     let text = "";

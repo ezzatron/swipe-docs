@@ -1,16 +1,12 @@
-import clsx from "clsx";
 import type { Element, Root } from "hast";
+import createClassList from "hast-util-class-list";
+import { cssClass, dataAttribute } from "impasto";
 import {
-  CODE_BLOCK_CLASS,
-  LINE_NUMBERS_CLASS,
   LINE_NUMBERS_SHOW_CLASS,
   SECTION_CONTENT_CLASS,
   SECTION_CONTENT_INDENT_CLASS,
   SECTION_CONTEXT_CLASS,
-  SPACE_CLASS,
-  TAB_CLASS,
-} from "./loader/class";
-import { SECTION_DATA } from "./loader/data";
+} from "./class";
 
 type Options = {
   showLineNumbers?: boolean;
@@ -25,20 +21,20 @@ export function transform(
   tree = structuredClone(tree);
 
   const [pre] = tree.children;
-  if (pre?.type !== "element" || pre.properties.class !== CODE_BLOCK_CLASS) {
+  if (pre?.type !== "element") throw new Error("Unexpected tree");
+  const preClassList = createClassList(pre);
+  if (!preClassList.contains(cssClass.codeBlock)) {
     throw new Error("Unexpected tree");
   }
 
-  pre.properties.class = clsx(pre.properties.class, {
-    [LINE_NUMBERS_SHOW_CLASS]: showLineNumbers,
-  });
+  if (showLineNumbers) preClassList.add(LINE_NUMBERS_SHOW_CLASS);
 
   if (!section) return tree;
 
   const [lineNumberContainer, code] = pre.children;
   if (
     lineNumberContainer?.type !== "element" ||
-    lineNumberContainer.properties.class !== LINE_NUMBERS_CLASS ||
+    !createClassList(lineNumberContainer).contains(cssClass.lineNumbers) ||
     code?.type !== "element" ||
     code.tagName !== "code"
   ) {
@@ -67,16 +63,15 @@ export function transform(
 
   if (!hasContext) return tree;
 
-  if (!noSectionContext) pre.properties[SECTION_DATA] = section;
+  if (!noSectionContext) pre.properties[dataAttribute.sectionName] = section;
 
   for (const lineNumber of sectionLineNumbers) {
-    lineNumber.properties.class = clsx(
-      lineNumber.properties.class,
-      SECTION_CONTENT_CLASS,
-    );
+    const lineNumberClassList = createClassList(lineNumber);
+    lineNumberClassList.add(SECTION_CONTENT_CLASS);
   }
   for (const line of sectionLines) {
-    line.properties.class = clsx(line.properties.class, SECTION_CONTENT_CLASS);
+    const lineClassList = createClassList(line);
+    lineClassList.add(SECTION_CONTENT_CLASS);
   }
 
   const indentWidth = wrapSectionIndent(sectionLines);
@@ -85,32 +80,24 @@ export function transform(
     lineNumberContainer.children = sectionLineNumbers;
     code.children = sectionLines;
   } else {
-    pre.properties.style = `--cb-iw: ${indentWidth}ch`;
+    pre.properties.style = `--imp-iw: ${indentWidth}ch`;
 
     for (const lineNumber of lineNumbersBefore) {
-      lineNumber.properties.class = clsx(
-        lineNumber.properties.class,
-        SECTION_CONTEXT_CLASS,
-      );
+      const lineNumberClassList = createClassList(lineNumber);
+      lineNumberClassList.add(SECTION_CONTEXT_CLASS);
     }
     for (const line of linesBefore) {
-      line.properties.class = clsx(
-        line.properties.class,
-        SECTION_CONTEXT_CLASS,
-      );
+      const lineClassList = createClassList(line);
+      lineClassList.add(SECTION_CONTEXT_CLASS);
     }
 
     for (const lineNumber of lineNumbersAfter) {
-      lineNumber.properties.class = clsx(
-        lineNumber.properties.class,
-        SECTION_CONTEXT_CLASS,
-      );
+      const lineNumberClassList = createClassList(lineNumber);
+      lineNumberClassList.add(SECTION_CONTEXT_CLASS);
     }
     for (const line of linesAfter) {
-      line.properties.class = clsx(
-        line.properties.class,
-        SECTION_CONTEXT_CLASS,
-      );
+      const lineClassList = createClassList(line);
+      lineClassList.add(SECTION_CONTEXT_CLASS);
     }
   }
 
@@ -143,7 +130,7 @@ function splitSection(
     const lineNumber = lineNumbers[i];
     const line = lines[i];
 
-    const sectionsData = line.properties[SECTION_DATA];
+    const sectionsData = line.properties[dataAttribute.sectionName];
     const sections =
       typeof sectionsData === "string" ? sectionsData.split(" ") : [];
 
@@ -182,9 +169,13 @@ function wrapSectionIndent(lines: Element[]): number {
 
     for (const child of line.children) {
       if (child.type !== "element") break;
-      if (typeof child.properties.class !== "string") break;
-      const classes = String(child.properties.class).split(" ");
-      if (!classes.includes(SPACE_CLASS) && !classes.includes(TAB_CLASS)) break;
+      const classList = createClassList(child);
+      if (
+        !classList.contains(cssClass.space) &&
+        !classList.contains(cssClass.tab)
+      ) {
+        break;
+      }
       const [text] = child.children;
       if (text?.type !== "text") continue;
 
@@ -231,7 +222,7 @@ function wrapSectionIndent(lines: Element[]): number {
       tagName: "span",
       children: indentElements,
       properties: {
-        class: SECTION_CONTENT_INDENT_CLASS,
+        className: [SECTION_CONTENT_INDENT_CLASS],
       },
     });
   }
