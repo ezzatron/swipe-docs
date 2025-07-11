@@ -36,7 +36,7 @@ export default function APIKey() {
         <Popover.Content
           side="top"
           sideOffset={4}
-          className="mx-7 max-w-xs overflow-clip rounded-sm bg-gray-50 p-4 text-sm shadow-2xl ring-1 ring-gray-200 dark:bg-gray-950 dark:shadow-none dark:ring-gray-800"
+          className="z-99 mx-7 max-w-xs overflow-clip rounded-sm bg-gray-50 p-4 text-sm shadow-2xl ring-1 ring-gray-200 dark:bg-gray-950 dark:shadow-none dark:ring-gray-800"
         >
           <div className="mb-6">
             <p className="mt-0">
