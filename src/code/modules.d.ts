@@ -1,3 +1,9 @@
 declare module "*?code" {
-  export = import("../loader/loader").LoadedCode;
+  const code: import("./loader/loader.js").LoadedCode;
+  export default code;
+}
+
+declare module "*&code" {
+  const code: import("./loader/loader.js").LoadedCode;
+  export default code;
 }
