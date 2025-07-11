@@ -1,10 +1,11 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
+import { z } from "zod";
 
 const docs = defineCollection({
   name: "docs",
   directory: "src/app/docs",
   include: "**/*.mdx",
-  schema: (z) => ({
+  schema: z.object({
     title: z.string(),
     summary: z.string(),
     form: z.optional(z.enum(["tutorial", "guide", "explainer", "reference"])),
