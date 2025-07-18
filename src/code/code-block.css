@@ -43,12 +43,14 @@
 }
 
 .imp-cb {
+  --tab-size: 2;
+
   display: flex;
   position: relative;
   background-color: var(--imp-bg);
   overflow-x: auto;
   overflow-y: clip;
-  tab-size: 2;
+  tab-size: var(--tab-size);
 }
 
 /* add vertical padding to the first and last lines so that it inherits the
@@ -175,8 +177,9 @@ lines' background color */
   visibility: visible;
 }
 .imp-l.imp-sc {
-  transform: translateX(calc(-1 * var(--imp-iw)));
-  margin-right: calc(-1 * var(--imp-iw));
+  --iw: calc(1ch * (var(--imp-sc-i-s) + var(--tab-size) * var(--imp-sc-i-t)));
+  transform: translateX(calc(-1 * var(--iw)));
+  margin-right: calc(-1 * var(--iw));
 }
 .imp-frame:has(.imp-se :checked) .imp-l.imp-sc {
   transform: translateX(0);

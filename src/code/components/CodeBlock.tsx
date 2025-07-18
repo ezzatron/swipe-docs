@@ -1,4 +1,4 @@
-import { transform } from "../transform";
+import { createInstanceTransform } from "impasto";
 import { type Props as BaseProps } from "./CodeBlockContent";
 import CodeBlockPreTransformed from "./CodeBlockPreTransformed";
 
@@ -16,14 +16,11 @@ export default function CodeBlock({
   noSectionContext,
   ...props
 }: Props) {
-  return (
-    <CodeBlockPreTransformed
-      {...props}
-      tree={transform(tree, {
-        showLineNumbers: lineNumbers,
-        section,
-        noSectionContext,
-      })}
-    />
-  );
+  const instanceTransform = createInstanceTransform({
+    showLineNumbers: lineNumbers,
+    section,
+    noSectionContext,
+  });
+
+  return <CodeBlockPreTransformed {...props} tree={instanceTransform(tree)} />;
 }

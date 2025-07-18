@@ -1,9 +1,12 @@
 "use server";
 
-import { createCoreTransform, createHighlighter } from "impasto";
+import {
+  createCoreTransform,
+  createHighlighter,
+  createInstanceTransform,
+} from "impasto";
 import all from "impasto/lang/all";
 import { API_KEY_PATTERN } from "../code/api-key";
-import { transform as dynamicTransform } from "../code/transform";
 import template from "./next.config.ts.hbr";
 import type { Input, Output, State } from "./state";
 
@@ -34,7 +37,8 @@ export async function generateOutput(input: Input): Promise<Output> {
   });
   coreTransform(baseTree);
 
-  const tree = dynamicTransform(baseTree, { showLineNumbers: true });
+  const instanceTransform = createInstanceTransform({ showLineNumbers: true });
+  const tree = instanceTransform(baseTree);
 
   return { scope, tree };
 }
