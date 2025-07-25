@@ -17,6 +17,7 @@ type Props = {
   title?: ReactNode;
   filePath?: string;
   filePathContext?: number;
+  lineNumbers?: boolean;
   className?: string;
   updating?: boolean;
 };
@@ -28,6 +29,7 @@ export default function CodeBlock({
   title,
   filePath,
   filePathContext,
+  lineNumbers,
 }: Props) {
   if (!title) title = limitFilePath(filePath, filePathContext);
   if (!id) id = getTitleSlugger()(title);
@@ -45,7 +47,11 @@ export default function CodeBlock({
         </div>
       </div>
 
-      <CodeBlockPre lines={result.content.lines} />
+      <CodeBlockPre
+        lines={result.content.lines}
+        startLine={result.content.startLine}
+        lineNumbers={lineNumbers}
+      />
     </CodeBlockRoot>
   );
 }
