@@ -1,8 +1,8 @@
-export function limitFilename(
-  filename: string | undefined,
+export function limitFilePath(
+  filePath: string | undefined,
   segmentCount: number = 1,
 ): string | undefined {
-  return !filename || segmentCount < 1
+  return !filePath || segmentCount < 1
     ? undefined
-    : filename.split("/").slice(-segmentCount).join("/");
+    : filePath.split("/").slice(-segmentCount).join("/");
 }
