@@ -15,7 +15,7 @@ export default function CodeBlockExpandButton({ title, children }: Props) {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
+        <Dialog.Overlay className="fixed inset-0 bg-black/50" />
         <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md p-[25px] shadow-[var(--shadow-6)] focus:outline-none">
           <Dialog.Title>{title}</Dialog.Title>
           <Dialog.Close>

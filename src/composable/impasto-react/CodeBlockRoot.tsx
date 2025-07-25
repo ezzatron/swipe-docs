@@ -1,19 +1,20 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useRef, type ComponentProps, type ReactNode } from "react";
 import { context } from "./context";
 
-type Props = {
-  id?: string;
+type Props = ComponentProps<"div"> & {
   children: ReactNode;
 };
 
-export default function CodeBlockRoot({ children }: Props) {
+export default function CodeBlockRoot({ children, ...props }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
   return (
     <context.Provider value={{ ref }}>
-      <div ref={ref}>{children}</div>
+      <div {...props} ref={ref}>
+        {children}
+      </div>
     </context.Provider>
   );
 }

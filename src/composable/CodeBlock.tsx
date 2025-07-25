@@ -4,9 +4,9 @@ import { cache, type ReactNode } from "react";
 import CodeBlockCustomCopyButton from "./CodeBlockCustomCopyButton";
 import CodeBlockExpandButton from "./CodeBlockExpandButton";
 import CodeBlockPermalinkButton from "./CodeBlockPermalinkButton";
+import CodeBlockPre from "./CodeBlockPre";
 import { limitFilePath } from "./impasto";
 import {
-  CodeBlockCode,
   CodeBlockCopyButton,
   CodeBlockRoot,
   createTitleSlugger,
@@ -40,7 +40,7 @@ export default function CodeBlock({
   const result = splitSection(tree.children, section);
 
   return (
-    <CodeBlockRoot>
+    <CodeBlockRoot className="not-prose">
       <div className="header">
         <div className="title">{title}</div>
         <div className="actions">
@@ -65,14 +65,14 @@ export default function CodeBlock({
           <CodeBlockCustomCopyButton />
 
           <CodeBlockExpandButton title={title}>
-            <CodeBlockCode lines={tree.children} />
+            <CodeBlockPre lines={tree.children} />
           </CodeBlockExpandButton>
 
           {id && <CodeBlockPermalinkButton id={id} />}
         </div>
       </div>
 
-      <CodeBlockCode lines={result.content.lines} />
+      <CodeBlockPre lines={result.content.lines} />
     </CodeBlockRoot>
   );
 }

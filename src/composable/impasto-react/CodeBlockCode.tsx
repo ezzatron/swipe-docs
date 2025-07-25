@@ -5,24 +5,15 @@ import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 type Props = {
   lines: LineElement[];
   components?: Components;
-  lineNumbers?: boolean;
 };
 
-export default function CodeBlockCode({
-  lines,
-  components,
-  lineNumbers,
-}: Props) {
-  const content = toJsxRuntime(
-    { type: "root", children: lines },
-    { Fragment, jsx, jsxs, components },
-  );
-
-  // TODO: lineNumbers
-
+export default function CodeBlockCode({ lines, components }: Props) {
   return (
-    <pre>
-      <code>{content}</code>
-    </pre>
+    <code>
+      {toJsxRuntime(
+        { type: "root", children: lines },
+        { Fragment, jsx, jsxs, components },
+      )}
+    </code>
   );
 }
