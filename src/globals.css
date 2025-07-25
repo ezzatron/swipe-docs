@@ -1,6 +1,6 @@
 @import "./tailwind.css";
 @import "./code/code-theme.css" layer(components);
-@import "./code/code-block.css" layer(components);
+/* @import "./code/code-block.css" layer(components); */
 
 @layer base {
   html {
