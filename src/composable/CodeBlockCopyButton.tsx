@@ -4,7 +4,7 @@ import { CheckIcon, CopyIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCopyCode } from "./impasto-react";
 
-export default function CodeBlockCustomCopyButton() {
+export default function CodeBlockCopyButton() {
   const [copy, state] = useCopyCode();
   const [isHidden, setIsHidden] = useState(true);
 

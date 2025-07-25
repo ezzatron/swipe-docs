@@ -1,14 +1,14 @@
 "use client";
 
 import { cssClass } from "impasto";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useContext, useMemo, useRef, useState } from "react";
 import type { CopyState } from "../impasto-react";
-import { useCodeBlockRoot } from "./use-code-block-root";
+import { context } from "./context";
 
 export function useCopyCode(
   idleTimeout = 1200,
 ): [copy: () => void, copyState: CopyState] {
-  const ref = useCodeBlockRoot();
+  const ref = useContext(context).ref;
   const [state, setState] = useState<CopyState>("idle");
   const idleTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 

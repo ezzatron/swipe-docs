@@ -1,16 +1,11 @@
 import { splitSection, type Root } from "impasto";
-import { CheckIcon, CopyIcon, XIcon } from "lucide-react";
 import { cache, type ReactNode } from "react";
-import CodeBlockCustomCopyButton from "./CodeBlockCustomCopyButton";
+import CodeBlockCopyButton from "./CodeBlockCopyButton";
 import CodeBlockExpandButton from "./CodeBlockExpandButton";
 import CodeBlockPermalinkButton from "./CodeBlockPermalinkButton";
 import CodeBlockPre from "./CodeBlockPre";
 import { limitFilePath } from "./impasto";
-import {
-  CodeBlockCopyButton,
-  CodeBlockRoot,
-  createTitleSlugger,
-} from "./impasto-react";
+import { CodeBlockRoot, createTitleSlugger } from "./impasto-react";
 
 const getTitleSlugger = cache(createTitleSlugger);
 
@@ -44,30 +39,8 @@ export default function CodeBlock({
       <div className="header">
         <div className="title">{title}</div>
         <div className="actions">
-          <CodeBlockCopyButton className="group">
-            <CopyIcon
-              aria-hidden
-              size={16}
-              className="hidden group-data-[copy-state=idle]:block"
-            />
-            <CheckIcon
-              aria-hidden
-              size={16}
-              className="hidden text-green-500 group-data-[copy-state=copied]:block dark:text-green-400"
-            />
-            <XIcon
-              aria-hidden
-              size={16}
-              className="hidden text-red-500 group-data-[copy-state=failed]:block dark:text-red-400"
-            />
-          </CodeBlockCopyButton>
-
-          <CodeBlockCustomCopyButton />
-
-          <CodeBlockExpandButton title={title}>
-            <CodeBlockPre lines={tree.children} />
-          </CodeBlockExpandButton>
-
+          <CodeBlockCopyButton />
+          <CodeBlockExpandButton title={title} lines={tree.children} />
           {id && <CodeBlockPermalinkButton id={id} />}
         </div>
       </div>

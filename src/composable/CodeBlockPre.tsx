@@ -8,7 +8,7 @@ type Props = {
 export default function CodeBlockPre({ lines }: Props) {
   return (
     <pre className="bg-zinc-900">
-      <CodeBlockCode lines={lines} />
+      <CodeBlockCode lines={lines} className="[&_.imp-sc-i]:hidden" />
     </pre>
   );
 }
