@@ -1,9 +1,9 @@
 "use client";
 
-import { cssClass } from "impasto";
 import { useCallback, useContext, useMemo, useRef, useState } from "react";
 import type { CopyState } from "../impasto-react";
 import { context } from "./context";
+import { copyCode } from "./copy-code";
 
 export function useCopyCode(
   idleTimeout = 1200,
@@ -30,17 +30,7 @@ export function useCopyCode(
       }
 
       try {
-        const lines = container.getElementsByClassName(
-          cssClass.line,
-        ) as HTMLCollectionOf<HTMLDivElement>;
-
-        let text = "";
-        for (let i = 0; i < lines.length; ++i) {
-          if (lines[i].offsetParent != null) text += lines[i].innerText;
-        }
-        text = text.slice(0, -1);
-
-        await navigator.clipboard.writeText(text);
+        await copyCode(container);
         setState("copied");
       } catch {
         setState("failed");

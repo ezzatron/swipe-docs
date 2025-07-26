@@ -1,4 +1,5 @@
-import type { LineElement } from "impasto";
+import { dataAttribute, type LineElement } from "impasto";
+import CodeBlockAPIKey from "./CodeBlockAPIKey";
 import { CodeBlockCode } from "./impasto-react";
 
 type Props = {
@@ -22,7 +23,19 @@ export default function CodeBlockPre({
         </div>
       )}
 
-      <CodeBlockCode lines={lines} className="[&_.imp-sc-i]:hidden" />
+      <CodeBlockCode
+        lines={lines}
+        components={{
+          span: (props) => {
+            if (props[dataAttribute.redactionType] === "api-key") {
+              return <CodeBlockAPIKey />;
+            }
+
+            return <span {...props} />;
+          },
+        }}
+        className="[&_.imp-sc-i]:hidden"
+      />
     </pre>
   );
 }
