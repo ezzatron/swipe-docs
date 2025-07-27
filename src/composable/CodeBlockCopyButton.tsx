@@ -17,7 +17,7 @@ export default function CodeBlockCopyButton() {
       aria-label="Copy code"
       title="Copy code"
       onClick={copy}
-      className="cursor-pointer rounded-xs hover:text-gray-950 active:text-blue-500 dark:hover:text-gray-200 dark:active:text-blue-400"
+      className="cursor-pointer rounded-xs hover:text-zinc-950 active:text-blue-500 dark:hover:text-zinc-200 dark:active:text-blue-400"
       hidden={isHidden}
     >
       {state === "idle" ? <CopyIcon aria-hidden size={16} /> : undefined}

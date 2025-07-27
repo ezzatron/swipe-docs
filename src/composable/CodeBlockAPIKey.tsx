@@ -36,7 +36,7 @@ export default function CodeBlockAPIKey() {
         <Popover.Content
           side="top"
           sideOffset={4}
-          className="z-99 mx-7 max-w-xs overflow-clip rounded-sm bg-gray-50 p-4 text-sm shadow-2xl ring-1 ring-gray-200 dark:bg-gray-950 dark:shadow-none dark:ring-gray-800"
+          className="z-99 mx-7 max-w-xs overflow-clip rounded-sm bg-zinc-50 p-4 text-sm shadow-2xl ring-1 ring-zinc-200 dark:bg-zinc-950 dark:shadow-none dark:ring-zinc-800"
         >
           <div className="mb-6">
             <p className="mt-0">
@@ -61,7 +61,7 @@ export default function CodeBlockAPIKey() {
             <APIKeyCopyButton from={ref} />
           </div>
 
-          <Popover.Arrow className="fill-gray-50 dark:fill-gray-950" />
+          <Popover.Arrow className="fill-zinc-50 dark:fill-zinc-950" />
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
@@ -142,7 +142,7 @@ function APIKeyCopyButton({
     <APIKeyButton
       onClick={handleClick}
       icon={icon}
-      className="ring-1 ring-gray-200 ring-inset hover:bg-gray-200 active:bg-gray-300 dark:ring-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-900"
+      className="ring-1 ring-zinc-200 ring-inset hover:bg-zinc-200 active:bg-zinc-300 dark:ring-zinc-800 dark:hover:bg-zinc-800 dark:active:bg-zinc-900"
     >
       Copy
     </APIKeyButton>
