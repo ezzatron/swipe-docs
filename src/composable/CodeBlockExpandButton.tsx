@@ -32,7 +32,7 @@ export default function CodeBlockExpandButton({ title, lines }: Props) {
 
           <CodeBlockRoot>
             <CodeBlockCopyButton />
-            <CodeBlockPre lines={lines} lineNumbers />
+            <CodeBlockPre lines={lines} noLineNumbers />
           </CodeBlockRoot>
         </Dialog.Content>
       </Dialog.Portal>

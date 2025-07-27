@@ -20,7 +20,7 @@ type Props = {
   title?: ReactNode;
   filePath?: string;
   filePathContext?: number;
-  lineNumbers?: boolean;
+  noLineNumbers?: boolean;
   className?: string;
   updating?: boolean;
 };
@@ -32,12 +32,13 @@ export default function CodeBlock({
   title,
   filePath,
   filePathContext,
-  lineNumbers,
+  noLineNumbers,
 }: Props) {
   if (!title) title = limitFilePath(filePath, filePathContext);
   if (!id) id = getTitleSlugger()(title);
 
   const result = splitSection(tree.children, section);
+  const hasContext = result.contextBefore || result.contextAfter;
 
   return (
     <CodeBlockRoot>
@@ -48,14 +49,16 @@ export default function CodeBlock({
           <CodeBlockActions>
             <CodeBlockCopyButton />
             {id && <CodeBlockPermalinkButton anchor={id} />}
-            <CodeBlockExpandButton title={title} lines={tree.children} />
+            {hasContext && (
+              <CodeBlockExpandButton title={title} lines={tree.children} />
+            )}
           </CodeBlockActions>
         </CodeBlockHeader>
 
         <CodeBlockPre
           lines={result.content.lines}
           startLine={result.content.startLine}
-          lineNumbers={lineNumbers}
+          noLineNumbers={noLineNumbers}
         />
       </CodeBlockFrame>
     </CodeBlockRoot>

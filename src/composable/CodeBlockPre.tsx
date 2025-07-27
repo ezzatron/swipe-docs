@@ -5,23 +5,23 @@ import { CodeBlockCode } from "./impasto-react";
 
 type Props = {
   lines: LineElement[];
-  lineNumbers?: boolean;
+  noLineNumbers?: boolean;
   startLine?: number;
 };
 
 export default function CodeBlockPre({
   lines,
-  lineNumbers = false,
+  noLineNumbers = false,
   startLine = 1,
 }: Props) {
   return (
     <pre
       className={clsx(
         "scrollbar scrollbar-track-transparent scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 relative flex overflow-x-auto overflow-y-clip bg-zinc-100 py-3 pr-4 text-sm select-none dark:bg-zinc-900",
-        { "pl-4": !lineNumbers },
+        { "pl-4": noLineNumbers },
       )}
     >
-      {lineNumbers && (
+      {!noLineNumbers && (
         <div className="sticky left-0 flex-shrink-0 bg-inherit pr-6 pl-4 text-right text-zinc-500">
           {lines.map((_, i) => (
             <div key={i}>{startLine + i}</div>
