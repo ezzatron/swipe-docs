@@ -105,7 +105,7 @@ function APIKeyCopyButton({
 }: {
   from: RefObject<HTMLButtonElement | null>;
 }) {
-  const [state, setState] = useState<"IDLE" | "COPIED" | "FAILED">("IDLE");
+  const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
 
   const handleClick = async () => {
     if (!from.current) return;
@@ -114,24 +114,24 @@ function APIKeyCopyButton({
 
     try {
       await navigator.clipboard.writeText(text);
-      setState("COPIED");
+      setState("copied");
     } catch {
-      setState("FAILED");
+      setState("failed");
     }
 
     setTimeout(() => {
-      setState("IDLE");
+      setState("idle");
     }, 1200);
   };
 
   const icon = ((state) => {
-    if (state === "COPIED") {
+    if (state === "copied") {
       return (
         <CheckIcon size={16} className="text-green-500 dark:text-green-400" />
       );
     }
 
-    if (state === "FAILED") {
+    if (state === "failed") {
       return <XIcon size={16} className="text-red-500 dark:text-red-400" />;
     }
 

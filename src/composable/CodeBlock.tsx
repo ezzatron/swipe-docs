@@ -5,12 +5,14 @@ import CodeBlockCopyButton from "./CodeBlockCopyButton";
 import CodeBlockExpandButton from "./CodeBlockExpandButton";
 import CodeBlockFrame from "./CodeBlockFrame";
 import CodeBlockHeader from "./CodeblockHeader";
+import CodeBlockLanguageIcon from "./CodeBlockLanguageIcon";
 import CodeBlockPermalinkButton from "./CodeBlockPermalinkButton";
 import CodeBlockPre from "./CodeBlockPre";
 import CodeBlockTitle from "./CodeBlockTitle";
 import { getTitleSlugger } from "./get-title-slugger";
 import { limitFilePath } from "./impasto";
 import { CodeBlockRoot } from "./impasto-react";
+import { isCommandLine } from "./scope";
 
 type Props = {
   tree: Root;
@@ -27,6 +29,7 @@ type Props = {
 
 export default function CodeBlock({
   tree,
+  scope,
   section,
   id,
   title,
@@ -35,6 +38,7 @@ export default function CodeBlock({
   noLineNumbers,
 }: Props) {
   if (!title) title = limitFilePath(filePath, filePathContext);
+  if (!title && isCommandLine(scope)) title = "Command Line";
   if (!id) id = getTitleSlugger()(title);
 
   const result = splitSection(tree.children, section);
@@ -44,6 +48,7 @@ export default function CodeBlock({
     <CodeBlockRoot>
       <CodeBlockFrame>
         <CodeBlockHeader>
+          <CodeBlockLanguageIcon scope={scope} />
           <CodeBlockTitle>{title}</CodeBlockTitle>
 
           <CodeBlockActions>
