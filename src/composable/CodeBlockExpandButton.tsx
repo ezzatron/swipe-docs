@@ -20,7 +20,7 @@ export default function CodeBlockExpandButton({ title, lines }: Props) {
 
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-zinc-800 p-[25px] shadow-[var(--shadow-6)] focus:outline-none">
+        <Dialog.Content className="not-prose fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-zinc-800 p-[25px] shadow-[var(--shadow-6)] focus:outline-none">
           <Dialog.Title>{title}</Dialog.Title>
           <Dialog.Close>
             <XIcon />

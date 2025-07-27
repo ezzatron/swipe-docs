@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { dataAttribute, type LineElement } from "impasto";
 import CodeBlockAPIKey from "./CodeBlockAPIKey";
 import { CodeBlockCode } from "./impasto-react";
@@ -14,9 +15,14 @@ export default function CodeBlockPre({
   startLine = 1,
 }: Props) {
   return (
-    <pre className="flex bg-zinc-900">
+    <pre
+      className={clsx(
+        "relative flex overflow-x-auto overflow-y-clip bg-zinc-900 py-3 pr-4 text-sm select-none",
+        { "pl-4": !lineNumbers },
+      )}
+    >
       {lineNumbers && (
-        <div className="flex-shrink-0 pr-4 text-right text-zinc-500">
+        <div className="sticky left-0 flex-shrink-0 bg-zinc-900 pr-6 pl-4 text-right text-zinc-500">
           {lines.map((_, i) => (
             <div key={i}>{startLine + i}</div>
           ))}
@@ -34,7 +40,7 @@ export default function CodeBlockPre({
             return <span {...props} />;
           },
         }}
-        className="[&_.imp-sc-i]:hidden"
+        className="[&_.imp-l]:select-text [&_.imp-sc-i]:hidden"
       />
     </pre>
   );
