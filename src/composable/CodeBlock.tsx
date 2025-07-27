@@ -55,16 +55,16 @@ export default function CodeBlock({
             <CodeBlockCopyButton />
             {id && <CodeBlockPermalinkButton anchor={id} />}
             {hasContext && (
-              <CodeBlockExpandButton title={title} lines={tree.children} />
+              <CodeBlockExpandButton
+                title={title}
+                scope={scope}
+                splitResult={result}
+              />
             )}
           </CodeBlockActions>
         </CodeBlockHeader>
 
-        <CodeBlockPre
-          lines={result.content.lines}
-          startLine={result.content.startLine}
-          noLineNumbers={noLineNumbers}
-        />
+        <CodeBlockPre splitResult={result} noLineNumbers={noLineNumbers} />
       </CodeBlockFrame>
     </CodeBlockRoot>
   );

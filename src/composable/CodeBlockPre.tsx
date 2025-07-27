@@ -1,36 +1,54 @@
 import clsx from "clsx";
-import { dataAttribute, type LineElement } from "impasto";
+import { dataAttribute, type SplitSectionResult } from "impasto";
+import type { ReactNode } from "react";
 import CodeBlockAPIKey from "./CodeBlockAPIKey";
 import { CodeBlockCode } from "./impasto-react";
 
 type Props = {
-  lines: LineElement[];
+  splitResult: SplitSectionResult;
   noLineNumbers?: boolean;
-  startLine?: number;
+  expanded?: boolean;
 };
 
 export default function CodeBlockPre({
-  lines,
+  splitResult,
   noLineNumbers = false,
-  startLine = 1,
+  expanded = false,
 }: Props) {
+  let lineNumbers: ReactNode | undefined;
+
+  if (!noLineNumbers) {
+    lineNumbers = expanded ? (
+      <CodeBlockLineNumbers
+        splitResult={splitResult}
+        startLine={1}
+        endLine={splitResult.lines.length}
+      />
+    ) : (
+      <CodeBlockLineNumbers
+        splitResult={splitResult}
+        startLine={splitResult.content.startLine}
+        endLine={splitResult.content.endLine}
+      />
+    );
+  }
+
   return (
     <pre
       className={clsx(
-        "scrollbar scrollbar-track-transparent scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 relative flex overflow-x-auto overflow-y-clip bg-zinc-100 py-3 pr-4 text-sm select-none dark:bg-zinc-900",
-        { "pl-4": noLineNumbers },
+        "scrollbar scrollbar-track-transparent scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 relative flex overflow-x-auto overflow-y-clip py-3 text-sm select-none [&_.imp-l]:pr-4",
+        {
+          "pl-4": noLineNumbers,
+          "dark:bg-zinc-925 bg-zinc-100 [&_.imp-sc]:bg-white [&_.imp-sc]:dark:bg-zinc-900 [&_.imp-sc+.imp-sx]:pt-3 [&_.imp-sc:has(+.imp-sx)]:pb-3 [&_.imp-sx+.imp-sc]:pt-3 [&_.imp-sx:has(+.imp-sc)]:pb-3":
+            expanded,
+          "bg-zinc-100 dark:bg-zinc-900 [&_.imp-sc-i]:hidden": !expanded,
+        },
       )}
     >
-      {!noLineNumbers && (
-        <div className="sticky left-0 flex-shrink-0 bg-inherit pr-6 pl-4 text-right text-zinc-500">
-          {lines.map((_, i) => (
-            <div key={i}>{startLine + i}</div>
-          ))}
-        </div>
-      )}
+      {lineNumbers}
 
       <CodeBlockCode
-        lines={lines}
+        lines={expanded ? splitResult.lines : splitResult.content.lines}
         components={{
           span: (props) => {
             if (props[dataAttribute.redactionType] === "api-key") {
@@ -40,8 +58,43 @@ export default function CodeBlockPre({
             return <span {...props} />;
           },
         }}
-        className="[&_.imp-l]:select-text [&_.imp-sc-i]:hidden"
+        className="[&_.imp-l]:select-text"
       />
     </pre>
+  );
+}
+
+function CodeBlockLineNumbers({
+  splitResult,
+  startLine,
+  endLine,
+}: {
+  splitResult: SplitSectionResult;
+  startLine: number;
+  endLine: number;
+}) {
+  const lineNumbers: ReactNode[] = [];
+
+  for (let i = startLine; i <= endLine; ++i) {
+    const isContent =
+      i >= splitResult.content.startLine && i <= splitResult.content.endLine;
+
+    lineNumbers.push(
+      <div
+        key={i}
+        className={clsx("pr-6 pl-4", {
+          "imp-sc": isContent,
+          "imp-sx": !isContent,
+        })}
+      >
+        {i}
+      </div>,
+    );
+  }
+
+  return (
+    <div className="sticky left-0 flex-shrink-0 bg-inherit text-right text-zinc-500">
+      {lineNumbers}
+    </div>
   );
 }

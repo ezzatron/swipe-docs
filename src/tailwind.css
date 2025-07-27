@@ -30,3 +30,11 @@
     outline-color: var(--color-blue-400);
   }
 }
+
+@theme {
+  --color-zinc-925: color-mix(
+    in oklch,
+    var(--color-zinc-900) 50%,
+    var(--color-zinc-950)
+  );
+}
