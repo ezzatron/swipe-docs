@@ -1,13 +1,16 @@
 import { splitSection, type Root } from "impasto";
-import { cache, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import CodeBlockActions from "./CodeblockActions";
 import CodeBlockCopyButton from "./CodeBlockCopyButton";
 import CodeBlockExpandButton from "./CodeBlockExpandButton";
+import CodeBlockFrame from "./CodeBlockFrame";
+import CodeBlockHeader from "./CodeblockHeader";
 import CodeBlockPermalinkButton from "./CodeBlockPermalinkButton";
 import CodeBlockPre from "./CodeBlockPre";
+import CodeBlockTitle from "./CodeBlockTitle";
+import { getTitleSlugger } from "./get-title-slugger";
 import { limitFilePath } from "./impasto";
-import { CodeBlockRoot, createTitleSlugger } from "./impasto-react";
-
-const getTitleSlugger = cache(createTitleSlugger);
+import { CodeBlockRoot } from "./impasto-react";
 
 type Props = {
   tree: Root;
@@ -37,24 +40,24 @@ export default function CodeBlock({
   const result = splitSection(tree.children, section);
 
   return (
-    <CodeBlockRoot className="not-prose my-6 overflow-clip rounded-sm bg-zinc-200 font-mono text-sm text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-      <div className="flex gap-2 px-4 py-3">
-        <div className="mr-2 grow border-r border-zinc-300 pr-4 dark:border-zinc-700 [&_code]:rounded-sm [&_code]:bg-zinc-100 [&_code]:px-[.4em] [&_code]:py-[.2em] [&_code]:dark:bg-zinc-700">
-          {title}
-        </div>
+    <CodeBlockRoot>
+      <CodeBlockFrame>
+        <CodeBlockHeader>
+          <CodeBlockTitle>{title}</CodeBlockTitle>
 
-        <div className="flex items-center gap-3">
-          <CodeBlockCopyButton />
-          {id && <CodeBlockPermalinkButton anchor={id} />}
-          <CodeBlockExpandButton title={title} lines={tree.children} />
-        </div>
-      </div>
+          <CodeBlockActions>
+            <CodeBlockCopyButton />
+            {id && <CodeBlockPermalinkButton anchor={id} />}
+            <CodeBlockExpandButton title={title} lines={tree.children} />
+          </CodeBlockActions>
+        </CodeBlockHeader>
 
-      <CodeBlockPre
-        lines={result.content.lines}
-        startLine={result.content.startLine}
-        lineNumbers={lineNumbers}
-      />
+        <CodeBlockPre
+          lines={result.content.lines}
+          startLine={result.content.startLine}
+          lineNumbers={lineNumbers}
+        />
+      </CodeBlockFrame>
     </CodeBlockRoot>
   );
 }
