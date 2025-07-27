@@ -14,8 +14,12 @@ type Props = {
 export default function CodeBlockExpandButton({ title, lines }: Props) {
   return (
     <Dialog.Root>
-      <Dialog.Trigger>
-        <UnfoldVerticalIcon />
+      <Dialog.Trigger
+        aria-label="Show more"
+        title="Show more"
+        className="cursor-pointer rounded-xs hover:text-zinc-950 active:text-blue-500 dark:hover:text-zinc-200 dark:active:text-blue-400"
+      >
+        <UnfoldVerticalIcon aria-hidden size={16} />
       </Dialog.Trigger>
 
       <Dialog.Portal>

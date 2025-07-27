@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@plugin "tailwind-scrollbar";
 @config "../tailwind.config.ts";
 
 @utility mt-* {

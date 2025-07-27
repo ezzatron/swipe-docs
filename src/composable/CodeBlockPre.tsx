@@ -17,12 +17,12 @@ export default function CodeBlockPre({
   return (
     <pre
       className={clsx(
-        "relative flex overflow-x-auto overflow-y-clip bg-zinc-900 py-3 pr-4 text-sm select-none",
+        "scrollbar scrollbar-track-transparent scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 relative flex overflow-x-auto overflow-y-clip bg-zinc-100 py-3 pr-4 text-sm select-none dark:bg-zinc-900",
         { "pl-4": !lineNumbers },
       )}
     >
       {lineNumbers && (
-        <div className="sticky left-0 flex-shrink-0 bg-zinc-900 pr-6 pl-4 text-right text-zinc-500">
+        <div className="sticky left-0 flex-shrink-0 bg-inherit pr-6 pl-4 text-right text-zinc-500">
           {lines.map((_, i) => (
             <div key={i}>{startLine + i}</div>
           ))}

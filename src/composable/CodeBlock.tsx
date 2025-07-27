@@ -37,13 +37,16 @@ export default function CodeBlock({
   const result = splitSection(tree.children, section);
 
   return (
-    <CodeBlockRoot className="not-prose">
-      <div className="header">
-        <div className="title">{title}</div>
-        <div className="actions">
+    <CodeBlockRoot className="not-prose my-6 overflow-clip rounded-sm bg-zinc-200 font-mono text-sm text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+      <div className="flex gap-2 px-4 py-3">
+        <div className="mr-2 grow border-r border-zinc-300 pr-4 dark:border-zinc-700 [&_code]:rounded-sm [&_code]:bg-zinc-100 [&_code]:px-[.4em] [&_code]:py-[.2em] [&_code]:dark:bg-zinc-700">
+          {title}
+        </div>
+
+        <div className="flex items-center gap-3">
           <CodeBlockCopyButton />
+          {id && <CodeBlockPermalinkButton anchor={id} />}
           <CodeBlockExpandButton title={title} lines={tree.children} />
-          {id && <CodeBlockPermalinkButton id={id} />}
         </div>
       </div>
 
