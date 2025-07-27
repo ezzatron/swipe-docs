@@ -1,3 +1,2 @@
 - String/fenced code blocks
 - Visualize whitespace
-- Header icons
