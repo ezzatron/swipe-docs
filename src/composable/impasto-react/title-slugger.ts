@@ -1,12 +1,15 @@
 import type { ReactNode } from "react";
 import slugify from "react-slugify";
 
-export type TitleSlugger = (title: ReactNode) => string | undefined;
+export type TitleSlugger = (
+  title: ReactNode,
+  prefix?: string,
+) => string | undefined;
 
-export function createTitleSlugger(prefix: string = ""): TitleSlugger {
+export function createTitleSlugger(): TitleSlugger {
   const usedSlugs: Record<string, boolean> = {};
 
-  return (title) => {
+  return (title, prefix = "") => {
     let slug = slugify(title);
 
     if (!slug) return undefined;

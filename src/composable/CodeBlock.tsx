@@ -39,7 +39,7 @@ export default function CodeBlock({
 }: Props) {
   if (!title) title = limitFilePath(filePath, filePathContext);
   if (!title && isCommandLine(scope)) title = "Command Line";
-  if (!id) id = getTitleSlugger()(title);
+  if (!id) id = getTitleSlugger()(title, "cb");
 
   const result = splitSection(tree.children, section);
   const hasContext = result.contextBefore || result.contextAfter;
