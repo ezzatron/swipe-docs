@@ -33,32 +33,33 @@ export default function CodeBlockExpandButton({
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/50" />
-        <Dialog.Content
-          aria-describedby=""
-          className="fixed top-1/2 left-1/2 max-h-[85vh] max-w-[calc(100%---spacing(16))] -translate-x-1/2 -translate-y-1/2 shadow-[var(--shadow-6)] focus:outline-none"
-        >
-          <CodeBlockRoot>
-            <CodeBlockFrame>
-              <CodeBlockHeader>
-                <CodeBlockLanguageIcon scope={scope} />
-                <Dialog.Title asChild>
-                  <CodeBlockTitle>{title}</CodeBlockTitle>
-                </Dialog.Title>
+        <Dialog.Overlay className="fixed inset-0 flex items-center justify-center overflow-x-clip overflow-y-auto bg-black/70 px-8">
+          <Dialog.Content
+            aria-describedby=""
+            className="max-h-full max-w-full shrink-1 shadow-[var(--shadow-6)] focus:outline-none"
+          >
+            <CodeBlockRoot className="py-8">
+              <CodeBlockFrame>
+                <CodeBlockHeader>
+                  <CodeBlockLanguageIcon scope={scope} />
+                  <Dialog.Title asChild>
+                    <CodeBlockTitle>{title}</CodeBlockTitle>
+                  </Dialog.Title>
 
-                <CodeBlockActions>
-                  <CodeBlockCopyButton />
+                  <CodeBlockActions>
+                    <CodeBlockCopyButton />
 
-                  <Dialog.Close className="cursor-pointer rounded-xs hover:text-zinc-950 active:text-blue-500 dark:hover:text-zinc-200 dark:active:text-blue-400">
-                    <XIcon aria-hidden size={16} />
-                  </Dialog.Close>
-                </CodeBlockActions>
-              </CodeBlockHeader>
+                    <Dialog.Close className="cursor-pointer rounded-xs hover:text-zinc-950 active:text-blue-500 dark:hover:text-zinc-200 dark:active:text-blue-400">
+                      <XIcon aria-hidden size={16} />
+                    </Dialog.Close>
+                  </CodeBlockActions>
+                </CodeBlockHeader>
 
-              <CodeBlockPre expanded splitResult={splitResult} />
-            </CodeBlockFrame>
-          </CodeBlockRoot>
-        </Dialog.Content>
+                <CodeBlockPre expanded splitResult={splitResult} />
+              </CodeBlockFrame>
+            </CodeBlockRoot>
+          </Dialog.Content>
+        </Dialog.Overlay>
       </Dialog.Portal>
     </Dialog.Root>
   );
