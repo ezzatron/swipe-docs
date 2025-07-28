@@ -6,7 +6,7 @@ import {
 import all from "impasto/lang/all";
 import { Children, type JSX, type ReactElement } from "react";
 import { API_KEY_PATTERN } from "../code/api-key";
-import CodeBlock from "../code/components/CodeBlock";
+import CodeBlock from "../composable/CodeBlock";
 
 const LANGUAGE_PATTERN = /^language-(.+)$/;
 
@@ -31,7 +31,9 @@ export default async function Pre({ children, title, annotations }: Props) {
     annotationMode: annotations,
     redact: { "api-key": { search: [API_KEY_PATTERN] } },
   });
-  coreTransform(tree);
+  const { tree: coreTree } = coreTransform(tree);
 
-  return <CodeBlock {...codeProps} tree={tree} scope={scope} title={title} />;
+  return (
+    <CodeBlock {...codeProps} tree={coreTree} scope={scope} title={title} />
+  );
 }

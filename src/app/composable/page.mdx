@@ -244,6 +244,44 @@ specific section. Sections are expandable to show more context.
   <CodeBlock {...loremIpsumTsWithAnnotations} title="Section annotations" />
 </details>
 
+### From Markdown code blocks
+
+You can use normal Markdown code blocks, which support all the same features.
+
+{/* [!section-start cb-markdown] */}
+
+```
+Hello, World!
+```
+
+```ts title="hello-world.ts"
+console.log("Hello, World!");
+```
+
+```sh
+echo "Hello, World!"
+```
+
+```console
+user@foo$ echo "Hello, World!" > hello.txt
+Hello, World!
+user@foo$ 1s -1 | grep ".txt"
+hello.txt
+```
+
+{/* [!section-end cb-markdown] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="cb-markdown"
+    noSectionContext
+    noLineNumbers
+    title="Code blocks"
+  />
+</details>
+
 ### JSX
 
 {/* [!section-start cb-jsx] */}
