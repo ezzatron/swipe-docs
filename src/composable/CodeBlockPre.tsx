@@ -36,7 +36,7 @@ export default function CodeBlockPre({
   return (
     <pre
       className={clsx(
-        "scrollbar scrollbar-track-transparent scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 relative flex overflow-x-auto overflow-y-clip py-3 text-sm select-none [tab-size:2] selection:bg-blue-400/25 dark:selection:bg-blue-500/25",
+        "scrollbar scrollbar-track-transparent scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 relative flex overflow-x-auto overflow-y-clip text-sm select-none [tab-size:2] selection:bg-blue-400/25 dark:selection:bg-blue-500/25",
         "[&_.imp-l]:pr-4",
         "[&_.imp-s]:before:content-['·'] [&_.imp-s,.imp-t]:relative [&_.imp-s,.imp-t]:before:absolute [&_.imp-s,.imp-t]:before:text-transparent [&_.imp-s.selected,.imp-t.selected]:before:text-zinc-400 dark:[&_.imp-s.selected,.imp-t.selected]:before:text-zinc-600 [&_.imp-t]:before:content-['→']",
         {
@@ -60,7 +60,7 @@ export default function CodeBlockPre({
             return <span {...props} />;
           },
         }}
-        className="[&_.imp-l]:select-text"
+        className="*:select-text *:first:pt-3 *:last:pb-3"
       />
     </pre>
   );
@@ -84,10 +84,7 @@ function CodeBlockLineNumbers({
     lineNumbers.push(
       <div
         key={i}
-        className={clsx("pr-6 pl-4", {
-          "imp-sc": isContent,
-          "imp-sx": !isContent,
-        })}
+        className={clsx({ "imp-sc": isContent, "imp-sx": !isContent })}
       >
         {i}
       </div>,
@@ -95,7 +92,7 @@ function CodeBlockLineNumbers({
   }
 
   return (
-    <div className="sticky left-0 flex-shrink-0 bg-inherit text-right text-zinc-500">
+    <div className="sticky left-0 flex-shrink-0 bg-inherit text-right text-zinc-500 *:pr-6 *:pl-4 *:first:pt-3 *:last:pb-3">
       {lineNumbers}
     </div>
   );

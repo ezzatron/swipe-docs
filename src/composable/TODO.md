@@ -1,2 +1,1 @@
 - String/fenced code blocks
-- Fix highlighting of expanded sections at start and end
