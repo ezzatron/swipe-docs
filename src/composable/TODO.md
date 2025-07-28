@@ -1,3 +1,2 @@
 - String/fenced code blocks
-- Fix permalinks not linking
 - Fix highlighting of expanded sections at start and end

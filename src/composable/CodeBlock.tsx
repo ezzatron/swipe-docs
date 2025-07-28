@@ -49,7 +49,7 @@ export default function CodeBlock({
     !noSectionContext && (result.contextBefore || result.contextAfter);
 
   return (
-    <CodeBlockRoot>
+    <CodeBlockRoot id={id}>
       <CodeBlockFrame>
         <CodeBlockHeader>
           <CodeBlockLanguageIcon scope={scope} />
