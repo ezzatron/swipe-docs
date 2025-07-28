@@ -1,16 +1,10 @@
 "use client";
 
 import { CheckIcon, CopyIcon, XIcon } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useCopyCode } from "./impasto-react";
 
 export default function CodeBlockCopyButton() {
   const [copy, state] = useCopyCode();
-  const [isHidden, setIsHidden] = useState(true);
-
-  useEffect(() => {
-    setIsHidden(false);
-  }, []);
 
   return (
     <button
@@ -18,7 +12,6 @@ export default function CodeBlockCopyButton() {
       title="Copy code"
       onClick={copy}
       className="cursor-pointer rounded-xs hover:text-zinc-950 active:text-blue-500 dark:hover:text-zinc-200 dark:active:text-blue-400"
-      hidden={isHidden}
     >
       {state === "idle" ? <CopyIcon aria-hidden size={16} /> : undefined}
       {state === "copied" ? (

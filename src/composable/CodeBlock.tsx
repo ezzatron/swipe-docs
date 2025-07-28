@@ -1,5 +1,6 @@
 import { splitSection, type Root } from "impasto";
 import { type ReactNode } from "react";
+import ClientOnly from "./ClientOnly";
 import CodeBlockActions from "./CodeblockActions";
 import CodeBlockCopyButton from "./CodeBlockCopyButton";
 import CodeBlockExpandButton from "./CodeBlockExpandButton";
@@ -52,14 +53,18 @@ export default function CodeBlock({
           <CodeBlockTitle>{title}</CodeBlockTitle>
 
           <CodeBlockActions>
-            <CodeBlockCopyButton />
+            <ClientOnly>
+              <CodeBlockCopyButton />
+            </ClientOnly>
             {id && <CodeBlockPermalinkButton anchor={id} />}
             {hasContext && (
-              <CodeBlockExpandButton
-                title={title}
-                scope={scope}
-                splitResult={result}
-              />
+              <ClientOnly>
+                <CodeBlockExpandButton
+                  title={title}
+                  scope={scope}
+                  splitResult={result}
+                />
+              </ClientOnly>
             )}
           </CodeBlockActions>
         </CodeBlockHeader>
