@@ -38,7 +38,6 @@ export default function CodeBlockPre({
       className={clsx(
         "scrollbar scrollbar-track-transparent scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 relative flex overflow-x-auto overflow-y-clip text-sm select-none [tab-size:2] selection:bg-blue-400/25 dark:selection:bg-blue-500/25",
         "[&_.imp-l]:pr-4",
-        "[&_.imp-s]:before:content-['·'] [&_.imp-s,.imp-t]:relative [&_.imp-s,.imp-t]:before:absolute [&_.imp-s,.imp-t]:before:text-transparent [&_.imp-s.selected,.imp-t.selected]:before:text-zinc-400 dark:[&_.imp-s.selected,.imp-t.selected]:before:text-zinc-600 [&_.imp-t]:before:content-['→']",
         {
           "pl-4": noLineNumbers,
           "dark:bg-zinc-925 bg-zinc-100 [&_.imp-sc]:bg-white [&_.imp-sc]:dark:bg-zinc-900 [&_.imp-sc+.imp-sx]:pt-3 [&_.imp-sc:has(+.imp-sx)]:pb-3 [&_.imp-sx+.imp-sc]:pt-3 [&_.imp-sx:has(+.imp-sc)]:pb-3":
@@ -60,7 +59,12 @@ export default function CodeBlockPre({
             return <span {...props} />;
           },
         }}
-        className="*:select-text *:first:pt-3 *:last:pb-3"
+        className={clsx(
+          "*:select-text *:first:pt-3 *:last:pb-3",
+          "[&_.imp-s]:before:content-['·'] [&_.imp-s,.imp-t]:relative [&_.imp-s,.imp-t]:before:absolute [&_.imp-s,.imp-t]:before:text-transparent [&_.imp-s.selected,.imp-t.selected]:before:text-zinc-400 dark:[&_.imp-s.selected,.imp-t.selected]:before:text-zinc-600 [&_.imp-t]:before:content-['→']",
+          /* hack to fix weird Safari text highlight gaps */
+          "[&_.imp-s,.imp-t]:before:-left-10 [&_.imp-s,.imp-t]:before:translate-x-10",
+        )}
       />
     </pre>
   );
