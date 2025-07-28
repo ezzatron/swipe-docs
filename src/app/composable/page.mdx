@@ -2,9 +2,13 @@ import CodeBlock from "../../composable/CodeBlock";
 
 import thisFile from "./page.mdx?code";
 
+import loremIpsumJsx from "../../example/lorem-ipsum.jsx?code"; // [!section code-import-jsx]
 import loremIpsumTs from "../../example/lorem-ipsum.ts?code"; // [!section code-import-ts]
-import loremIpsumGo from "../../example/lorem-ipsum.go?code";
-import longExample from "../../example/long-example.tsx?code";
+import loremIpsumTsx from "../../example/lorem-ipsum.tsx?code"; // [!section code-import-tsx]
+import loremIpsumGo from "../../example/lorem-ipsum.go?code"; // [!section code-import-go]
+import longExample from "../../example/long-example.tsx?code"; // [!section code-import-long-example]
+
+import loremIpsumTsWithAnnotations from "../../example/lorem-ipsum.ts?annotations=retain&code";
 
 # Syntax highlighting examples
 
@@ -40,11 +44,167 @@ show line numbers.
   />
 </details>
 
-### WIP
+### No line numbers
+
+You can disable line numbers.
+
+{/* [!section-start cb-no-line-numbers] */}
+
+<CodeBlock {...loremIpsumTs} noLineNumbers />
+
+{/* [!section-end cb-no-line-numbers] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-ts"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-no-line-numbers"
+    noSectionContext
+    noLineNumbers
+    title="Code block"
+  />
+</details>
+
+### Extra file path context
+
+You can increase how much of the file path is shown.
+
+{/* [!section-start cb-file-path-context] */}
+
+<CodeBlock {...loremIpsumTs} filePathContext={2} />
+
+{/* [!section-end cb-file-path-context] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-ts"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-file-path-context"
+    noSectionContext
+    noLineNumbers
+    title="Code block"
+  />
+</details>
+
+### Custom title
+
+You can set a custom title.
+
+{/* [!section-start cb-custom-title] */}
+
+<CodeBlock {...loremIpsumTs} title="Lorem ipsum" />
+
+{/* [!section-end cb-custom-title] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-ts"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-custom-title"
+    noSectionContext
+    noLineNumbers
+    title="Code block"
+  />
+</details>
+
+### Linkable code blocks
+
+You can link to any code block on a page. By default, you will get a link where
+the anchor is based on the code block title, similar to how Markdown headings
+are often used. You can also set a custom ID, which will override the anchor.
+
+{/* [!section-start cb-permalink] */}
+
+<CodeBlock {...loremIpsumTs} id="lorem-ipsum-ts-permalink" />
+
+{/* [!section-end cb-permalink] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-ts"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-permalink"
+    noSectionContext
+    noLineNumbers
+    title="Code block"
+  />
+</details>
+
+### Support for tab indentation
+
+You can highlight code for languages that use tab indentation. You can select
+any whitespace to make the tabs and spaces visible.
+
+{/* [!section-start cb-tabs] */}
+
+<CodeBlock {...loremIpsumGo} id="lorem-ipsum-go" />
+
+{/* [!section-end cb-tabs] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-go"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-tabs"
+    noSectionContext
+    noLineNumbers
+    title="Code block"
+  />
+</details>
+
+### Sections with expandable context
+
+You can define sections in the example code with annotations, and show only a
+specific section. Sections are expandable to show more context.
+
+{/* [!section-start cb-sections] */}
 
 <CodeBlock
   {...loremIpsumTs}
-  noLineNumbers
+  section="ipsum"
+  title={
+    <>
+      <code>ipsum</code> function
+    </>
+  }
+/>
+<CodeBlock
+  {...loremIpsumTs}
   section="ipsum-adipiscing"
   title={
     <>
@@ -52,8 +212,116 @@ show line numbers.
     </>
   }
 />
-<CodeBlock {...loremIpsumTs} section="ipsum-adipiscing" />
-<CodeBlock {...loremIpsumTs} />
-<CodeBlock {...loremIpsumGo} />
+<CodeBlock
+  {...loremIpsumTs}
+  section="ipsum-adipiscing-return"
+  title={
+    <>
+      <code>ipsum</code> function <code>adipiscing</code> callback{" "}
+      <code>return</code> statement
+    </>
+  }
+/>
+
+{/* [!section-end cb-sections] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-ts"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-sections"
+    noSectionContext
+    noLineNumbers
+    title="Code blocks"
+  />
+  <CodeBlock {...loremIpsumTsWithAnnotations} title="Section annotations" />
+</details>
+
+### JSX
+
+{/* [!section-start cb-jsx] */}
+
+<CodeBlock {...loremIpsumJsx} />
+
+{/* [!section-end cb-jsx] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-jsx"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-jsx"
+    noSectionContext
+    noLineNumbers
+    title="Code block"
+  />
+</details>
+
+### TSX
+
+{/* [!section-start cb-tsx] */}
+
+<CodeBlock {...loremIpsumTsx} />
+
+{/* [!section-end cb-tsx] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-tsx"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-tsx"
+    noSectionContext
+    noLineNumbers
+    title="Code block"
+  />
+</details>
+
+### Long and tall code blocks
+
+You can have long code blocks that do not fit in the space available. Scrollbars
+will appear when necessary, in both collapsed and expanded states.
+
+{/* [!section-start cb-long-example] */}
 
 <CodeBlock {...longExample} section="APIKeyLink" />
+<CodeBlock {...longExample} />
+
+{/* [!section-end cb-long-example] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-long-example"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-long-example"
+    noSectionContext
+    noLineNumbers
+    title="Code blocks"
+  />
+</details>

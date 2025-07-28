@@ -1,2 +1,3 @@
 - String/fenced code blocks
-- Fix TSX annotation comment stripping
+- Fix permalinks not linking
+- Fix highlighting of expanded sections at start and end
