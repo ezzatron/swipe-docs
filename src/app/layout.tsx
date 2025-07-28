@@ -1,8 +1,9 @@
 import clsx from "clsx";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
-import RenderWhitespaceOnSelection from "../code/components/RenderWhitespaceOnSelection";
 import LinkIconTemplate from "../components/LinkIconTemplate";
+import RenderWhitespaceOnSelection from "../composable/impasto-react/RenderWhitespaceOnSelection";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,7 +31,7 @@ export default function RootLayout({ children }: Props) {
   );
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Swipe Docs",
   description:
     "A re-creation of the docs site of a very popular online payments service",
