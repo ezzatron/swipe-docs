@@ -1,1 +1,2 @@
 - String/fenced code blocks
+- Fix TSX annotation comment stripping

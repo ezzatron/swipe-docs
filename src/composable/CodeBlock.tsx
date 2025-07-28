@@ -24,6 +24,7 @@ type Props = {
   filePath?: string;
   filePathContext?: number;
   noLineNumbers?: boolean;
+  noSectionContext?: boolean;
   className?: string;
   updating?: boolean;
 };
@@ -36,14 +37,16 @@ export default function CodeBlock({
   title,
   filePath,
   filePathContext,
-  noLineNumbers,
+  noLineNumbers = false,
+  noSectionContext = false,
 }: Props) {
   if (!title) title = limitFilePath(filePath, filePathContext);
   if (!title && isCommandLine(scope)) title = "Command Line";
   if (!id) id = getTitleSlugger()(title, "cb");
 
   const result = splitSection(tree.children, section);
-  const hasContext = result.contextBefore || result.contextAfter;
+  const hasContext =
+    !noSectionContext && (result.contextBefore || result.contextAfter);
 
   return (
     <CodeBlockRoot>

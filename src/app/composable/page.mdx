@@ -1,10 +1,46 @@
 import CodeBlock from "../../composable/CodeBlock";
 
-import loremIpsumTs from "../../example/lorem-ipsum.ts?code";
+import thisFile from "./page.mdx?code";
+
+import loremIpsumTs from "../../example/lorem-ipsum.ts?code"; // [!section code-import-ts]
 import loremIpsumGo from "../../example/lorem-ipsum.go?code";
 import longExample from "../../example/long-example.tsx?code";
 
-# Composable
+# Syntax highlighting examples
+
+## From imported files
+
+### Default options
+
+You can make a code block from an imported file with the `<CodeBlock>`
+component. By default the code block will have the filename as the title, and
+show line numbers.
+
+{/* [!section-start cb-default-options] */}
+
+<CodeBlock {...loremIpsumTs} />
+
+{/* [!section-end cb-default-options] */}
+
+<details>
+  <summary>Source</summary>
+  <CodeBlock
+    {...thisFile}
+    section="code-import-ts"
+    noSectionContext
+    noLineNumbers
+    title="Source import"
+  />
+  <CodeBlock
+    {...thisFile}
+    section="cb-default-options"
+    noSectionContext
+    noLineNumbers
+    title="Code block"
+  />
+</details>
+
+### WIP
 
 <CodeBlock
   {...loremIpsumTs}
