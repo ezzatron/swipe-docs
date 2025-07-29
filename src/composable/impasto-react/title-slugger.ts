@@ -11,10 +11,9 @@ export function createTitleSlugger(): TitleSlugger {
 
   return (title, prefix = "") => {
     let slug = slugify(title);
+    if (prefix) slug = slug ? `${prefix}-${slug}` : prefix;
 
     if (!slug) return undefined;
-
-    if (prefix) slug = `${prefix}-${slug}`;
 
     const slugWithPrefix = slug;
     let count = 0;

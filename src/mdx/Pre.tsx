@@ -1,14 +1,14 @@
 import { createCoreTransform, type AnnotationMode } from "impasto";
-import { Children, type JSX, type ReactElement } from "react";
+import { Children, type ComponentProps, type ReactElement } from "react";
 import { API_KEY_PATTERN } from "../code/api-key";
 import CodeBlock from "../composable/CodeBlock";
 import { createHighlighter } from "../composable/highlighter";
 
 const LANGUAGE_PATTERN = /^language-(.+)$/;
 
-type Props = JSX.IntrinsicElements["pre"] & {
+type Props = ComponentProps<"pre"> & {
   children: ReactElement<
-    JSX.IntrinsicElements["code"] & { children: string; className: string }
+    ComponentProps<"code"> & { children: string; className: string }
   >;
   annotations?: AnnotationMode;
 };
