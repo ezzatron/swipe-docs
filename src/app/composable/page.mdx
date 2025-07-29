@@ -1,4 +1,5 @@
 import CodeBlock from "../../composable/CodeBlock";
+import Example from "../../composable/dynamic-code/Example";
 
 import thisFile from "./page.mdx?code";
 
@@ -11,6 +12,13 @@ import longExample from "../../example/long-example.tsx?code"; // [!section code
 import loremIpsumTsWithAnnotations from "../../example/lorem-ipsum.ts?annotations=retain&code";
 
 # Syntax highlighting examples
+
+## From generated code
+
+You can highlight code that is generated dynamically. For example, you can
+create a config generator with toggles for different options.
+
+<Example />
 
 ## From imported files
 

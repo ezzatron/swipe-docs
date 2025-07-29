@@ -24,6 +24,7 @@ type Props = {
   filePath?: string;
   filePathContext?: number;
   noLineNumbers?: boolean;
+  noMargin?: boolean;
   noSectionContext?: boolean;
   className?: string;
   updating?: boolean;
@@ -38,7 +39,9 @@ export default function CodeBlock({
   filePath,
   filePathContext,
   noLineNumbers = false,
+  noMargin = false,
   noSectionContext = false,
+  className,
 }: Props) {
   if (!title) title = limitFilePath(filePath, filePathContext);
   if (!title && isCommandLine(scope)) title = "Command Line";
@@ -49,8 +52,8 @@ export default function CodeBlock({
     !noSectionContext && (result.contextBefore || result.contextAfter);
 
   return (
-    <CodeBlockRoot id={id}>
-      <CodeBlockFrame>
+    <CodeBlockRoot id={id} className={className}>
+      <CodeBlockFrame noMargin={noMargin}>
         <CodeBlockHeader>
           <CodeBlockLanguageIcon scope={scope} />
           <CodeBlockTitle>{title}</CodeBlockTitle>

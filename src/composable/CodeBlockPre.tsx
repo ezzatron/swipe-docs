@@ -60,7 +60,7 @@ export default function CodeBlockPre({
           },
         }}
         className={clsx(
-          "*:select-text *:first:pt-3 *:last:pb-3",
+          "text-gray-900 *:select-text *:first:pt-3 *:last:pb-3 dark:text-gray-100",
           "[&_.imp-s]:before:content-['·'] [&_.imp-s,.imp-t]:relative [&_.imp-s,.imp-t]:before:absolute [&_.imp-s,.imp-t]:before:text-transparent [&_.imp-s.selected,.imp-t.selected]:before:text-zinc-400 dark:[&_.imp-s.selected,.imp-t.selected]:before:text-zinc-600 [&_.imp-t]:before:content-['→']",
           /* hack to fix weird Safari text highlight gaps */
           "[&_.imp-s,.imp-t]:before:-left-10 [&_.imp-s,.imp-t]:before:translate-x-10",

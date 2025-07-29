@@ -1,12 +1,8 @@
-import {
-  createCoreTransform,
-  createHighlighter,
-  type AnnotationMode,
-} from "impasto";
-import all from "impasto/lang/all";
+import { createCoreTransform, type AnnotationMode } from "impasto";
 import { Children, type JSX, type ReactElement } from "react";
 import { API_KEY_PATTERN } from "../code/api-key";
 import CodeBlock from "../composable/CodeBlock";
+import { createHighlighter } from "../composable/highlighter";
 
 const LANGUAGE_PATTERN = /^language-(.+)$/;
 
@@ -23,7 +19,7 @@ export default async function Pre({ children, title, annotations }: Props) {
   const match = className?.match(LANGUAGE_PATTERN);
   const flag = match?.[1];
 
-  const highlighter = await createHighlighter(all);
+  const highlighter = await createHighlighter();
   const scope = highlighter.flagToScope(flag);
   const tree = highlighter.highlight(source, scope);
 

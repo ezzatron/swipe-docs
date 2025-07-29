@@ -1,5 +1,5 @@
-- Dynamic code example
 - Refactor splitLines result
 - Unify slugified title ID sequencer
 - Re-do as CSS modules
-- Use postcss-import to build light / dark themes
+- Look into a better TS grammar
+- Refactor props of top-level codeblock components
