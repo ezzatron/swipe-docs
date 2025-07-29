@@ -1,5 +1,4 @@
 - Refactor splitLines result
 - Unify slugified title ID sequencer
 - Re-do as CSS modules
-- Look into a better TS grammar
 - Refactor props of top-level codeblock components
