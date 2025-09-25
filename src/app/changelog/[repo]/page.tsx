@@ -1,5 +1,6 @@
 import { evaluate } from "@mdx-js/mdx";
-import type { Endpoints } from "@octokit/types";
+import type { GetResponseDataTypeFromEndpointMethod } from "@octokit/types";
+import type { Octokit } from "octokit";
 import type { ReactNode } from "react";
 import * as jsxRuntime from "react/jsx-runtime";
 import rehypeMdxCodeProps from "rehype-mdx-code-props";
@@ -27,8 +28,9 @@ export function generateStaticParams(): Params[] {
   ];
 }
 
-type ReleaseSummary =
-  Endpoints["GET /repos/{owner}/{repo}/releases"]["response"]["data"][0];
+type ReleaseSummary = GetResponseDataTypeFromEndpointMethod<
+  Octokit["rest"]["repos"]["listReleases"]
+>[number];
 
 type Props = {
   params: Promise<Params>;
