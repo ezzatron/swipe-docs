@@ -30,7 +30,7 @@
     "hast-util-to-jsx-runtime": "^2.3.6",
     "hast-util-to-string": "^3.0.1",
     "impasto": "^0.7.0",
-    "lucide-react": "^0.561.0",
+    "lucide-react": "^0.562.0",
     "next": "^15.2.4",
     "octokit": "^5.0.5",
     "radix-ui": "^1.4.3",
