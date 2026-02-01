@@ -28,7 +28,6 @@
   },
   "exclude": ["artifacts", "node_modules"],
   "include": [
-    "**/*.js",
     "**/*.ts",
     "**/*.tsx",
     "artifacts/next/dist/types/**/*.ts",

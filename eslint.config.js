@@ -1,4 +1,3 @@
-// @ts-check
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import prettier from "eslint-config-prettier";
@@ -14,7 +13,12 @@ export default defineConfig([
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: ["src/example/*.jsx", "src/example/*.tsx"],
+          allowDefaultProject: [
+            "eslint.config.js",
+            "postcss.config.js",
+            "src/example/*.jsx",
+            "src/example/*.tsx",
+          ],
         },
       },
     },
