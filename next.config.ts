@@ -10,6 +10,7 @@ import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import type { Configuration, RuleSetRule } from "webpack";
 import { API_KEY_PATTERN } from "./src/code/api-key";
 
 const nextConfig: NextConfig = {
@@ -19,7 +20,10 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "**": ["./node_modules/vscode-oniguruma/**"],
   },
-  webpack: (config) => {
+  webpack: (config: Configuration) => {
+    config.module ??= { rules: [] };
+    const originalRules = (config.module.rules ?? []) as RuleSetRule[];
+
     config.module.rules = [
       {
         oneOf: [
@@ -40,7 +44,7 @@ const nextConfig: NextConfig = {
           {
             resourceQuery: { not: [/\bcode$/] },
             rules: [
-              ...config.module.rules,
+              ...originalRules,
               { test: /\.hbr$/, loader: "handlebars-loader" },
             ],
           },
@@ -100,7 +104,10 @@ const withMDX = createMDX({
   },
 });
 
-export default withBundleAnalyzer(withContentCollections(withMDX(nextConfig)));
+const createConfig = async () =>
+  withBundleAnalyzer(await withContentCollections(withMDX(nextConfig)));
+
+export default createConfig;
 
 function withBundleAnalyzer(config: NextConfig): NextConfig {
   return process.env.ANALYZE === "true"

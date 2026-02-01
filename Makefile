@@ -1,7 +1,8 @@
 CHANGELOG_TAG_URL_PREFIX := https://github.com/ezzatron/swipe-docs/releases/tag/
-CI_VERIFY_GENERATED_FILES := true
 
 JS_ESLINT_REQ += artifacts/content-collections.touch
+JS_NEXT_DEV_ARGS += --webpack
+JS_NEXT_BUILD_ARGS += --webpack
 JS_TSC_REQ += artifacts/content-collections.touch
 
 -include .makefiles/Makefile
@@ -17,12 +18,10 @@ JS_TSC_REQ += artifacts/content-collections.touch
 ################################################################################
 
 .PHONY: build
-build: $(GENERATED_FILES) artifacts/link-dependencies.touch
-	$(JS_EXEC) next build
+build: next-build
 
 .PHONY: run
-run: $(GENERATED_FILES) artifacts/link-dependencies.touch
-	$(JS_EXEC) next dev
+run: next-dev
 
 # Verify generated files on precommit
 .PHONY: precommit

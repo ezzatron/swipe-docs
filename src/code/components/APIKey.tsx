@@ -140,6 +140,7 @@ function APIKeyCopyButton({
 
   return (
     <APIKeyButton
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick={handleClick}
       icon={icon}
       className="ring-1 ring-gray-200 ring-inset hover:bg-gray-200 active:bg-gray-300 dark:ring-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-900"

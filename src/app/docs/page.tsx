@@ -4,8 +4,8 @@ import { allExplainers } from "./explainers";
 import { allGuides } from "./guides";
 
 export default function Docs() {
-  const explainers = useMemo(allExplainers, []);
-  const guides = useMemo(allGuides, []);
+  const explainers = useMemo(() => allExplainers(), []);
+  const guides = useMemo(() => allGuides(), []);
 
   return (
     <div>

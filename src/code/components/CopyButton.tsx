@@ -49,6 +49,7 @@ export default function CopyButton() {
     <button
       aria-label="Copy code"
       title="Copy code"
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick={handleClick}
       className="cursor-pointer rounded-xs hover:text-gray-950 active:text-blue-500 dark:hover:text-gray-200 dark:active:text-blue-400"
       hidden={isHidden}

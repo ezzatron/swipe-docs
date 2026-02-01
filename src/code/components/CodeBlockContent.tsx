@@ -2,7 +2,12 @@ import clsx from "clsx";
 import type { Root } from "hast";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { dataAttribute } from "impasto";
-import { Fragment, type ReactNode } from "react";
+import {
+  Fragment,
+  type ComponentProps,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { isCommandLine } from "../scope";
 import APIKey from "./APIKey";
@@ -51,16 +56,22 @@ export default function CodeBlockContent({
     firstChild.properties[dataAttribute.sectionName] != null;
 
   const highlighted = toJsxRuntime(tree, {
+    development: false,
     Fragment,
     jsx,
+    jsxDEV: undefined,
     jsxs,
     components: {
-      span: (props) => {
+      span: (
+        props: ComponentProps<"span"> & {
+          [dataAttribute.redactionType]?: string;
+        },
+      ) => {
         if (props[dataAttribute.redactionType] === "api-key") return <APIKey />;
         return <span {...props} />;
       },
     },
-  });
+  }) as ReactElement;
 
   return (
     <div

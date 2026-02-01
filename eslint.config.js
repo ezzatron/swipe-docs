@@ -1,26 +1,24 @@
 // @ts-check
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+import prettier from "eslint-config-prettier";
+import { defineConfig, globalIgnores } from "eslint/config";
+import tseslint from "typescript-eslint";
 
-import { FlatCompat } from "@eslint/eslintrc";
-import js from "@eslint/js";
-
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-  recommendedConfig: js.configs.recommended,
-});
-
-/** @type {import("eslint").Linter.Config[]} */
-const config = [
+export default defineConfig([
+  tseslint.configs.recommendedTypeChecked,
+  nextVitals,
+  nextTs,
+  prettier,
   {
-    ignores: [".content-collections", ".github", ".makefiles", "artifacts"],
+    languageOptions: {
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ["src/example/*.jsx", "src/example/*.tsx"],
+        },
+      },
+    },
   },
-  ...compat.config({
-    extends: [
-      "eslint:recommended",
-      "next/core-web-vitals",
-      "next/typescript",
-      "prettier",
-    ],
-  }),
   {
     rules: {
       "@typescript-eslint/no-unused-vars": [
@@ -29,8 +27,14 @@ const config = [
           argsIgnorePattern: "^_",
         },
       ],
+      "react-hooks/set-state-in-effect": "off",
     },
   },
-];
-
-export default config;
+  {
+    files: ["src/example/*.jsx", "src/example/*.tsx"],
+    rules: {
+      "@typescript-eslint/no-unsafe-assignment": "off",
+    },
+  },
+  globalIgnores([".content-collections", ".github", ".makefiles", "artifacts"]),
+]);

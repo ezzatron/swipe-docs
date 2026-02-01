@@ -12,6 +12,6 @@ const input: Input = {
 
 const output = await generateOutput(input);
 
-export default async function Example() {
+export default function Example() {
   return <Form initialState={{ input, output }} />;
 }

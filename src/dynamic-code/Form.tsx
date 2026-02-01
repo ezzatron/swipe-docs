@@ -30,7 +30,7 @@ export default function Form({ initialState }: Props) {
   return (
     <div className="not-prose flex flex-col gap-8 md:flex-row md:gap-6">
       <form action={action} className="flex flex-col gap-6 md:w-60">
-        <h3 className="text-xl font-semibold text-[var(--tw-prose-headings)]">
+        <h3 className="text-xl font-semibold text-(--tw-prose-headings)">
           Next.js ⚡️ MDX
         </h3>
 
@@ -136,7 +136,5 @@ function Checkbox({
 }
 
 function InlineCode({ children }: { children: ReactNode }) {
-  return (
-    <code className="text-xs text-[var(--tw-prose-body)]">{children}</code>
-  );
+  return <code className="text-xs text-(--tw-prose-body)">{children}</code>;
 }
