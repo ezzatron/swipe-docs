@@ -6,6 +6,7 @@ const docs = defineCollection({
   directory: "src/app/docs",
   include: "**/*.mdx",
   schema: z.object({
+    content: z.string(),
     title: z.string(),
     summary: z.string(),
     form: z.optional(z.enum(["tutorial", "guide", "explainer", "reference"])),
