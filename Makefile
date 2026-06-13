@@ -13,7 +13,7 @@ JS_TSC_REQ += artifacts/content-collections.touch
 -include .makefiles/pkg/changelog/v1/Makefile
 
 .makefiles/%:
-	@curl -sfL https://makefiles.dev/v1 | bash /dev/stdin "$@"
+	@curl -sfL https://makefiles.dev/v1 | bash -s -- "$@"
 
 ################################################################################
 
