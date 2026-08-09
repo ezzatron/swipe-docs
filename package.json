@@ -50,7 +50,6 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@octokit/types": "^17.0.0",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.1.6",
     "eslint-config-prettier": "^10.1.8",
