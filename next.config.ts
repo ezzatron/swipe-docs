@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
   distDir: "artifacts/next/dist",
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
   serverExternalPackages: ["@wooorm/starry-night"],
+  experimental: {
+    useTypeScriptCli: false,
+  },
   outputFileTracingIncludes: {
     "**": ["./node_modules/vscode-oniguruma/**"],
   },
