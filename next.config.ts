@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "**": ["./node_modules/vscode-oniguruma/**"],
   },
+  experimental: {
+    useTypeScriptCli: false,
+  },
   webpack: (config: Configuration) => {
     config.module ??= { rules: [] };
     const originalRules = (config.module.rules ?? []) as RuleSetRule[];
