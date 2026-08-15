@@ -3,6 +3,7 @@ CHANGELOG_TAG_URL_PREFIX := https://github.com/ezzatron/swipe-docs/releases/tag/
 JS_ESLINT_REQ += artifacts/content-collections.touch
 JS_NEXT_DEV_ARGS += --webpack
 JS_NEXT_BUILD_ARGS += --webpack
+JS_NPM_INSTALL_ARGS := --include=dev
 JS_TSC_REQ += artifacts/content-collections.touch
 
 -include .makefiles/Makefile
